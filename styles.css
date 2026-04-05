@@ -827,10 +827,21 @@ code {
 }
 
 .share-button-group {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   gap: 0.55rem;
   align-items: center;
+}
+
+.share-button-heading {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 0.15rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .share-button {
@@ -859,15 +870,11 @@ code {
   transform: translateY(-2px);
 }
 
-.share-button-label {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.45rem;
-  font-size: 0.68rem;
-  line-height: 1;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+.share-button-icon {
+  width: 1.14rem;
+  height: 1.14rem;
+  display: block;
+  flex: none;
 }
 
 .share-button-facebook {
@@ -1475,7 +1482,7 @@ code {
 .site-intro-panel {
   position: relative;
   width: min(720px, calc(100vw - 1.5rem));
-  max-height: min(82dvh, 42rem);
+  max-height: min(86dvh, 44rem);
   display: grid;
   grid-template-rows: auto auto minmax(0, 1fr) auto;
   padding: clamp(1.1rem, 2.4vw, 1.55rem);
@@ -1538,20 +1545,21 @@ code {
 .site-intro-panel h2 {
   position: relative;
   margin: 0;
-  max-width: 12ch;
+  max-width: 16ch;
   font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
-  font-size: clamp(2.3rem, 6vw, 4.6rem);
-  line-height: 0.94;
+  font-size: clamp(1.85rem, 4.8vw, 3.45rem);
+  line-height: 0.98;
   letter-spacing: -0.05em;
 }
 
 .site-intro-body {
   position: relative;
   min-height: 0;
-  margin-top: 0.95rem;
-  padding-right: 0.35rem;
+  margin-top: 0.75rem;
+  padding-right: 0.45rem;
   overflow: auto;
   overscroll-behavior: contain;
+  scrollbar-gutter: stable;
 }
 
 .site-intro-body::-webkit-scrollbar {
@@ -1799,8 +1807,8 @@ code {
   }
 
   .site-intro-panel h2 {
-    max-width: 11ch;
-    font-size: clamp(2rem, 10vw, 3rem);
+    max-width: 15ch;
+    font-size: clamp(1.55rem, 7.4vw, 2.35rem);
   }
 
   .site-intro-footer {
