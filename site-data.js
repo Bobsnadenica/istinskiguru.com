@@ -38,7 +38,8 @@ window.__GURU_PROFILES__ = [
         "label": "Instagram",
         "url": "https://www.instagram.com/chillybtww/"
       }
-    ]
+    ],
+    "shareImage": "site-assets/aleksandar-chilingirov-share.jpg"
   },
   {
     "id": "boyan-moskov",
@@ -90,7 +91,8 @@ window.__GURU_PROFILES__ = [
         "label": "TikTok",
         "url": "https://www.tiktok.com/@boyan_moskov?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEwalhNVGp2cTlBb0cxa3VKTXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4vysgCV1G6Mh3Q5uNGEbD4ZxRt_4BbT1ms21RdGxVA1HMWfUeqMwcZcspxGQ_aem_ypehF011nCk9e5Vzhw91Ow"
       }
-    ]
+    ],
+    "shareImage": "site-assets/boyan-moskov-share.jpg"
   },
   {
     "id": "georgi-zahariev",
@@ -124,7 +126,8 @@ window.__GURU_PROFILES__ = [
         "label": "Instagram",
         "url": "https://www.instagram.com/george_zahariev?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEwalhNVGp2cTlBb0cxa3VKTXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR7ib77FzTQHcufkN5JvFE84AyVhk5vDqftAXKNpJ9lCBMS5j3Jq0FtDjBk3vw_aem_sttnsnA-TxjGXG11Fzfp_g"
       }
-    ]
+    ],
+    "shareImage": "site-assets/georgi-zahariev-share.jpg"
   },
   {
     "id": "ivelin-mihaylov",
@@ -150,7 +153,8 @@ window.__GURU_PROFILES__ = [
         "label": "Facebook",
         "url": "https://www.facebook.com/ivelin.mihaylov"
       }
-    ]
+    ],
+    "shareImage": "site-assets/ivelin-mihaylov-share.jpg"
   },
   {
     "id": "yordan-yonchev",
@@ -184,7 +188,8 @@ window.__GURU_PROFILES__ = [
         "label": "YouTube",
         "url": "https://www.youtube.com/watch?v=wLnmbXWxqDU"
       }
-    ]
+    ],
+    "shareImage": "site-assets/yordan-yonchev-share.jpg"
   },
   {
     "id": "mariya-boeva",
@@ -218,7 +223,8 @@ window.__GURU_PROFILES__ = [
         "label": "YouTube",
         "url": "https://www.youtube.com/@onlinebusinessmb"
       }
-    ]
+    ],
+    "shareImage": "site-assets/mariya-boeva-share.jpg"
   },
   {
     "id": "rumen-vista",
@@ -249,7 +255,8 @@ window.__GURU_PROFILES__ = [
         "label": "Facebook",
         "url": "https://www.facebook.com/RumenVista/?locale=bg_BG"
       }
-    ]
+    ],
+    "shareImage": "site-assets/rumen-vista-share.jpg"
   },
   {
     "id": "test",
@@ -266,7 +273,8 @@ window.__GURU_PROFILES__ = [
     "funnel": "4444444",
     "insight": "555555555",
     "channels": [],
-    "links": []
+    "links": [],
+    "shareImage": "site-assets/test-share.jpg"
   },
   {
     "id": "tsvetan-radushev",
@@ -290,7 +298,8 @@ window.__GURU_PROFILES__ = [
         "label": "Уебсайт",
         "url": "https://tsvetanradushev.bg/contact/"
       }
-    ]
+    ],
+    "shareImage": "site-assets/tsvetan-radushev-share.jpg"
   },
   {
     "id": "yuli-tonkin",
@@ -346,6 +355,7 @@ window.__GURU_PROFILES__ = [
         "label": "Viber",
         "url": "https://invite.viber.com/?g2=AQBYPesH%2BsgYF1AwkJAV2AnPn%2FrY%2F85a47Z9sti3h2BarGnd1RMc13RCHC3HH9GL&fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEwalhNVGp2cTlBb0cxa3VKTXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR7F2hHk3JhVNUiEUYFVyMGqq8YkBQfSfDdLQ1uHx5V7ByRtfIHkBxSWqSRGdA_aem_PPttwbP-vwnwOAIQplydng&lang=en"
       }
-    ]
+    ],
+    "shareImage": "site-assets/yuli-tonkin-share.jpg"
   }
 ];
