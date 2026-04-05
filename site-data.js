@@ -283,7 +283,7 @@ window.__GURU_PROFILES__ = [
     "links": [
       {
         "label": "Уебсайт",
-        "url": "https://tsvetanradushev.bg/contact/"
+        "url": "https://tsvetanradushev.bg"
       }
     ],
     "shareImage": "site-assets/tsvetan-radushev-share.jpg"

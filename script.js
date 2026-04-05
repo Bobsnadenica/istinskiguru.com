@@ -588,6 +588,11 @@ async function loadProfiles() {
 }
 
 function setupReveals() {
+  if (typeof window.refreshPageEffects === "function") {
+    window.refreshPageEffects();
+    return;
+  }
+
   const revealNodes = Array.from(document.querySelectorAll(".reveal"));
 
   if (!("IntersectionObserver" in window)) {
