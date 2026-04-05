@@ -4,6 +4,7 @@ const searchStatus = document.querySelector("#search-status");
 const heroImage = document.querySelector("#hero-image");
 const heroQuoteLabel = document.querySelector("#hero-quote-label");
 const heroQuoteText = document.querySelector("#hero-quote-text");
+const canonicalLink = document.querySelector('link[rel="canonical"]');
 const fallbackProfiles = Array.isArray(window.__GURU_PROFILES__) ? window.__GURU_PROFILES__ : [];
 const heroStorageKey = "guruHeroIndex";
 const defaultHeroLabel = heroQuoteLabel?.textContent?.trim() || "Полево наблюдение";
@@ -11,6 +12,10 @@ const defaultHeroText =
   heroQuoteText?.textContent?.trim() || "Силно кафе. Още по-силна енергия за наставничество.";
 
 function getProfileId(profile) {
+  if (profile?.id) {
+    return String(profile.id).trim() || "profil";
+  }
+
   const preferredSource = String(profile?.image || "").split("/").pop() || String(profile?.name || "profil");
 
   return preferredSource
@@ -20,6 +25,23 @@ function getProfileId(profile) {
     .toLowerCase()
     .replace(/[^\p{L}\p{N}]+/gu, "-")
     .replace(/^-+|-+$/g, "") || "profil";
+}
+
+function getCanonicalPageUrl() {
+  const canonicalHref = canonicalLink?.href || "";
+
+  if (!canonicalHref) {
+    return "";
+  }
+
+  try {
+    const canonicalUrl = new URL(canonicalHref);
+    canonicalUrl.hash = "";
+    canonicalUrl.search = "";
+    return canonicalUrl.toString();
+  } catch {
+    return "";
+  }
 }
 
 function escapeHtml(value) {
@@ -74,12 +96,19 @@ function getVideoMimeType(videoPath) {
 }
 
 function getCurrentPageUrl() {
+  const canonicalUrl = getCanonicalPageUrl();
+
+  if (canonicalUrl) {
+    return canonicalUrl;
+  }
+
   if (typeof window === "undefined") {
     return "";
   }
 
   const pageUrl = new URL(window.location.href);
   pageUrl.hash = "";
+  pageUrl.search = "";
 
   return pageUrl.toString();
 }
@@ -94,7 +123,6 @@ function getProfileShareUrl(profile) {
 function getFacebookShareUrl(profile) {
   const shareParams = new URLSearchParams({
     u: getProfileShareUrl(profile),
-    quote: `Виж профила на ${profile.name} в каталога.`,
   });
 
   return `https://www.facebook.com/sharer/sharer.php?${shareParams.toString()}`;
@@ -181,7 +209,7 @@ function renderProfiles(profiles, options = {}) {
             class="share-button share-button-facebook"
             href="${escapeHtml(getFacebookShareUrl(profile))}"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener"
             aria-label="Сподели профила на ${escapeHtml(profile.name)} във Facebook"
           >
             Сподели във Facebook

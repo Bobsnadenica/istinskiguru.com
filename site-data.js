@@ -1,5 +1,6 @@
 window.__GURU_PROFILES__ = [
   {
+    "id": "aleksandar-chilingirov",
     "name": "Александър Чилингиров",
     "image": "site-assets/aleksandar-chilingirov.jpg",
     "alt": "Профилно изображение за Александър Чилингиров",
@@ -40,6 +41,7 @@ window.__GURU_PROFILES__ = [
     ]
   },
   {
+    "id": "boyan-moskov",
     "name": "Боян Москов",
     "image": "site-assets/boyan-moskov.jpg",
     "alt": "Профилно изображение за Боян Москов",
@@ -91,6 +93,7 @@ window.__GURU_PROFILES__ = [
     ]
   },
   {
+    "id": "georgi-zahariev",
     "name": "Георги Захариев",
     "image": "site-assets/georgi-zahariev.jpg",
     "alt": "Профилно изображение за Георги Захариев",
@@ -124,6 +127,7 @@ window.__GURU_PROFILES__ = [
     ]
   },
   {
+    "id": "ivelin-mihaylov",
     "name": "Ивелин Михайлов",
     "image": "site-assets/ivelin-mihaylov.jpg",
     "alt": "Профилно изображение за Ивелин Михайлов",
@@ -149,6 +153,7 @@ window.__GURU_PROFILES__ = [
     ]
   },
   {
+    "id": "yordan-yonchev",
     "name": "Йордан Йончев",
     "image": "site-assets/yordan-yonchev.jpg",
     "alt": "Профилно изображение за Йордан Йончев",
@@ -182,6 +187,7 @@ window.__GURU_PROFILES__ = [
     ]
   },
   {
+    "id": "mariya-boeva",
     "name": "Мария Боева",
     "image": "site-assets/mariya-boeva.jpg",
     "alt": "Профилно изображение за Мария Боева",
@@ -215,6 +221,7 @@ window.__GURU_PROFILES__ = [
     ]
   },
   {
+    "id": "rumen-vista",
     "name": "Румен Виста",
     "image": "site-assets/rumen-vista.jpg",
     "alt": "Профилно изображение за Румен Виста",
@@ -245,6 +252,7 @@ window.__GURU_PROFILES__ = [
     ]
   },
   {
+    "id": "test",
     "name": "Тест",
     "image": "site-assets/test.png",
     "alt": "Профилно изображение за Тест",
@@ -261,6 +269,7 @@ window.__GURU_PROFILES__ = [
     "links": []
   },
   {
+    "id": "tsvetan-radushev",
     "name": "Цветан Радушев",
     "image": "site-assets/tsvetan-radushev.webp",
     "alt": "Профилно изображение за Цветан Радушев",
@@ -284,6 +293,7 @@ window.__GURU_PROFILES__ = [
     ]
   },
   {
+    "id": "yuli-tonkin",
     "name": "Юли Тонкин",
     "image": "site-assets/yuli-tonkin.jpg",
     "alt": "Профилно изображение за Юли Тонкин",
