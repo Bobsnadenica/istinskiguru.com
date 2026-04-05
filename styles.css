@@ -167,6 +167,8 @@ code {
 }
 
 .money-game-panel {
+  --money-panel-visible-transform: translateY(-50%);
+  --money-panel-hidden-transform: translateY(calc(-50% + 14px));
   position: fixed;
   top: 50%;
   right: 1rem;
@@ -183,7 +185,17 @@ code {
     inset 0 1px 0 rgba(255, 255, 255, 0.58);
   backdrop-filter: blur(20px) saturate(130%);
   -webkit-backdrop-filter: blur(20px) saturate(130%);
-  transform: translateY(-50%);
+  opacity: 0;
+  pointer-events: none;
+  transform: var(--money-panel-hidden-transform) scale(0.96);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.money-game-panel.is-visible {
+  opacity: 1;
+  transform: var(--money-panel-visible-transform) scale(1);
 }
 
 .money-game-panel.is-complete {
@@ -2158,21 +2170,21 @@ code {
 
 @keyframes money-panel-pulse {
   0% {
-    transform: translateY(-50%) scale(1);
+    transform: var(--money-panel-visible-transform) scale(1);
     box-shadow:
       0 26px 64px rgba(16, 20, 17, 0.16),
       inset 0 1px 0 rgba(255, 255, 255, 0.58);
   }
 
   40% {
-    transform: translateY(-50%) scale(1.02);
+    transform: var(--money-panel-visible-transform) scale(1.02);
     box-shadow:
       0 30px 80px rgba(109, 54, 45, 0.2),
       inset 0 1px 0 rgba(255, 255, 255, 0.62);
   }
 
   100% {
-    transform: translateY(-50%) scale(1);
+    transform: var(--money-panel-visible-transform) scale(1);
     box-shadow:
       0 26px 64px rgba(16, 20, 17, 0.16),
       inset 0 1px 0 rgba(255, 255, 255, 0.58);
@@ -2181,10 +2193,11 @@ code {
 
 @media (max-width: 980px) {
   .money-game-panel {
+    --money-panel-visible-transform: translateY(0);
+    --money-panel-hidden-transform: translateY(12px);
     top: auto;
     right: 0.9rem;
     bottom: 0.9rem;
-    transform: none;
     width: min(8.5rem, calc(100vw - 1.2rem));
   }
 
@@ -2239,8 +2252,8 @@ code {
   .money-game-panel {
     right: 0.5rem;
     bottom: 0.5rem;
-    width: min(8rem, calc(100vw - 1rem));
-    padding: 0.8rem 0.7rem;
+    width: min(7.25rem, calc(100vw - 1rem));
+    padding: 0.75rem 0.62rem;
   }
 
   .money-game-meter {

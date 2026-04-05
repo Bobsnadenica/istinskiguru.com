@@ -6,11 +6,13 @@ let moneyRainRoot = null;
 let moneyGamePanel = null;
 let moneyGameMessageTimeoutId = 0;
 let moneyGameResetTimeoutId = 0;
+let moneyGameHideTimeoutId = 0;
 const moneyGameState = {
   collected: 0,
   target: 1400,
   rounds: 0,
 };
+const moneyGameHideDelay = 2600;
 
 function prefersReducedMotion() {
   return typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -118,6 +120,7 @@ function getMoneyIdleMessage() {
 function createMoneyGamePanel() {
   const panel = document.createElement("aside");
   panel.className = "money-game-panel";
+  panel.hidden = true;
   panel.innerHTML = `
     <p class="money-game-eyebrow">Фонд</p>
     <h2>Следващо ниво</h2>
@@ -140,6 +143,49 @@ function getMoneyGamePanel() {
   return moneyGamePanel || (moneyGamePanel = createMoneyGamePanel());
 }
 
+function hideMoneyGamePanel() {
+  const panel = getMoneyGamePanel();
+
+  window.clearTimeout(moneyGameHideTimeoutId);
+  moneyGameHideTimeoutId = 0;
+  panel.classList.remove("is-visible");
+
+  window.setTimeout(() => {
+    if (!panel.classList.contains("is-visible")) {
+      panel.hidden = true;
+    }
+  }, 220);
+}
+
+function scheduleMoneyGameHide(delay = moneyGameHideDelay) {
+  window.clearTimeout(moneyGameHideTimeoutId);
+  moneyGameHideTimeoutId = window.setTimeout(() => {
+    if (moneyGameResetTimeoutId) {
+      scheduleMoneyGameHide(delay);
+      return;
+    }
+
+    hideMoneyGamePanel();
+  }, delay);
+}
+
+function showMoneyGamePanel() {
+  const panel = getMoneyGamePanel();
+
+  window.clearTimeout(moneyGameHideTimeoutId);
+  moneyGameHideTimeoutId = 0;
+
+  if (panel.hidden) {
+    panel.hidden = false;
+    window.requestAnimationFrame(() => {
+      panel.classList.add("is-visible");
+    });
+    return;
+  }
+
+  panel.classList.add("is-visible");
+}
+
 function setMoneyGameMessage(message, options = {}) {
   const panel = getMoneyGamePanel();
   const messageNode = panel.querySelector("[data-money-game-message]");
@@ -157,6 +203,7 @@ function setMoneyGameMessage(message, options = {}) {
     moneyGameMessageTimeoutId = window.setTimeout(() => {
       panel.dataset.state = "idle";
       messageNode.textContent = getMoneyIdleMessage();
+      scheduleMoneyGameHide();
     }, options.duration || 2600);
   }
 }
@@ -272,6 +319,7 @@ function initMoneyRain() {
       return;
     }
 
+    showMoneyGamePanel();
     moneyGameState.collected = Math.min(moneyGameState.target, moneyGameState.collected + amount);
     updateMoneyGamePanel();
     spawnMoneyPop(target, amount);
@@ -279,6 +327,7 @@ function initMoneyRain() {
 
     if (moneyGameState.collected < moneyGameState.target) {
       setMoneyGameMessage(getMoneyIdleMessage(), { state: "collecting" });
+      scheduleMoneyGameHide();
       return;
     }
 
@@ -300,6 +349,7 @@ function initMoneyRain() {
       panel.classList.remove("is-complete");
       updateMoneyGamePanel();
       moneyGameResetTimeoutId = 0;
+      scheduleMoneyGameHide();
     }, 920);
   });
 
