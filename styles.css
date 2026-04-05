@@ -171,8 +171,8 @@ code {
   top: 50%;
   right: 1rem;
   z-index: 6;
-  width: min(19rem, calc(100vw - 1.2rem));
-  padding: 1rem;
+  width: min(8.25rem, calc(100vw - 1.2rem));
+  padding: 0.9rem 0.8rem;
   border-radius: calc(var(--radius) - 4px);
   border: 1px solid rgba(255, 255, 255, 0.24);
   background:
@@ -191,26 +191,35 @@ code {
 }
 
 .money-game-eyebrow {
-  margin: 0 0 0.55rem;
+  margin: 0 0 0.4rem;
   color: var(--accent-deep);
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .money-game-panel h2 {
   margin: 0;
   font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
-  font-size: clamp(1.55rem, 2.2vw, 2.1rem);
-  line-height: 0.96;
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  line-height: 0.98;
   letter-spacing: -0.04em;
+  text-align: center;
+}
+
+.money-game-stack {
+  display: grid;
+  justify-items: center;
+  gap: 0.8rem;
+  margin-top: 0.85rem;
 }
 
 .money-game-meter {
   position: relative;
-  margin-top: 0.95rem;
-  height: 0.9rem;
+  width: 1.15rem;
+  height: 12.5rem;
   overflow: hidden;
   border-radius: 999px;
   background: rgba(16, 20, 17, 0.1);
@@ -219,53 +228,56 @@ code {
 .money-game-meter-fill {
   position: absolute;
   inset: 0;
-  transform-origin: left center;
-  transform: scaleX(var(--money-progress, 0));
+  transform-origin: center bottom;
+  transform: scaleY(var(--money-progress, 0));
   border-radius: inherit;
   background:
-    linear-gradient(90deg, rgba(32, 55, 47, 0.92), rgba(184, 132, 69, 0.94)),
+    linear-gradient(180deg, rgba(184, 132, 69, 0.94), rgba(32, 55, 47, 0.92)),
     linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0));
   box-shadow: 0 12px 24px rgba(32, 55, 47, 0.18);
   transition: transform 260ms ease;
 }
 
 .money-game-stats {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 0.8rem;
-  margin-top: 0.8rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.18rem;
 }
 
 .money-game-amount,
-.money-game-rounds,
+.money-game-target,
 .money-game-message {
   margin: 0;
 }
 
 .money-game-amount {
   color: var(--ink);
-  font-size: 0.98rem;
+  font-size: 0.86rem;
 }
 
 .money-game-amount strong {
-  font-size: 1.3rem;
+  display: block;
+  font-size: 1.25rem;
   font-weight: 800;
+  line-height: 1;
 }
 
-.money-game-rounds {
+.money-game-target {
   color: rgba(16, 20, 17, 0.6);
-  font-size: 0.82rem;
-  text-align: right;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
 }
 
 .money-game-message {
-  margin-top: 0.85rem;
-  padding-top: 0.85rem;
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
   border-top: 1px solid rgba(16, 20, 17, 0.08);
   color: rgba(16, 20, 17, 0.74);
-  font-size: 0.92rem;
-  line-height: 1.45;
+  font-size: 0.78rem;
+  line-height: 1.38;
+  text-align: center;
 }
 
 .money-game-panel[data-state="mocking"] .money-game-message {
@@ -2173,7 +2185,7 @@ code {
     right: 0.9rem;
     bottom: 0.9rem;
     transform: none;
-    width: min(21rem, calc(100vw - 1.2rem));
+    width: min(8.5rem, calc(100vw - 1.2rem));
   }
 
   .hero,
@@ -2227,17 +2239,16 @@ code {
   .money-game-panel {
     right: 0.5rem;
     bottom: 0.5rem;
-    width: calc(100vw - 1rem);
-    padding: 0.9rem;
+    width: min(8rem, calc(100vw - 1rem));
+    padding: 0.8rem 0.7rem;
   }
 
-  .money-game-stats {
-    flex-direction: column;
-    align-items: flex-start;
+  .money-game-meter {
+    height: 10.5rem;
   }
 
-  .money-game-rounds {
-    text-align: left;
+  .money-game-panel h2 {
+    font-size: 1rem;
   }
 
   .hero,

@@ -101,10 +101,10 @@ function getNextMoneyTarget(currentTarget, rounds) {
 
 function getMoneyMockMessage(nextTarget) {
   const messages = [
-    `Чудесно. Тъкмо стигна за просветление. Остава само още един курс за ${formatMoneyGameAmount(nextTarget)}.`,
-    `Браво. Почти си свободен. Купи само още един курс и започваме наистина.`,
-    `Супер напредък. Оттук нататък трябва само още едно плащане, за да отключиш следващото ниво.`,
-    `Вече си толкова близо, че би било жалко да спреш точно преди още един курс.`,
+    `Чудесно. Остава само още един курс за ${formatMoneyGameAmount(nextTarget)}.`,
+    "Браво. Почти си там. Само още един курс и вече започва истинската промяна.",
+    "Супер напредък. Следващата стъпка е съвсем малка: още един курс.",
+    "Вече си толкова близо, че би било жалко да спреш точно преди още един курс.",
   ];
 
   return messages[moneyGameState.rounds % messages.length];
@@ -112,23 +112,23 @@ function getMoneyMockMessage(nextTarget) {
 
 function getMoneyIdleMessage() {
   const remaining = Math.max(0, moneyGameState.target - moneyGameState.collected);
-  return remaining
-    ? `Кликни по падащите пари. Остават още ${formatMoneyGameAmount(remaining)} до следващия курс.`
-    : "Почти си готов за следващата инвестиция в себе си.";
+  return remaining ? `Още ${formatMoneyGameAmount(remaining)} до следващата стъпка.` : "Почти си готов.";
 }
 
 function createMoneyGamePanel() {
   const panel = document.createElement("aside");
   panel.className = "money-game-panel";
   panel.innerHTML = `
-    <p class="money-game-eyebrow">Гуру Game Loop</p>
-    <h2>Събери за още един курс</h2>
-    <div class="money-game-meter" aria-hidden="true">
-      <div class="money-game-meter-fill" data-money-game-fill></div>
-    </div>
-    <div class="money-game-stats">
-      <p class="money-game-amount"><strong data-money-game-current>0</strong> / <span data-money-game-target>${formatMoneyGameAmount(moneyGameState.target)}</span></p>
-      <p class="money-game-rounds" data-money-game-rounds>Купени курсове: 0</p>
+    <p class="money-game-eyebrow">Фонд</p>
+    <h2>Следващо ниво</h2>
+    <div class="money-game-stack">
+      <div class="money-game-meter" aria-hidden="true">
+        <div class="money-game-meter-fill" data-money-game-fill></div>
+      </div>
+      <div class="money-game-stats">
+        <p class="money-game-amount"><strong data-money-game-current>0</strong></p>
+        <p class="money-game-target">цел <span data-money-game-target>${formatMoneyGameAmount(moneyGameState.target)}</span></p>
+      </div>
     </div>
     <p class="money-game-message" data-money-game-message>${getMoneyIdleMessage()}</p>
   `;
@@ -166,7 +166,6 @@ function updateMoneyGamePanel() {
   const fill = panel.querySelector("[data-money-game-fill]");
   const current = panel.querySelector("[data-money-game-current]");
   const target = panel.querySelector("[data-money-game-target]");
-  const rounds = panel.querySelector("[data-money-game-rounds]");
   const progress = moneyGameState.target ? Math.min(1, moneyGameState.collected / moneyGameState.target) : 0;
 
   if (fill) {
@@ -179,10 +178,6 @@ function updateMoneyGamePanel() {
 
   if (target) {
     target.textContent = formatMoneyGameAmount(moneyGameState.target);
-  }
-
-  if (rounds) {
-    rounds.textContent = `Купени курсове: ${moneyGameState.rounds}`;
   }
 }
 
