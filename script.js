@@ -398,11 +398,24 @@ function renderProfiles(profiles, options = {}) {
               <div class="profile-video-grid">
                 ${profileVideos
                   .map(
-                    (videoPath) => `
+                    (videoPath, index) => `
                       <div class="profile-video-frame">
-                        <video controls playsinline preload="metadata" poster="${encodeURI(profile.image)}">
-                          <source src="${encodeURI(videoPath)}" type="${getVideoMimeType(videoPath)}" />
-                        </video>
+                        <button
+                          class="profile-video-launch"
+                          type="button"
+                          data-video-launch
+                          data-video-src="${encodeURI(videoPath)}"
+                          data-video-type="${getVideoMimeType(videoPath)}"
+                          data-video-poster="${encodeURI(profile.image)}"
+                          data-video-title="${escapeHtml(`${profile.name} • ${profileVideos.length > 1 ? `Видео ${index + 1}` : "Видео"}`)}"
+                          aria-label="Отвори ${escapeHtml(profileVideos.length > 1 ? `видео ${index + 1}` : "видеото")} на ${escapeHtml(profile.name)}"
+                        >
+                          <img class="profile-video-poster" src="${encodeURI(profile.image)}" alt="" loading="lazy" />
+                          <span class="profile-video-overlay">
+                            <span class="profile-video-badge">${profileVideos.length > 1 ? `Видео ${index + 1}` : "Видео"}</span>
+                            <span class="profile-video-hint">Гледай на голям екран</span>
+                          </span>
+                        </button>
                       </div>
                     `,
                   )

@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="/styles.css" />
     <script src="/site-intro.js" defer></script>
     <script src="/share-actions.js" defer></script>
+    <script src="/video-viewer.js" defer></script>
   </head>
   <body class="profile-page">
     <div class="page-shell">
@@ -66,12 +67,22 @@
           <div class="profile-video-grid">
             
                   <div class="profile-video-frame">
-                    <video controls playsinline preload="metadata" poster="/site-assets/yuli-tonkin.jpg">
-                      <source
-                        src="/site-assets/yuli-tonkin-video.mp4"
-                        type="video/mp4"
-                      />
-                    </video>
+                    <button
+                      class="profile-video-launch"
+                      type="button"
+                      data-video-launch
+                      data-video-src="/site-assets/yuli-tonkin-video.mp4"
+                      data-video-type="video/mp4"
+                      data-video-poster="/site-assets/yuli-tonkin.jpg"
+                      data-video-title="Юли Тонкин • Видео"
+                      aria-label="Отвори видеото на Юли Тонкин"
+                    >
+                      <img class="profile-video-poster" src="/site-assets/yuli-tonkin.jpg" alt="" loading="lazy" />
+                      <span class="profile-video-overlay">
+                        <span class="profile-video-badge">Видео</span>
+                        <span class="profile-video-hint">Гледай на голям екран</span>
+                      </span>
+                    </button>
                   </div>
                 
           </div>
