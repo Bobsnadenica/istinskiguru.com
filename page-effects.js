@@ -2,6 +2,15 @@ let revealObserver = null;
 const observedRevealNodes = new WeakSet();
 let scrollEffectsBound = false;
 let moneyRainBound = false;
+let moneyRainRoot = null;
+let moneyGamePanel = null;
+let moneyGameMessageTimeoutId = 0;
+let moneyGameResetTimeoutId = 0;
+const moneyGameState = {
+  collected: 0,
+  target: 1400,
+  rounds: 0,
+};
 
 function prefersReducedMotion() {
   return typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -82,18 +91,144 @@ function refreshPageEffects() {
   });
 }
 
+function formatMoneyGameAmount(value) {
+  return new Intl.NumberFormat("bg-BG").format(Math.max(0, Math.round(value)));
+}
+
+function getNextMoneyTarget(currentTarget, rounds) {
+  return Math.round(currentTarget * 1.18 + 260 + rounds * 35);
+}
+
+function getMoneyMockMessage(nextTarget) {
+  const messages = [
+    `Чудесно. Тъкмо стигна за просветление. Остава само още един курс за ${formatMoneyGameAmount(nextTarget)}.`,
+    `Браво. Почти си свободен. Купи само още един курс и започваме наистина.`,
+    `Супер напредък. Оттук нататък трябва само още едно плащане, за да отключиш следващото ниво.`,
+    `Вече си толкова близо, че би било жалко да спреш точно преди още един курс.`,
+  ];
+
+  return messages[moneyGameState.rounds % messages.length];
+}
+
+function getMoneyIdleMessage() {
+  const remaining = Math.max(0, moneyGameState.target - moneyGameState.collected);
+  return remaining
+    ? `Кликни по падащите пари. Остават още ${formatMoneyGameAmount(remaining)} до следващия курс.`
+    : "Почти си готов за следващата инвестиция в себе си.";
+}
+
+function createMoneyGamePanel() {
+  const panel = document.createElement("aside");
+  panel.className = "money-game-panel";
+  panel.innerHTML = `
+    <p class="money-game-eyebrow">Гуру Game Loop</p>
+    <h2>Събери за още един курс</h2>
+    <div class="money-game-meter" aria-hidden="true">
+      <div class="money-game-meter-fill" data-money-game-fill></div>
+    </div>
+    <div class="money-game-stats">
+      <p class="money-game-amount"><strong data-money-game-current>0</strong> / <span data-money-game-target>${formatMoneyGameAmount(moneyGameState.target)}</span></p>
+      <p class="money-game-rounds" data-money-game-rounds>Купени курсове: 0</p>
+    </div>
+    <p class="money-game-message" data-money-game-message>${getMoneyIdleMessage()}</p>
+  `;
+  document.body.append(panel);
+  return panel;
+}
+
+function getMoneyGamePanel() {
+  return moneyGamePanel || (moneyGamePanel = createMoneyGamePanel());
+}
+
+function setMoneyGameMessage(message, options = {}) {
+  const panel = getMoneyGamePanel();
+  const messageNode = panel.querySelector("[data-money-game-message]");
+
+  if (!messageNode) {
+    return;
+  }
+
+  panel.dataset.state = options.state || "idle";
+  messageNode.textContent = message;
+
+  window.clearTimeout(moneyGameMessageTimeoutId);
+
+  if (options.temporary) {
+    moneyGameMessageTimeoutId = window.setTimeout(() => {
+      panel.dataset.state = "idle";
+      messageNode.textContent = getMoneyIdleMessage();
+    }, options.duration || 2600);
+  }
+}
+
+function updateMoneyGamePanel() {
+  const panel = getMoneyGamePanel();
+  const fill = panel.querySelector("[data-money-game-fill]");
+  const current = panel.querySelector("[data-money-game-current]");
+  const target = panel.querySelector("[data-money-game-target]");
+  const rounds = panel.querySelector("[data-money-game-rounds]");
+  const progress = moneyGameState.target ? Math.min(1, moneyGameState.collected / moneyGameState.target) : 0;
+
+  if (fill) {
+    fill.style.setProperty("--money-progress", progress.toFixed(4));
+  }
+
+  if (current) {
+    current.textContent = formatMoneyGameAmount(moneyGameState.collected);
+  }
+
+  if (target) {
+    target.textContent = formatMoneyGameAmount(moneyGameState.target);
+  }
+
+  if (rounds) {
+    rounds.textContent = `Купени курсове: ${moneyGameState.rounds}`;
+  }
+}
+
+function spawnMoneyPop(note, amount) {
+  const rect = note.getBoundingClientRect();
+  const pop = document.createElement("span");
+  pop.className = "money-pop";
+  pop.textContent = `+${formatMoneyGameAmount(amount)}`;
+  pop.style.left = `${rect.left + rect.width / 2}px`;
+  pop.style.top = `${rect.top + rect.height / 2}px`;
+  document.body.append(pop);
+  window.setTimeout(() => pop.remove(), 950);
+}
+
+function replaceMoneyNote(note) {
+  if (!moneyRainRoot) {
+    return;
+  }
+
+  const replacement = buildMoneyNote();
+  moneyRainRoot.append(replacement);
+
+  note.classList.add("is-collected");
+  note.disabled = true;
+
+  window.setTimeout(() => {
+    note.remove();
+  }, 220);
+}
+
 function buildMoneyNote() {
   const values = [
-    ["100", "лв"],
-    ["500", "лв"],
-    ["100", "$"],
-    ["250", "$"],
-    ["100", "€"],
-    ["200", "€"],
+    { amount: 100, mark: "100", currency: "лв" },
+    { amount: 500, mark: "500", currency: "лв" },
+    { amount: 100, mark: "100", currency: "$" },
+    { amount: 250, mark: "250", currency: "$" },
+    { amount: 100, mark: "100", currency: "€" },
+    { amount: 200, mark: "200", currency: "€" },
   ];
-  const [mark, currency] = values[Math.floor(Math.random() * values.length)];
-  const note = document.createElement("span");
+  const { amount, mark, currency } = values[Math.floor(Math.random() * values.length)];
+  const note = document.createElement("button");
   note.className = "money-note";
+  note.type = "button";
+  note.tabIndex = -1;
+  note.setAttribute("aria-label", `Събери ${mark} ${currency} за следващия курс`);
+  note.dataset.amount = String(amount);
   note.style.setProperty("--left", `${Math.random() * 100}%`);
   note.style.setProperty("--duration", `${14 + Math.random() * 12}s`);
   note.style.setProperty("--delay", `${-Math.random() * 18}s`);
@@ -120,11 +255,61 @@ function initMoneyRain() {
   const rain = document.createElement("div");
   rain.className = "money-rain";
   rain.setAttribute("aria-hidden", "true");
+  moneyRainRoot = rain;
 
   const count = Math.max(10, Math.min(18, Math.round(window.innerWidth / 95)));
   Array.from({ length: count }, () => buildMoneyNote()).forEach((note) => rain.append(note));
 
+  rain.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target.closest(".money-note") : null;
+
+    if (!(target instanceof HTMLButtonElement)) {
+      return;
+    }
+
+    if (moneyGameResetTimeoutId) {
+      return;
+    }
+
+    const amount = Number.parseInt(target.dataset.amount || "0", 10) || 0;
+
+    if (!amount) {
+      return;
+    }
+
+    moneyGameState.collected = Math.min(moneyGameState.target, moneyGameState.collected + amount);
+    updateMoneyGamePanel();
+    spawnMoneyPop(target, amount);
+    replaceMoneyNote(target);
+
+    if (moneyGameState.collected < moneyGameState.target) {
+      setMoneyGameMessage(getMoneyIdleMessage(), { state: "collecting" });
+      return;
+    }
+
+    const completedTarget = moneyGameState.target;
+    const nextTarget = getNextMoneyTarget(completedTarget, moneyGameState.rounds);
+    moneyGameState.rounds += 1;
+    const panel = getMoneyGamePanel();
+    panel.classList.add("is-complete");
+    updateMoneyGamePanel();
+    setMoneyGameMessage(getMoneyMockMessage(nextTarget), {
+      state: "mocking",
+      temporary: true,
+      duration: 3200,
+    });
+
+    moneyGameResetTimeoutId = window.setTimeout(() => {
+      moneyGameState.target = nextTarget;
+      moneyGameState.collected = 0;
+      panel.classList.remove("is-complete");
+      updateMoneyGamePanel();
+      moneyGameResetTimeoutId = 0;
+    }, 920);
+  });
+
   document.body.prepend(rain);
+  updateMoneyGamePanel();
 }
 
 function initScrollEffects() {
