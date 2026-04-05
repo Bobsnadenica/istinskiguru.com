@@ -97,16 +97,28 @@ function formatMoneyGameAmount(value) {
   return new Intl.NumberFormat("bg-BG").format(Math.max(0, Math.round(value)));
 }
 
+function normaliseMoneyToEuro(amount, currency) {
+  if (currency === "лв") {
+    return amount * 0.5;
+  }
+
+  if (currency === "$") {
+    return amount;
+  }
+
+  return amount;
+}
+
 function getNextMoneyTarget(currentTarget, rounds) {
-  return Math.round(currentTarget * 1.18 + 260 + rounds * 35);
+  return Math.round(currentTarget * 1.72 + 950 + rounds * 420);
 }
 
 function getMoneyMockMessage(nextTarget) {
   const messages = [
-    `Чудесно. Остава само още един курс за ${formatMoneyGameAmount(nextTarget)}.`,
-    "Браво. Почти си там. Само още един курс и вече започва истинската промяна.",
-    "Супер напредък. Следващата стъпка е съвсем малка: още един курс.",
-    "Вече си толкова близо, че би било жалко да спреш точно преди още един курс.",
+    `Чудесно. Вече си почти там. Остава само още един курс за ${formatMoneyGameAmount(nextTarget)}.`,
+    "Браво. Наистина си съвсем близо. Само още един курс и вече започва истинската промяна.",
+    "Супер напредък. Буквално си на крачка. Следващата стъпка е само още един курс.",
+    "Вече си толкова близо, че би било жалко да спреш точно преди още един курс. Почти стана.",
   ];
 
   return messages[moneyGameState.rounds % messages.length];
@@ -114,7 +126,9 @@ function getMoneyMockMessage(nextTarget) {
 
 function getMoneyIdleMessage() {
   const remaining = Math.max(0, moneyGameState.target - moneyGameState.collected);
-  return remaining ? `Още ${formatMoneyGameAmount(remaining)} до следващата стъпка.` : "Почти си готов.";
+  return remaining
+    ? `Почти си там. Остават само още ${formatMoneyGameAmount(remaining)}.`
+    : "Почти си готов. Остава съвсем малко.";
 }
 
 function createMoneyGamePanel() {
@@ -129,8 +143,8 @@ function createMoneyGamePanel() {
         <div class="money-game-meter-fill" data-money-game-fill></div>
       </div>
       <div class="money-game-stats">
-        <p class="money-game-amount"><strong data-money-game-current>0</strong></p>
-        <p class="money-game-target">цел <span data-money-game-target>${formatMoneyGameAmount(moneyGameState.target)}</span></p>
+        <p class="money-game-amount"><strong data-money-game-current>0</strong> €</p>
+        <p class="money-game-target">цел <span data-money-game-target>${formatMoneyGameAmount(moneyGameState.target)}</span> €</p>
       </div>
     </div>
     <p class="money-game-message" data-money-game-message>${getMoneyIdleMessage()}</p>
@@ -228,11 +242,11 @@ function updateMoneyGamePanel() {
   }
 }
 
-function spawnMoneyPop(note, amount) {
+function spawnMoneyPop(note, amountEuro) {
   const rect = note.getBoundingClientRect();
   const pop = document.createElement("span");
   pop.className = "money-pop";
-  pop.textContent = `+${formatMoneyGameAmount(amount)}`;
+  pop.textContent = `+${formatMoneyGameAmount(amountEuro)} €`;
   pop.style.left = `${rect.left + rect.width / 2}px`;
   pop.style.top = `${rect.top + rect.height / 2}px`;
   document.body.append(pop);
@@ -265,12 +279,18 @@ function buildMoneyNote() {
     { amount: 200, mark: "200", currency: "€" },
   ];
   const { amount, mark, currency } = values[Math.floor(Math.random() * values.length)];
+  const amountEuro = normaliseMoneyToEuro(amount, currency);
   const note = document.createElement("button");
   note.className = "money-note";
   note.type = "button";
   note.tabIndex = -1;
-  note.setAttribute("aria-label", `Събери ${mark} ${currency} за следващия курс`);
+  note.setAttribute(
+    "aria-label",
+    `Събери ${mark} ${currency} за следващия курс. Към фонда се броят ${formatMoneyGameAmount(amountEuro)} евро.`,
+  );
   note.dataset.amount = String(amount);
+  note.dataset.amountEuro = String(amountEuro);
+  note.dataset.currency = currency;
   note.style.setProperty("--left", `${Math.random() * 100}%`);
   note.style.setProperty("--duration", `${14 + Math.random() * 12}s`);
   note.style.setProperty("--delay", `${-Math.random() * 18}s`);
@@ -313,16 +333,16 @@ function initMoneyRain() {
       return;
     }
 
-    const amount = Number.parseInt(target.dataset.amount || "0", 10) || 0;
+    const amountEuro = Number.parseFloat(target.dataset.amountEuro || "0") || 0;
 
-    if (!amount) {
+    if (!amountEuro) {
       return;
     }
 
     showMoneyGamePanel();
-    moneyGameState.collected = Math.min(moneyGameState.target, moneyGameState.collected + amount);
+    moneyGameState.collected = Math.min(moneyGameState.target, moneyGameState.collected + amountEuro);
     updateMoneyGamePanel();
-    spawnMoneyPop(target, amount);
+    spawnMoneyPop(target, amountEuro);
     replaceMoneyNote(target);
 
     if (moneyGameState.collected < moneyGameState.target) {
