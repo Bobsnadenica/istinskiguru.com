@@ -75,6 +75,52 @@ func measureText(_ text: String, width: CGFloat, font: NSFont, lineSpacing: CGFl
   return ceil(bounds.height)
 }
 
+func topRect(x: CGFloat, top: CGFloat, width: CGFloat, height: CGFloat, canvasHeight: CGFloat) -> NSRect {
+  NSRect(x: x, y: canvasHeight - top - height, width: width, height: height)
+}
+
+func fitText(_ text: String, font: NSFont, width: CGFloat, maxHeight: CGFloat, lineSpacing: CGFloat) -> String {
+  if measureText(text, width: width, font: font, lineSpacing: lineSpacing) <= maxHeight {
+    return text
+  }
+
+  var words = text.split(separator: " ").map(String.init)
+
+  while !words.isEmpty {
+    words.removeLast()
+    let candidate = words.joined(separator: " ").trimmingCharacters(in: .whitespacesAndNewlines) + "…"
+
+    if measureText(candidate, width: width, font: font, lineSpacing: lineSpacing) <= maxHeight {
+      return candidate
+    }
+  }
+
+  return text
+}
+
+func fittedBlock(
+  text: String,
+  makeFont: (CGFloat) -> NSFont,
+  preferredSize: CGFloat,
+  minSize: CGFloat,
+  width: CGFloat,
+  maxHeight: CGFloat,
+  lineSpacing: CGFloat
+) -> (text: String, font: NSFont, height: CGFloat) {
+  var size = preferredSize
+  var font = makeFont(size)
+
+  while size > minSize && measureText(text, width: width, font: font, lineSpacing: lineSpacing) > maxHeight {
+    size -= 2
+    font = makeFont(size)
+  }
+
+  let fitted = fitText(text, font: font, width: width, maxHeight: maxHeight, lineSpacing: lineSpacing)
+  let height = min(maxHeight, measureText(fitted, width: width, font: font, lineSpacing: lineSpacing))
+
+  return (fitted, font, height)
+}
+
 guard CommandLine.arguments.count > 1 else {
   fputs("Expected payload path.\n", stderr)
   exit(1)
@@ -137,45 +183,84 @@ glowPath.lineWidth = 1.5
 glowPath.stroke()
 
 let brandFont = NSFont(name: "Arial-BoldMT", size: 22) ?? NSFont.boldSystemFont(ofSize: 22)
-let titleFont = NSFont(name: "TimesNewRomanPS-BoldMT", size: 56) ?? NSFont.boldSystemFont(ofSize: 56)
-let kickerFont = NSFont(name: "Arial-BoldMT", size: 28) ?? NSFont.boldSystemFont(ofSize: 28)
-let bodyFont = NSFont(name: "ArialMT", size: 28) ?? NSFont.systemFont(ofSize: 28)
-
-drawText(payload.brand, in: NSRect(x: 704, y: 70, width: 420, height: 28), font: brandFont, color: color(0xd8b07a))
+let titleFontFactory: (CGFloat) -> NSFont = {
+  NSFont(name: "TimesNewRomanPS-BoldMT", size: $0) ?? NSFont.boldSystemFont(ofSize: $0)
+}
+let kickerFontFactory: (CGFloat) -> NSFont = {
+  NSFont(name: "Arial-BoldMT", size: $0) ?? NSFont.boldSystemFont(ofSize: $0)
+}
+let bodyFontFactory: (CGFloat) -> NSFont = {
+  NSFont(name: "ArialMT", size: $0) ?? NSFont.systemFont(ofSize: $0)
+}
 
 let titleWidth: CGFloat = 420
-let titleHeight = measureText(payload.name, width: titleWidth, font: titleFont, lineSpacing: 8)
-drawText(
-  payload.name,
-  in: NSRect(x: 704, y: 146, width: titleWidth, height: min(220, titleHeight)),
-  font: titleFont,
-  color: color(0xfff7ef),
+let titleBlock = fittedBlock(
+  text: payload.name,
+  makeFont: titleFontFactory,
+  preferredSize: 56,
+  minSize: 40,
+  width: titleWidth,
+  maxHeight: 184,
+  lineSpacing: 8,
+)
+let kickerBlock = fittedBlock(
+  text: payload.kicker,
+  makeFont: kickerFontFactory,
+  preferredSize: 28,
+  minSize: 22,
+  width: 430,
+  maxHeight: 88,
+  lineSpacing: 6,
+)
+let summaryTop = 132 + titleBlock.height + 26 + kickerBlock.height + 24
+let summaryMaxHeight = max(110, CGFloat(height) - summaryTop - 56)
+let summaryBlock = fittedBlock(
+  text: payload.summary,
+  makeFont: bodyFontFactory,
+  preferredSize: 28,
+  minSize: 22,
+  width: 430,
+  maxHeight: summaryMaxHeight,
   lineSpacing: 8,
 )
 
-let kickerWidth: CGFloat = 420
-let kickerHeight = measureText(payload.kicker, width: kickerWidth, font: kickerFont, lineSpacing: 6)
-let kickerY = max(330, 146 + min(220, titleHeight) + 28)
 drawText(
-  payload.kicker,
-  in: NSRect(x: 704, y: CGFloat(kickerY), width: kickerWidth, height: min(84, kickerHeight)),
-  font: kickerFont,
+  payload.brand,
+  in: topRect(x: 704, top: 70, width: 420, height: 28, canvasHeight: CGFloat(height)),
+  font: brandFont,
+  color: color(0xd8b07a),
+)
+drawText(
+  titleBlock.text,
+  in: topRect(x: 704, top: 132, width: titleWidth, height: titleBlock.height, canvasHeight: CGFloat(height)),
+  font: titleBlock.font,
+  color: color(0xfff7ef),
+  lineSpacing: 8,
+)
+drawText(
+  kickerBlock.text,
+  in: topRect(
+    x: 704,
+    top: 132 + titleBlock.height + 26,
+    width: 430,
+    height: kickerBlock.height,
+    canvasHeight: CGFloat(height)
+  ),
+  font: kickerBlock.font,
   color: color(0xd8b07a),
   lineSpacing: 6,
 )
-
-let summaryY = CGFloat(kickerY) + min(84, kickerHeight) + 30
 drawText(
-  payload.summary,
-  in: NSRect(x: 704, y: summaryY, width: 430, height: 168),
-  font: bodyFont,
+  summaryBlock.text,
+  in: topRect(x: 704, top: summaryTop, width: 430, height: summaryBlock.height, canvasHeight: CGFloat(height)),
+  font: summaryBlock.font,
   color: color(0xefe7dc),
   lineSpacing: 8,
 )
 
 let divider = NSBezierPath()
-divider.move(to: NSPoint(x: 684, y: 536))
-divider.line(to: NSPoint(x: 1132, y: 536))
+divider.move(to: NSPoint(x: 684, y: 74))
+divider.line(to: NSPoint(x: 1132, y: 74))
 color(0xb88445, alpha: 0.36).setStroke()
 divider.lineWidth = 1
 divider.stroke()
