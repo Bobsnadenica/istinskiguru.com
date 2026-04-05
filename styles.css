@@ -656,13 +656,11 @@ code {
   grid-template-columns: 1fr;
 }
 
-.profile-card:nth-child(even) {
-  grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
-}
-
-.profile-card:nth-child(even) .profile-media {
-  order: 2;
-  justify-self: end;
+.profile-rail {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  min-width: 0;
 }
 
 .profile-media {
@@ -739,10 +737,9 @@ code {
   display: grid;
   gap: 0.8rem;
   width: 100%;
-  max-width: 38rem;
+  max-width: 30rem;
   margin: 0;
-  padding-top: 1.05rem;
-  border-top: 1px solid rgba(16, 20, 17, 0.08);
+  padding-top: 0;
 }
 
 .profile-video-label {
@@ -1681,7 +1678,6 @@ code {
 @media (max-width: 980px) {
   .hero,
   .profile-card,
-  .profile-card:nth-child(even),
   .summary-alert,
   .mechanics,
   .closing,
@@ -1715,11 +1711,6 @@ code {
     inset: auto 0 1rem 0;
     width: auto;
     height: 40%;
-  }
-
-  .profile-card:nth-child(even) .profile-media {
-    order: 0;
-    justify-self: start;
   }
 
   .profile-media {
