@@ -419,9 +419,12 @@ function renderProfiles(profiles, options = {}) {
           tabindex="-1"
           data-orientation="${escapeHtml(profile.orientation)}"
         >
-          <div class="profile-media">
-            <img src="${encodeURI(profile.image)}" alt="${escapeHtml(profile.alt)}" />
-            <div class="media-chip">${escapeHtml(profile.imageNote)}</div>
+          <div class="profile-rail">
+            <div class="profile-media">
+              <img src="${encodeURI(profile.image)}" alt="${escapeHtml(profile.alt)}" />
+              <div class="media-chip">${escapeHtml(profile.imageNote)}</div>
+            </div>
+            ${profileVideo}
           </div>
 
           <div class="profile-copy">
@@ -434,7 +437,6 @@ function renderProfiles(profiles, options = {}) {
               ${signalGrid}
               ${insightBlock}
             </div>
-            ${profileVideo}
           </div>
         </article>
       `;
