@@ -19,7 +19,8 @@ window.__GURU_PROFILES__ = [
     "channels": [
       "Уебсайт",
       "Facebook",
-      "Instagram"
+      "Instagram",
+      "YouTube"
     ],
     "links": [
       {
@@ -28,15 +29,19 @@ window.__GURU_PROFILES__ = [
       },
       {
         "label": "Facebook",
-        "url": "https://www.facebook.com/alexchillingir0v?locale=bg_BG"
+        "url": "https://www.facebook.com/alexanderchilingorvv?locale=bg_BG"
       },
       {
         "label": "Facebook 2",
-        "url": "https://www.facebook.com/alexanderchilingorvv?locale=bg_BG"
+        "url": "https://www.facebook.com/alexchillingir0v?locale=bg_BG"
       },
       {
         "label": "Instagram",
         "url": "https://www.instagram.com/chillybtww/"
+      },
+      {
+        "label": "YouTube",
+        "url": "https://www.youtube.com/@chilly1"
       }
     ],
     "shareImage": "site-assets/aleksandar-chilingirov-share.jpg"
@@ -199,12 +204,12 @@ window.__GURU_PROFILES__ = [
     "imageNote": "Портрет, който изглежда така, сякаш следващото ниво вече е договорено и остава само да натиснеш бутона.",
     "videos": [],
     "orientation": "portrait",
-    "description": "Ето я госпожа Московска, женската версия на Боян Москов, тя стартира и подарява милионни бизнеси за няма и 1 ден. Парите са нейната страст, а дупето - начин да ги придобиеш.",
+    "description": "Ето я госпожа Московска, женската версия на Боян Москов, тя стартира и подарява бизнеси за милиони чрез Flip-Start модела. Парите са нейната страст, а дупето - начин да ги придобиеш.",
     "kicker": "Личен бранд с ускорено усещане за резултат",
     "summary": "Подава се образ на човек, който вече е на правилното място и сега просто ти показва колко близо си и ти до своята версия на същия живот.",
-    "aura": "Женска енергия с монетизиран хоризонт",
+    "aura": "Женска енергия с монетизиран хоризонт.",
     "funnel": "Силен образ, кратък път към обещанието и плавна покана към офертата",
-    "insight": "Посланието не е толкова какво ще учиш, а какъв човек ще станеш, ако влезеш навреме.",
+    "insight": "Нещо като onlyfans - и там си продават достойнството, ама тук даже няма цици.",
     "channels": [
       "Уебсайт",
       "Facebook",

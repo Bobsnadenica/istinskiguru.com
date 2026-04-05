@@ -661,6 +661,9 @@ code {
   align-content: start;
   gap: 1rem;
   min-width: 0;
+  width: 100%;
+  max-width: 30rem;
+  justify-self: start;
 }
 
 .profile-media {
@@ -668,9 +671,9 @@ code {
   display: grid;
   overflow: hidden;
   align-self: start;
-  justify-self: start;
+  justify-self: stretch;
   width: 100%;
-  max-width: 30rem;
+  max-width: none;
   padding: clamp(0.55rem, 1.2vw, 0.75rem);
   border: 1px solid rgba(16, 20, 17, 0.08);
   border-radius: calc(var(--radius) - 4px);
@@ -737,7 +740,7 @@ code {
   display: grid;
   gap: 0.8rem;
   width: 100%;
-  max-width: 30rem;
+  max-width: none;
   margin: 0;
   padding-top: 0;
 }
@@ -751,16 +754,14 @@ code {
 }
 
 .profile-video-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 0.9rem;
-  align-items: start;
 }
 
 .profile-video-frame {
-  flex: 0 1 15rem;
-  width: min(100%, 15rem);
-  max-width: 15rem;
+  width: 100%;
+  max-width: none;
   display: grid;
   align-content: start;
   overflow: hidden;
@@ -776,11 +777,18 @@ code {
 .profile-video-frame video {
   display: block;
   width: 100%;
-  max-width: 100%;
-  max-height: min(46vh, 360px);
+  max-width: none;
+  max-height: none;
+  aspect-ratio: 4 / 5;
   border-radius: calc(var(--radius) - 14px);
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center 24%;
   background: #101411;
+}
+
+.profile-card[data-orientation="landscape"] .profile-video-frame video {
+  aspect-ratio: 6 / 5;
+  object-position: center center;
 }
 
 .profile-copy {
@@ -1772,13 +1780,12 @@ code {
   }
 
   .profile-video-grid {
-    justify-content: center;
+    grid-template-columns: 1fr;
   }
 
   .profile-video-frame {
-    flex-basis: min(100%, 18rem);
-    width: min(100%, 18rem);
-    max-width: 18rem;
+    width: 100%;
+    max-width: none;
   }
 
   .site-footer {
