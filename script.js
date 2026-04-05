@@ -95,7 +95,7 @@ function getVideoMimeType(videoPath) {
   return "video/mp4";
 }
 
-function getCurrentPageUrl() {
+function getSiteRootUrl() {
   const canonicalUrl = getCanonicalPageUrl();
 
   if (canonicalUrl) {
@@ -106,18 +106,18 @@ function getCurrentPageUrl() {
     return "";
   }
 
-  const pageUrl = new URL(window.location.href);
-  pageUrl.hash = "";
-  pageUrl.search = "";
-
-  return pageUrl.toString();
+  return new URL("/", window.location.href).toString();
 }
 
 function getProfileShareUrl(profile) {
-  const baseUrl = getCurrentPageUrl();
+  const baseUrl = getSiteRootUrl();
   const profileId = getProfileId(profile);
 
-  return profileId ? `${baseUrl}#${profileId}` : baseUrl;
+  if (!baseUrl || !profileId) {
+    return baseUrl;
+  }
+
+  return new URL(`profiles/${profileId}/`, baseUrl).toString();
 }
 
 function getFacebookShareUrl(profile) {
