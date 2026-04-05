@@ -259,24 +259,6 @@ window.__GURU_PROFILES__ = [
     "shareImage": "site-assets/rumen-vista-share.jpg"
   },
   {
-    "id": "test",
-    "name": "Тест",
-    "image": "site-assets/test.png",
-    "alt": "Профилно изображение за Тест",
-    "imageNote": "6666666",
-    "videos": [],
-    "orientation": "landscape",
-    "description": "",
-    "kicker": "12111111",
-    "summary": "т22222222",
-    "aura": "233333333",
-    "funnel": "4444444",
-    "insight": "555555555",
-    "channels": [],
-    "links": [],
-    "shareImage": "site-assets/test-share.jpg"
-  },
-  {
     "id": "tsvetan-radushev",
     "name": "Цветан Радушев",
     "image": "site-assets/tsvetan-radushev.webp",

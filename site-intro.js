@@ -22,27 +22,33 @@ function createSiteIntro() {
   intro.setAttribute("data-site-intro", "");
   intro.innerHTML = `
     <div class="site-intro-backdrop"></div>
-    <section class="site-intro-panel" role="dialog" aria-modal="true" aria-labelledby="site-intro-title">
-      <p class="site-intro-eyebrow">Вдъхновение • Визия • Обществена Полза</p>
-      <h2 id="site-intro-title">Направих този сайт от чисто възхищение, разбира се.</h2>
-      <p class="site-intro-copy">
-        Тези хора толкова силно ме вдъхновиха, че направо не можах да си стоя
-        мирно. Видях толкова много величие, толкова много хоризонти, толкова
-        много премиум енергия и си казах: това не бива да остане разпръснато
-        из интернет.
-      </p>
-      <p class="site-intro-copy">
-        Затова им направих сайт. Събрах ги на едно място с надеждата да помогнат
-        и на вас, по същия фин, ненатрапчив и напълно неземно скромен начин, по
-        който очевидно вече помагат на света всеки ден.
-      </p>
-      <p class="site-intro-copy site-intro-copy-muted">
-        Ако и вие търсите правилна осанка, уверен поглед към бъдещето и още едно
-        следващо ниво, добре дошли.
-      </p>
-      <button class="button site-intro-button" type="button" data-site-intro-close>
-        Продължи
-      </button>
+    <section class="site-intro-panel" role="dialog" aria-modal="true" aria-labelledby="site-intro-title" aria-describedby="site-intro-description">
+      <p class="site-intro-eyebrow">Любов • Подкрепа • Обществена Полза</p>
+      <h2 id="site-intro-title">Този сайт е направен с много любов. И съвсем малко възторг.</h2>
+      <div class="site-intro-body" id="site-intro-description">
+        <p class="site-intro-copy">
+          Тези хора ме вдъхновиха толкова дълбоко, че почувствах почти
+          духовно-задължителен порив да им направя сайт. Когато човек види
+          толкова концентриран бизнес размах, просто иска да го подреди красиво
+          и да го поднесе на обществото.
+        </p>
+        <p class="site-intro-copy">
+          Тук разпространявам много любов и, както личи, обожавам да помагам на
+          хората. Затова събрах тези сияйни примери на едно място с надеждата да
+          помогнат и на вас със същата безкрайна щедрост, деликатност и
+          напълно земна скромност, с която очевидно вече помагат на света.
+        </p>
+        <p class="site-intro-copy site-intro-copy-muted">
+          Накратко: обществена услуга, изработена с грижа, прозрачност и почти
+          незабележим сарказъм.
+        </p>
+      </div>
+      <div class="site-intro-footer">
+        <p class="site-intro-love">Споделям много любов. Помагам на хората. Просто такъв човек съм.</p>
+        <button class="button site-intro-button" type="button" data-site-intro-close>
+          Продължи
+        </button>
+      </div>
     </section>
   `;
 
