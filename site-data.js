@@ -1,0 +1,341 @@
+window.__GURU_PROFILES__ = [
+  {
+    "name": "Александър Чилингиров",
+    "image": "site-assets/aleksandar-chilingirov.jpg",
+    "alt": "Профилно изображение за Александър Чилингиров",
+    "imageNote": "Поглед с достатъчно увереност да продава следващото ниво още преди първото изречение.",
+    "videos": [
+      "site-assets/aleksandar-chilingirov-video.mp4",
+      "site-assets/aleksandar-chilingirov-video-2.mp4"
+    ],
+    "orientation": "portrait",
+    "description": "Алекс Чикийката ви учи на айсберг модела. Млада, успяла жена на 16-17 години нз на колко е ама е богат и иска да го сподели с вас, защото просто не може да държи всички тези пари, иска да живее в държава в която няма трохари - Вие сте трохари, той е гуру и ще ви научи как да сте като него.",
+    "kicker": "Навлизане в премиум слоя на увереността",
+    "summary": "Публичен образ, подреден така, че още от първия поглед да внуши скорост, самочувствие и усещане, че големият пробив вече е започнал.",
+    "aura": "Ранен дигитален размах с луксозен завършек",
+    "funnel": "Лъскав вход, силен образ и обещание, че моделът вече работи",
+    "insight": "Тонът подсказва, че успехът е въпрос на правилна нагласа, правилен ментор и още едно включване.",
+    "channels": [
+      "Уебсайт",
+      "Facebook",
+      "Instagram"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://chilladvertising.com"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/alexchillingir0v?locale=bg_BG"
+      },
+      {
+        "label": "Facebook 2",
+        "url": "https://www.facebook.com/alexanderchilingorvv?locale=bg_BG"
+      },
+      {
+        "label": "Instagram",
+        "url": "https://www.instagram.com/chillybtww/"
+      }
+    ]
+  },
+  {
+    "name": "Боян Москов",
+    "image": "site-assets/boyan-moskov.jpg",
+    "alt": "Профилно изображение за Боян Москов",
+    "imageNote": "Кадър с достатъчно самоувереност да намекне, че мястото ти е само на едно записване разстояние.",
+    "videos": [],
+    "orientation": "portrait",
+    "description": "Московската машина, толкова е богат, че не знае какво да си прави парите и иска да ви даде и на вас! Най-мразеният маркетолог в България и радикален хомосексуалист",
+    "kicker": "Елитен шоурум за онлайн амбиция",
+    "summary": "Много входове, много линкове и ясно усещане, че някъде зад тази мрежа от оферти се крие животът, който още малко ти убягва.",
+    "aura": "Висок билет, висока енергия и висок гланц",
+    "funnel": "Многоканален поток към курс, пакет и следваща стъпка",
+    "insight": "Когато всеки линк води към нова версия на възможността, бизнесът вече е подреден като хубава фуния.",
+    "channels": [
+      "Уебсайт",
+      "Facebook",
+      "Instagram",
+      "YouTube",
+      "TikTok"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://masterclass.bg/2026"
+      },
+      {
+        "label": "Уебсайт 2",
+        "url": "https://convertbuilder.com/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEwalhNVGp2cTlBb0cxa3VKTXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR71xizd-l071lnbbpccTPi1agWCJyYCHiR0op9uNUBwfZaCb3irdg83mYvYkA_aem_rljtz66QsGzdWb39Usgq6A"
+      },
+      {
+        "label": "Уебсайт 3",
+        "url": "https://interactiveorb.com/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEwalhNVGp2cTlBb0cxa3VKTXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4u5J5nPpaJxn2MX7MCFiV4pMctj1Ekk4DMB3UF8-_Vvmd1iVPyPTA9EhDavA_aem_tYyhHvfuM2h8Dph5oSbTWw"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/bobbymoss.me"
+      },
+      {
+        "label": "Instagram",
+        "url": "https://www.instagram.com/boyanmoskov?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEwalhNVGp2cTlBb0cxa3VKTXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR5paT_bSnqm-D5zJXVwcKefG7Xr-p3cosiKCPmSH6Cvcuv2Cn5gC_z-ltDhQw_aem_eDem688IhdzGrrX4B0dEzA"
+      },
+      {
+        "label": "YouTube",
+        "url": "https://www.youtube.com/@onlinebusinessmb"
+      },
+      {
+        "label": "TikTok",
+        "url": "https://www.tiktok.com/@boyan_moskov?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEwalhNVGp2cTlBb0cxa3VKTXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4vysgCV1G6Mh3Q5uNGEbD4ZxRt_4BbT1ms21RdGxVA1HMWfUeqMwcZcspxGQ_aem_ypehF011nCk9e5Vzhw91Ow"
+      }
+    ]
+  },
+  {
+    "name": "Георги Захариев",
+    "image": "site-assets/georgi-zahariev.jpg",
+    "alt": "Профилно изображение за Георги Захариев",
+    "imageNote": "Портрет с академична увереност и готовност да обясни как успехът е по-близо, отколкото изглежда.",
+    "videos": [],
+    "orientation": "portrait",
+    "description": "Гошето е радикален хомосексуалист, измамник и лъжец....ааааааа исках да кажа че е успешен бизнесмен и ще ви научи как да правите пари!",
+    "kicker": "Академичен вход към финансовото пробуждане",
+    "summary": "Комбинация от образ на човек, който вече е минал пътя, и покана да се качиш при него, докато още има място в правилния кръг.",
+    "aura": "Авторитет с чиста формулировка и скрит ъпсел",
+    "funnel": "Безплатен интерес, после разговор, после подредена оферта",
+    "insight": "Езикът е сериозен, но логиката остава позната - доверие първо, конкретика по-късно.",
+    "channels": [
+      "Уебсайт",
+      "Facebook",
+      "Instagram"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://financeacademy.bg/application?utm_source=fb&utm_medium=organic&utm_campaign=youtube-reels-descriptions&fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEwalhNVGp2cTlBb0cxa3VKTXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR74JwSgEFWyBOu2gJ9utqvL9KiXZYxQ4NPHoHaPaw8h20miqC9rhlUF5a9prw_aem_5H23b2emQkNbTKUTValyIw"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/george.zaharieff/"
+      },
+      {
+        "label": "Instagram",
+        "url": "https://www.instagram.com/george_zahariev?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEwalhNVGp2cTlBb0cxa3VKTXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR7ib77FzTQHcufkN5JvFE84AyVhk5vDqftAXKNpJ9lCBMS5j3Jq0FtDjBk3vw_aem_sttnsnA-TxjGXG11Fzfp_g"
+      }
+    ]
+  },
+  {
+    "name": "Ивелин Михайлов",
+    "image": "site-assets/ivelin-mihaylov.jpg",
+    "alt": "Профилно изображение за Ивелин Михайлов",
+    "imageNote": "Кадър с достатъчен размах, за да изглежда, че съдбата и доходността вървят ръка за ръка.",
+    "videos": [
+      "site-assets/ivelin-mihaylov-video.mp4"
+    ],
+    "orientation": "landscape",
+    "description": "Инвестираш при мен и правим 3 милиона посетители на година!!!! Невероятна възвращаемост! За КЛЕТА МАЙКА БЪЛГАРИЯ! Жена му фризьорка с 200 страници в имотния регистър - и тва ако не е Гуру!",
+    "kicker": "Национален мащаб, локална съдба, инвестиционен плам",
+    "summary": "Голямо обещание, голям размах и достатъчно патос, за да изглежда така, сякаш пропускаш исторически шанс, ако не влезеш сега.",
+    "aura": "Патриотичен мащаб с инвеститорски блясък",
+    "funnel": "Грандиозна визия, емоционален заряд и вход към следващо убеждаване",
+    "insight": "Когато числата са огромни, а атмосферата още по-голяма, посетителят лесно забравя да пита за детайлите.",
+    "channels": [
+      "Facebook"
+    ],
+    "links": [
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/ivelin.mihaylov"
+      }
+    ]
+  },
+  {
+    "name": "Йордан Йончев",
+    "image": "site-assets/yordan-yonchev.jpg",
+    "alt": "Профилно изображение за Йордан Йончев",
+    "imageNote": "Широк кадър с усещане, че сертификатът и пробивът вече са почти в джоба ти.",
+    "videos": [],
+    "orientation": "portrait",
+    "description": "Йорданката е сертифициран от държавата! Издава сертификати, ще те научи как да си успешен щот има добро сърце, прави го заради вас! Той пари има. Не ти трябва училище или работа - трябва ти Данчо и да му платиш за курсче.",
+    "kicker": "Сертифициран вход към новото ти аз",
+    "summary": "Образ на човек, който иска да изглежда едновременно близък, подготвен и напълно уверен, че има какво да ти предаде.",
+    "aura": "Достъпно наставничество с официален привкус",
+    "funnel": "Личен авторитет, директен контакт и плавен преход към платения вход",
+    "insight": "Най-силното обещание тук е, че някой вече е минал пътя и сега великодушно ти подава карта.",
+    "channels": [
+      "Уебсайт",
+      "Facebook",
+      "YouTube"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://api.leadconnectorhq.com/widget/booking/2gQWMrOC4fmDbywp13mm"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/y.yonchev"
+      },
+      {
+        "label": "YouTube",
+        "url": "https://www.youtube.com/watch?v=wLnmbXWxqDU"
+      }
+    ]
+  },
+  {
+    "name": "Мария Боева",
+    "image": "site-assets/mariya-boeva.jpg",
+    "alt": "Профилно изображение за Мария Боева",
+    "imageNote": "Портрет, който изглежда така, сякаш следващото ниво вече е договорено и остава само да натиснеш бутона.",
+    "videos": [],
+    "orientation": "portrait",
+    "description": "Ето я госпожа Московска, женската версия на Боян Москов, тя стартира и подарява милионни бизнеси за няма и 1 ден. Парите са нейната страст, а дупето - начин да ги придобиеш.",
+    "kicker": "Личен бранд с ускорено усещане за резултат",
+    "summary": "Подава се образ на човек, който вече е на правилното място и сега просто ти показва колко близо си и ти до своята версия на същия живот.",
+    "aura": "Женска енергия с монетизиран хоризонт",
+    "funnel": "Силен образ, кратък път към обещанието и плавна покана към офертата",
+    "insight": "Посланието не е толкова какво ще учиш, а какъв човек ще станеш, ако влезеш навреме.",
+    "channels": [
+      "Уебсайт",
+      "Facebook",
+      "YouTube"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://masterclass.bg/2026"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/mariya.boeva.digitalmarketer"
+      },
+      {
+        "label": "YouTube",
+        "url": "https://www.youtube.com/@onlinebusinessmb"
+      }
+    ]
+  },
+  {
+    "name": "Румен Виста",
+    "image": "site-assets/rumen-vista.jpg",
+    "alt": "Профилно изображение за Румен Виста",
+    "imageNote": "Портрет с достатъчно позната енергия, за да внуши, че урокът идва директно от терена.",
+    "videos": [
+      "site-assets/rumen-vista-video.mp4"
+    ],
+    "orientation": "portrait",
+    "description": "Windows Vista е якия предприемач - Вили, Бали, Трактори - той ще ви научи на всичко, само да не го питаш кой е Жечев",
+    "kicker": "Балкански предприемачески размах с личен печат",
+    "summary": "Образът работи през близост, самочувствие и обещание, че истинското знание е концентрирано в човека, не в сложната система.",
+    "aura": "Предприемаческа свобода с локален авторитет",
+    "funnel": "Личен контакт, силен тон и подредено усещане за доверие",
+    "insight": "Когато човекът е представен като самата формула, въпросите за метода обикновено отстъпват назад.",
+    "channels": [
+      "Уебсайт",
+      "Facebook"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://www.rumenvista.com"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/RumenVista/?locale=bg_BG"
+      }
+    ]
+  },
+  {
+    "name": "Тест",
+    "image": "site-assets/test.png",
+    "alt": "Профилно изображение за Тест",
+    "imageNote": "6666666",
+    "videos": [],
+    "orientation": "landscape",
+    "description": "",
+    "kicker": "12111111",
+    "summary": "т22222222",
+    "aura": "233333333",
+    "funnel": "4444444",
+    "insight": "555555555",
+    "channels": [],
+    "links": []
+  },
+  {
+    "name": "Цветан Радушев",
+    "image": "site-assets/tsvetan-radushev.webp",
+    "alt": "Профилно изображение за Цветан Радушев",
+    "imageNote": "Кадър с премерена сериозност и усещане, че току-що е приключил още един милионен урок.",
+    "videos": [],
+    "orientation": "landscape",
+    "description": "Ко да кажа за Цуцката, толкова е успешен че не знае какво да си прави парите и иска да ги сподели с вас! Изградил е толкова много успешни бизнеси за милиони, че вече му е скучно, той за добро утро ги прави.",
+    "kicker": "От нула до величие с правилната поза",
+    "summary": "Визията и езикът работят заедно, за да изглежда така, сякаш големият скок е напълно логичен, стига да следваш правилния човек.",
+    "aura": "Бизнес ускорение с подреден авторитет",
+    "funnel": "История за мащаб, книга, доказателство и следващ вход",
+    "insight": "Когато личната история е опакована като универсален път, тя започва да продава по-добре от самия продукт.",
+    "channels": [
+      "Уебсайт"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://tsvetanradushev.bg/contact/"
+      }
+    ]
+  },
+  {
+    "name": "Юли Тонкин",
+    "image": "site-assets/yuli-tonkin.jpg",
+    "alt": "Профилно изображение за Юли Тонкин",
+    "imageNote": "Широк кадър с достатъчно сцена, за да побере мотивация, призив и още един линк към включване.",
+    "videos": [
+      "site-assets/yuli-tonkin-video.mp4"
+    ],
+    "orientation": "landscape",
+    "description": "Бащата! Началникът! Човекът мотиватор! От него започват всички скам...аааа успешни гурутa. Може да те мотивира да му дадеш пари както никой друг, даже ще си щастлив, че те е прееб...ааа че си му платил.",
+    "kicker": "Мотивационен център с пълен медиен пакет",
+    "summary": "Много канали, много присъствие и ясното усещане, че ако някъде има отключване, то вероятно е в следващото негово ниво.",
+    "aura": "Мотивационен размах с премиум увереност",
+    "funnel": "Съдържание, емоция, общност и преливане към платен достъп",
+    "insight": "Когато човек присъства навсякъде, започва да изглежда така, сякаш самото присъствие вече е доказателство.",
+    "channels": [
+      "Уебсайт",
+      "Facebook",
+      "Instagram",
+      "YouTube",
+      "TikTok",
+      "LinkedIn",
+      "Viber"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://tonkin.bg"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/yulitonkinofficial"
+      },
+      {
+        "label": "Instagram",
+        "url": "https://www.instagram.com/yulitonkin?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEwalhNVGp2cTlBb0cxa3VKTXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR5ZGIOPGB4w2dsV-uwHB5bNwODcHNgirgUKydxyRm5ZKJmDgO_770ncSByHCQ_aem_kfN8sNxlOSwLUyqX7kPsEg"
+      },
+      {
+        "label": "YouTube",
+        "url": "https://www.youtube.com/@yulitonkin"
+      },
+      {
+        "label": "TikTok",
+        "url": "https://www.tiktok.com/@yulitonkin?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEwalhNVGp2cTlBb0cxa3VKTXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR5ZGIOPGB4w2dsV-uwHB5bNwODcHNgirgUKydxyRm5ZKJmDgO_770ncSByHCQ_aem_kfN8sNxlOSwLUyqX7kPsEg"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/yuli-tonkin/"
+      },
+      {
+        "label": "Viber",
+        "url": "https://invite.viber.com/?g2=AQBYPesH%2BsgYF1AwkJAV2AnPn%2FrY%2F85a47Z9sti3h2BarGnd1RMc13RCHC3HH9GL&fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEwalhNVGp2cTlBb0cxa3VKTXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR7F2hHk3JhVNUiEUYFVyMGqq8YkBQfSfDdLQ1uHx5V7ByRtfIHkBxSWqSRGdA_aem_PPttwbP-vwnwOAIQplydng&lang=en"
+      }
+    ]
+  }
+];
