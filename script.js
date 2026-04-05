@@ -128,6 +128,115 @@ function getFacebookShareUrl(profile) {
   return `https://www.facebook.com/sharer/sharer.php?${shareParams.toString()}`;
 }
 
+function getLinkedInShareUrl(profile) {
+  const shareParams = new URLSearchParams({
+    url: getProfileShareUrl(profile),
+  });
+
+  return `https://www.linkedin.com/sharing/share-offsite/?${shareParams.toString()}`;
+}
+
+function getShareMessage(profile) {
+  return profile.summary || profile.imageNote || `Профилът на ${profile.name} в Каталога на Онлайн Гурута.`;
+}
+
+function getProfileVideos(profile) {
+  if (Array.isArray(profile?.videos)) {
+    return profile.videos;
+  }
+
+  if (profile?.video) {
+    return [profile.video];
+  }
+
+  return [];
+}
+
+function getShareButtons(profile, options = {}) {
+  const { includeOpenLink = false } = options;
+  const shareUrl = getProfileShareUrl(profile);
+  const shareMessage = getShareMessage(profile);
+  const profileVideos = getProfileVideos(profile);
+  const firstVideo = profileVideos[0] || "";
+  const buttons = [
+    `
+      <a
+        class="share-button share-button-facebook"
+        href="${escapeHtml(getFacebookShareUrl(profile))}"
+        target="_blank"
+        rel="noopener"
+        aria-label="Сподели профила на ${escapeHtml(profile.name)} във Facebook"
+        title="Facebook"
+      >
+        <span class="share-button-label">FB</span>
+      </a>
+    `,
+    `
+      <a
+        class="share-button share-button-linkedin"
+        href="${escapeHtml(getLinkedInShareUrl(profile))}"
+        target="_blank"
+        rel="noopener"
+        aria-label="Сподели профила на ${escapeHtml(profile.name)} в LinkedIn"
+        title="LinkedIn"
+      >
+        <span class="share-button-label">IN</span>
+      </a>
+    `,
+  ];
+
+  if (firstVideo) {
+    const nativeAttributes = `
+        href="${escapeHtml(shareUrl)}"
+        role="button"
+        data-native-share="instagram"
+        data-share-title="${escapeHtml(profile.name)}"
+        data-share-text="${escapeHtml(shareMessage)}"
+        data-share-url="${escapeHtml(shareUrl)}"
+        data-share-video="${escapeHtml(firstVideo)}"
+        aria-label="Сподели профила на ${escapeHtml(profile.name)} към Instagram"
+        title="Instagram"
+      `;
+    buttons.push(`
+      <a class="share-button share-button-instagram" ${nativeAttributes}>
+        <span class="share-button-label">IG</span>
+      </a>
+    `);
+    buttons.push(`
+      <a
+        class="share-button share-button-tiktok"
+        href="${escapeHtml(shareUrl)}"
+        role="button"
+        data-native-share="tiktok"
+        data-share-title="${escapeHtml(profile.name)}"
+        data-share-text="${escapeHtml(shareMessage)}"
+        data-share-url="${escapeHtml(shareUrl)}"
+        data-share-video="${escapeHtml(firstVideo)}"
+        aria-label="Сподели профила на ${escapeHtml(profile.name)} към TikTok"
+        title="TikTok"
+      >
+        <span class="share-button-label">TT</span>
+      </a>
+    `);
+  }
+
+  if (includeOpenLink) {
+    buttons.push(`
+      <a class="button button-secondary profile-open-link" href="${escapeHtml(shareUrl)}">
+        Отвори споделимата страница
+      </a>
+    `);
+  }
+
+  return `
+    <div class="profile-actions">
+      <div class="share-button-group">
+        ${buttons.join("")}
+      </div>
+    </div>
+  `;
+}
+
 function pickHeroProfile(profiles) {
   const heroProfiles = profiles.filter((profile) => profile?.image);
 
@@ -201,21 +310,10 @@ function renderProfiles(profiles, options = {}) {
         funnel: profile.funnel || "",
         insight: profile.insight || "",
       };
+      const profileVideos = getProfileVideos(profile);
       const kickerBlock = hook.kicker ? `<p class="profile-kicker">${escapeHtml(hook.kicker)}</p>` : "";
       const summaryBlock = hook.summary ? `<p class="profile-summary">${escapeHtml(hook.summary)}</p>` : "";
-      const shareBlock = `
-        <div class="profile-actions">
-          <a
-            class="share-button share-button-facebook"
-            href="${escapeHtml(getFacebookShareUrl(profile))}"
-            target="_blank"
-            rel="noopener"
-            aria-label="Сподели профила на ${escapeHtml(profile.name)} във Facebook"
-          >
-            Сподели във Facebook
-          </a>
-        </div>
-      `;
+      const shareBlock = getShareButtons(profile);
       const descriptionBlock = profile.description
         ? `
             <div class="profile-description">
@@ -259,11 +357,6 @@ function renderProfiles(profiles, options = {}) {
 
       const signalGrid = `<dl class="signal-grid">${signalItems.join("")}</dl>`;
       const insightBlock = hook.insight ? `<p class="profile-insight">${escapeHtml(hook.insight)}</p>` : "";
-      const profileVideos = Array.isArray(profile.videos)
-        ? profile.videos
-        : profile.video
-          ? [profile.video]
-          : [];
       const profileVideo = profileVideos.length
         ? `
             <div class="profile-video-wrap" data-count="${profileVideos.length}">

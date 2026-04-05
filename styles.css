@@ -826,18 +826,27 @@ code {
   align-items: center;
 }
 
+.share-button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  align-items: center;
+}
+
 .share-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 42px;
-  padding: 0.72rem 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  min-height: 2.5rem;
+  padding: 0;
   border-radius: 999px;
   border: 1px solid rgba(16, 20, 17, 0.12);
-  background: rgba(255, 255, 255, 0.62);
+  background: rgba(255, 255, 255, 0.6);
   color: var(--ink);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
   transition:
     transform 220ms ease,
     background-color 220ms ease,
@@ -850,17 +859,71 @@ code {
   transform: translateY(-2px);
 }
 
+.share-button-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.45rem;
+  font-size: 0.68rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .share-button-facebook {
-  border-color: rgba(24, 119, 242, 0.26);
-  background: rgba(24, 119, 242, 0.1);
-  color: #114a98;
+  border-color: rgba(24, 119, 242, 0.2);
+  background: rgba(24, 119, 242, 0.08);
+  color: #12458c;
 }
 
 .share-button-facebook:hover,
 .share-button-facebook:focus-visible {
-  border-color: rgba(24, 119, 242, 0.46);
-  background: rgba(24, 119, 242, 0.16);
+  border-color: rgba(24, 119, 242, 0.38);
+  background: rgba(24, 119, 242, 0.14);
   color: #0d3d7d;
+}
+
+.share-button-linkedin {
+  border-color: rgba(10, 102, 194, 0.18);
+  background: rgba(10, 102, 194, 0.07);
+  color: #0a4f98;
+}
+
+.share-button-linkedin:hover,
+.share-button-linkedin:focus-visible {
+  border-color: rgba(10, 102, 194, 0.34);
+  background: rgba(10, 102, 194, 0.13);
+  color: #083f78;
+}
+
+.share-button-instagram {
+  border-color: rgba(188, 42, 141, 0.18);
+  background: rgba(188, 42, 141, 0.07);
+  color: #8a225f;
+}
+
+.share-button-instagram:hover,
+.share-button-instagram:focus-visible {
+  border-color: rgba(188, 42, 141, 0.32);
+  background: rgba(188, 42, 141, 0.13);
+  color: #6f194c;
+}
+
+.share-button-tiktok {
+  border-color: rgba(16, 20, 17, 0.16);
+  background: rgba(16, 20, 17, 0.06);
+  color: #101411;
+}
+
+.share-button-tiktok:hover,
+.share-button-tiktok:focus-visible {
+  border-color: rgba(16, 20, 17, 0.28);
+  background: rgba(16, 20, 17, 0.12);
+}
+
+.profile-open-link {
+  min-height: 2.5rem;
+  padding-inline: 1rem;
 }
 
 .profile-description {
@@ -1474,6 +1537,33 @@ code {
   min-width: 12rem;
 }
 
+.share-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.1rem;
+  z-index: 10001;
+  width: min(32rem, calc(100vw - 1.5rem));
+  padding: 0.9rem 1rem;
+  border-radius: 999px;
+  background: rgba(16, 20, 17, 0.92);
+  color: rgba(255, 247, 239, 0.94);
+  text-align: center;
+  font-size: 0.94rem;
+  line-height: 1.45;
+  box-shadow: 0 20px 48px rgba(16, 20, 17, 0.24);
+  transform: translate(-50%, 18px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.share-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -1576,6 +1666,10 @@ code {
   .profile-actions {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .share-button-group {
+    justify-content: center;
   }
 
   .mini-button {
