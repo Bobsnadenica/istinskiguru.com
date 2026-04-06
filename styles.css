@@ -322,6 +322,10 @@ code {
   line-height: 1;
 }
 
+.money-game-panel[data-balance="negative"] .money-game-amount strong {
+  color: rgba(109, 54, 45, 0.96);
+}
+
 .money-game-target {
   color: rgba(16, 20, 17, 0.6);
   font-size: 0.74rem;
@@ -347,6 +351,11 @@ code {
 
 .money-game-panel[data-state="expense"] .money-game-message {
   color: rgba(109, 54, 45, 0.92);
+}
+
+.money-game-panel[data-state="tax"] .money-game-message {
+  color: rgba(109, 54, 45, 0.96);
+  font-weight: 700;
 }
 
 .hero,

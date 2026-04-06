@@ -10,19 +10,20 @@ let moneyGameHideTimeoutId = 0;
 const moneyGameState = {
   collected: 0,
   target: 1400,
+  clicks: 0,
   rounds: 0,
 };
 const moneyGameHideDelay = 2600;
 const expenseEvents = [
-  { label: "baby", amountEuro: 260 },
-  { label: "wedding", amountEuro: 480 },
-  { label: "car broke down", amountEuro: 340 },
-  { label: "rent", amountEuro: 420 },
-  { label: "dentist", amountEuro: 180 },
-  { label: "vet bill", amountEuro: 160 },
-  { label: "birthday", amountEuro: 140 },
-  { label: "taxes", amountEuro: 390 },
-  { label: "phone died", amountEuro: 220 },
+  { label: "бебе", amountEuro: 260 },
+  { label: "сватба", amountEuro: 480 },
+  { label: "ремонт на кола", amountEuro: 340 },
+  { label: "наем", amountEuro: 420 },
+  { label: "зъболекар", amountEuro: 180 },
+  { label: "ветеринар", amountEuro: 160 },
+  { label: "рожден ден", amountEuro: 140 },
+  { label: "данъци", amountEuro: 390 },
+  { label: "нов телефон", amountEuro: 220 },
 ];
 
 function prefersReducedMotion() {
@@ -105,7 +106,7 @@ function refreshPageEffects() {
 }
 
 function formatMoneyGameAmount(value) {
-  return new Intl.NumberFormat("bg-BG").format(Math.max(0, Math.round(value)));
+  return new Intl.NumberFormat("bg-BG").format(Math.round(value));
 }
 
 function normaliseMoneyToEuro(amount, currency) {
@@ -151,6 +152,18 @@ function getExpenseHitMessage(label) {
   ];
 
   return messages[Math.floor(Math.random() * messages.length)];
+}
+
+function getTaxCharge(balance) {
+  if (!balance) {
+    return 0;
+  }
+
+  return Math.max(1, Math.round(Math.abs(balance) * 0.3));
+}
+
+function getTaxHitMessage(taxAmount) {
+  return `Десети клик. Данък 30%: -${formatMoneyGameAmount(taxAmount)} €. Но спокойно, пак си почти там.`;
 }
 
 function createMoneyGamePanel() {
@@ -249,7 +262,9 @@ function updateMoneyGamePanel() {
   const fill = panel.querySelector("[data-money-game-fill]");
   const current = panel.querySelector("[data-money-game-current]");
   const target = panel.querySelector("[data-money-game-target]");
-  const progress = moneyGameState.target ? Math.min(1, moneyGameState.collected / moneyGameState.target) : 0;
+  const progress = moneyGameState.target ? Math.max(0, Math.min(1, moneyGameState.collected / moneyGameState.target)) : 0;
+
+  panel.dataset.balance = moneyGameState.collected < 0 ? "negative" : "positive";
 
   if (fill) {
     fill.style.setProperty("--money-progress", progress.toFixed(4));
@@ -400,10 +415,11 @@ function initMoneyRain() {
     }
 
     const currentCollected = moneyGameState.collected;
-    const nextCollected = Math.max(0, Math.min(moneyGameState.target, currentCollected + amountEuro));
+    const nextCollected = currentCollected + amountEuro;
     const appliedDelta = nextCollected - currentCollected;
 
     showMoneyGamePanel();
+    moneyGameState.clicks += 1;
     moneyGameState.collected = nextCollected;
     updateMoneyGamePanel();
 
@@ -413,19 +429,40 @@ function initMoneyRain() {
 
     replaceMoneyNote(target);
 
+    const taxShouldApply = moneyGameState.clicks % 10 === 0;
+
+    if (taxShouldApply) {
+      const taxAmount = getTaxCharge(moneyGameState.collected);
+
+      if (taxAmount > 0) {
+        moneyGameState.collected -= taxAmount;
+        updateMoneyGamePanel();
+        spawnMoneyPop(target, -taxAmount);
+        setMoneyGameMessage(getTaxHitMessage(taxAmount), {
+          state: "tax",
+          temporary: true,
+          duration: 2500,
+        });
+      }
+    }
+
     if (amountEuro < 0) {
       const expenseLabel = target.dataset.label || "Разход";
-      setMoneyGameMessage(getExpenseHitMessage(expenseLabel), {
-        state: "expense",
-        temporary: true,
-        duration: 2200,
-      });
+      if (!taxShouldApply) {
+        setMoneyGameMessage(getExpenseHitMessage(expenseLabel), {
+          state: "expense",
+          temporary: true,
+          duration: 2200,
+        });
+      }
       scheduleMoneyGameHide();
       return;
     }
 
     if (moneyGameState.collected < moneyGameState.target) {
-      setMoneyGameMessage(getMoneyIdleMessage(), { state: "collecting" });
+      if (!taxShouldApply) {
+        setMoneyGameMessage(getMoneyIdleMessage(), { state: "collecting" });
+      }
       scheduleMoneyGameHide();
       return;
     }
