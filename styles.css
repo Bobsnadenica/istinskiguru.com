@@ -82,6 +82,68 @@ code {
   opacity: 0.8;
 }
 
+.money-game-toggle {
+  position: fixed;
+  top: 0.9rem;
+  right: 0.9rem;
+  z-index: 7;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.35rem;
+  padding: 0.38rem 0.46rem 0.38rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.54), rgba(255, 255, 255, 0.2)),
+    rgba(247, 241, 231, 0.34);
+  color: var(--ink);
+  box-shadow:
+    0 16px 36px rgba(16, 20, 17, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(18px) saturate(135%);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.money-game-toggle:hover,
+.money-game-toggle:focus-visible {
+  transform: translateY(-1px);
+  box-shadow:
+    0 22px 42px rgba(16, 20, 17, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.68);
+}
+
+.money-game-toggle-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.money-game-toggle-state {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3rem;
+  min-height: 1.55rem;
+  padding: 0 0.55rem;
+  border-radius: 999px;
+  background: rgba(32, 55, 47, 0.92);
+  color: rgba(255, 247, 239, 0.96);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.money-game-toggle[data-state="off"] .money-game-toggle-state {
+  background: rgba(109, 54, 45, 0.9);
+}
+
 .money-note,
 .expense-note {
   position: absolute;
@@ -2288,6 +2350,11 @@ code {
 }
 
 @media (max-width: 980px) {
+  .money-game-toggle {
+    top: 0.65rem;
+    right: 0.65rem;
+  }
+
   .money-game-panel {
     --money-panel-visible-transform: translateY(0);
     --money-panel-hidden-transform: translateY(12px);
@@ -2345,6 +2412,24 @@ code {
 }
 
 @media (max-width: 720px) {
+  .money-game-toggle {
+    top: 0.5rem;
+    right: 0.5rem;
+    gap: 0.4rem;
+    min-height: 2.1rem;
+    padding: 0.34rem 0.4rem 0.34rem 0.68rem;
+  }
+
+  .money-game-toggle-label {
+    font-size: 0.66rem;
+  }
+
+  .money-game-toggle-state {
+    min-width: 2.7rem;
+    min-height: 1.45rem;
+    font-size: 0.68rem;
+  }
+
   .expense-note-core {
     width: 5.7rem;
     min-height: 4.8rem;

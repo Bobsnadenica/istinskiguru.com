@@ -4,9 +4,11 @@ let scrollEffectsBound = false;
 let moneyRainBound = false;
 let moneyRainRoot = null;
 let moneyGamePanel = null;
+let moneyGameToggle = null;
 let moneyGameMessageTimeoutId = 0;
 let moneyGameResetTimeoutId = 0;
 let moneyGameHideTimeoutId = 0;
+let moneyGameEnabled = true;
 const moneyGameState = {
   collected: 0,
   target: 1400,
@@ -15,6 +17,7 @@ const moneyGameState = {
   rounds: 0,
 };
 const moneyGameHideDelay = 2600;
+const moneyGamePreferenceKey = "istinski-guru-money-game";
 const expenseEvents = [
   { id: "bebe", label: "бебе", amountEuro: 260, critical: true, multiplier: 2.1, maxSpawns: 2 },
   { id: "svatba", label: "сватба", amountEuro: 480, critical: true, multiplier: 2.2, maxSpawns: 2 },
@@ -29,6 +32,22 @@ const expenseEvents = [
 
 function prefersReducedMotion() {
   return typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function readMoneyGamePreference() {
+  try {
+    return window.localStorage.getItem(moneyGamePreferenceKey) !== "off";
+  } catch {
+    return true;
+  }
+}
+
+function writeMoneyGamePreference(enabled) {
+  try {
+    window.localStorage.setItem(moneyGamePreferenceKey, enabled ? "on" : "off");
+  } catch {
+    // Ignore storage failures and keep the in-memory state.
+  }
 }
 
 function seedRevealTargets() {
@@ -148,6 +167,38 @@ function getMoneyIdleMessage() {
     : "Почти си готов. Остава съвсем малко.";
 }
 
+function createMoneyGameToggle() {
+  const button = document.createElement("button");
+  button.className = "money-game-toggle";
+  button.type = "button";
+  button.innerHTML = `
+    <span class="money-game-toggle-label">Игра</span>
+    <span class="money-game-toggle-state" data-money-game-toggle-state></span>
+  `;
+  button.addEventListener("click", () => {
+    setMoneyGameEnabled(!moneyGameEnabled);
+  });
+  document.body.append(button);
+  return button;
+}
+
+function getMoneyGameToggle() {
+  return moneyGameToggle || (moneyGameToggle = createMoneyGameToggle());
+}
+
+function updateMoneyGameToggle() {
+  const toggle = getMoneyGameToggle();
+  const stateNode = toggle.querySelector("[data-money-game-toggle-state]");
+
+  toggle.dataset.state = moneyGameEnabled ? "on" : "off";
+  toggle.setAttribute("aria-pressed", String(moneyGameEnabled));
+  toggle.setAttribute("aria-label", moneyGameEnabled ? "Изключи играта" : "Включи играта");
+
+  if (stateNode) {
+    stateNode.textContent = moneyGameEnabled ? "Вкл" : "Изкл";
+  }
+}
+
 function getExpenseHitMessage(label, options = {}) {
   const prefix = options.critical ? `Критично: ${label}.` : `${label}.`;
   const messages = options.autoCharged
@@ -222,6 +273,10 @@ function getMoneyGamePanel() {
 }
 
 function hideMoneyGamePanel() {
+  if (!moneyGamePanel) {
+    return;
+  }
+
   const panel = getMoneyGamePanel();
 
   window.clearTimeout(moneyGameHideTimeoutId);
@@ -248,6 +303,10 @@ function scheduleMoneyGameHide(delay = moneyGameHideDelay) {
 }
 
 function showMoneyGamePanel() {
+  if (!moneyGameEnabled) {
+    return;
+  }
+
   const panel = getMoneyGamePanel();
 
   window.clearTimeout(moneyGameHideTimeoutId);
@@ -265,6 +324,10 @@ function showMoneyGamePanel() {
 }
 
 function setMoneyGameMessage(message, options = {}) {
+  if (!moneyGameEnabled && !moneyGamePanel) {
+    return;
+  }
+
   const panel = getMoneyGamePanel();
   const messageNode = panel.querySelector("[data-money-game-message]");
 
@@ -287,6 +350,10 @@ function setMoneyGameMessage(message, options = {}) {
 }
 
 function updateMoneyGamePanel() {
+  if (!moneyGameEnabled && !moneyGamePanel) {
+    return;
+  }
+
   const panel = getMoneyGamePanel();
   const fill = panel.querySelector("[data-money-game-fill]");
   const current = panel.querySelector("[data-money-game-current]");
@@ -440,8 +507,42 @@ function buildRainItem() {
   return Math.random() < 0.24 ? buildExpenseNote() : buildMoneyNote();
 }
 
+function teardownMoneyGame() {
+  window.clearTimeout(moneyGameMessageTimeoutId);
+  window.clearTimeout(moneyGameHideTimeoutId);
+  moneyGameMessageTimeoutId = 0;
+  moneyGameHideTimeoutId = 0;
+
+  if (moneyRainRoot) {
+    moneyRainRoot.remove();
+    moneyRainRoot = null;
+  }
+
+  if (moneyGamePanel) {
+    moneyGamePanel.remove();
+    moneyGamePanel = null;
+  }
+
+  moneyRainBound = false;
+}
+
+function setMoneyGameEnabled(enabled) {
+  moneyGameEnabled = enabled;
+  writeMoneyGamePreference(enabled);
+  updateMoneyGameToggle();
+
+  if (!enabled) {
+    teardownMoneyGame();
+    return;
+  }
+
+  if (!prefersReducedMotion()) {
+    initMoneyRain();
+  }
+}
+
 function initMoneyRain() {
-  if (moneyRainBound || prefersReducedMotion() || !document.body) {
+  if (moneyRainBound || !moneyGameEnabled || prefersReducedMotion() || !document.body) {
     return;
   }
 
@@ -545,10 +646,16 @@ function initMoneyRain() {
     moneyGameResetTimeoutId = window.setTimeout(() => {
       moneyGameState.target = nextTarget;
       moneyGameState.collected = 0;
-      panel.classList.remove("is-complete");
-      updateMoneyGamePanel();
+      if (panel?.isConnected) {
+        panel.classList.remove("is-complete");
+      }
+      if (moneyGameEnabled) {
+        updateMoneyGamePanel();
+      }
       moneyGameResetTimeoutId = 0;
-      scheduleMoneyGameHide();
+      if (moneyGameEnabled) {
+        scheduleMoneyGameHide();
+      }
     }, 920);
   });
 
@@ -637,8 +744,12 @@ function initPageEffects() {
     return;
   }
 
+  moneyGameEnabled = readMoneyGamePreference();
+  updateMoneyGameToggle();
   refreshPageEffects();
-  initMoneyRain();
+  if (moneyGameEnabled) {
+    initMoneyRain();
+  }
   initScrollEffects();
 }
 
