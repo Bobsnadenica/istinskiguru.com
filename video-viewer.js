@@ -17,7 +17,9 @@ function createVideoViewer() {
         </button>
       </div>
       <div class="video-viewer-stage">
-        <video class="video-viewer-player" controls playsinline preload="metadata"></video>
+        <video class="video-viewer-player" controls playsinline preload="metadata">
+          <source class="video-viewer-source" />
+        </video>
       </div>
     </section>
   `;
@@ -37,12 +39,21 @@ function closeVideoViewer() {
   }
 
   const player = viewer.querySelector(".video-viewer-player");
+  const source = viewer.querySelector(".video-viewer-source");
 
   if (player instanceof HTMLVideoElement) {
     player.pause();
-    player.removeAttribute("src");
+    player.preload = "metadata";
     player.removeAttribute("poster");
-    player.load();
+
+    if (source instanceof HTMLSourceElement) {
+      source.removeAttribute("src");
+      source.removeAttribute("type");
+      player.load();
+    } else {
+      player.removeAttribute("src");
+      player.load();
+    }
   }
 
   viewer.classList.remove("is-visible");
@@ -58,6 +69,7 @@ function closeVideoViewer() {
 
 function openVideoViewer(trigger) {
   const videoSrc = trigger.getAttribute("data-video-src") || "";
+  const videoType = trigger.getAttribute("data-video-type") || "";
 
   if (!videoSrc) {
     return;
@@ -68,6 +80,7 @@ function openVideoViewer(trigger) {
   const viewer = getVideoViewer();
   const title = viewer.querySelector("#video-viewer-title");
   const player = viewer.querySelector(".video-viewer-player");
+  const source = viewer.querySelector(".video-viewer-source");
 
   if (!(player instanceof HTMLVideoElement)) {
     return;
@@ -80,7 +93,19 @@ function openVideoViewer(trigger) {
   }
 
   player.pause();
-  player.src = videoSrc;
+  player.preload = "auto";
+
+  if (source instanceof HTMLSourceElement) {
+    source.src = videoSrc;
+
+    if (videoType) {
+      source.type = videoType;
+    } else {
+      source.removeAttribute("type");
+    }
+  } else {
+    player.src = videoSrc;
+  }
 
   if (videoPoster) {
     player.poster = videoPoster;
