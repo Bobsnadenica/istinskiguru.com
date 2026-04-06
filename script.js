@@ -94,6 +94,17 @@ function normalizeForSearch(value) {
     .trim();
 }
 
+function shuffleProfiles(profiles) {
+  const shuffledProfiles = Array.isArray(profiles) ? [...profiles] : [];
+
+  for (let index = shuffledProfiles.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [shuffledProfiles[index], shuffledProfiles[swapIndex]] = [shuffledProfiles[swapIndex], shuffledProfiles[index]];
+  }
+
+  return shuffledProfiles;
+}
+
 function getSearchableText(profile) {
   return normalizeForSearch(
     [
@@ -621,7 +632,7 @@ function setupReveals() {
 }
 
 async function initPage() {
-  const profiles = await loadProfiles();
+  const profiles = shuffleProfiles(await loadProfiles());
   updateHeroVisual(profiles);
   renderProfiles(profiles);
   setupReveals();
