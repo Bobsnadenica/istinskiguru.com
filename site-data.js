@@ -278,6 +278,46 @@ window.__GURU_PROFILES__ = [
     "shareImage": "site-assets/georgi-zahariev-share.jpg"
   },
   {
+    "id": "emil-stefanov",
+    "name": "Емил Стефанов",
+    "image": "site-assets/emil-stefanov.jpg",
+    "alt": "Профилно изображение за Емил Стефанов",
+    "imageNote": "Пейзажен формат с увереност, че големите резултати са точно зад следващия бутон.",
+    "videos": [],
+    "orientation": "landscape",
+    "description": "Емил Оронов или Емил Стефанов - пичагата си крие истинското име, жена му я намерил в алобг, ама ви учи как да правите пари.",
+    "kicker": "",
+    "summary": "",
+    "aura": "",
+    "funnel": "",
+    "insight": "",
+    "channels": [
+      "Уебсайт",
+      "Facebook",
+      "Linktree",
+      "Telegram"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://emiloronov.bg/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExQVBuRFUwUXhTcHh6UmhNTnNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6XJOcsh3tMIqjxjdlymdeKvzjT6o6sNb5obJJCthFHo_1ws1fNoVZcceI8TQ_aem_BPqgffbeRlcWQYYsY0vHhg"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/emiloronov/"
+      },
+      {
+        "label": "Linktree",
+        "url": "https://linktr.ee/emiloronovtrading?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExQVBuRFUwUXhTcHh6UmhNTnNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4BfSxJ5s2mf9RszZ2Oiul7y4kRVItZKp9gHDrjAF_YuTZiuHOGIKVwffivTA_aem_hHlsQMg_IggZoeXMjFHnSw"
+      },
+      {
+        "label": "Telegram",
+        "url": "https://t.me/chartmentorfree?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExQVBuRFUwUXhTcHh6UmhNTnNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR64ZTj1mpSAmSZ6Do_XyNvP6CU_gN472WyLEE8Lol7900JzKWdsK35P7qfoVA_aem_eTO81iFfpzvuoW_97nufaw"
+      }
+    ],
+    "shareImage": "site-assets/emil-stefanov-share.jpg"
+  },
+  {
     "id": "etien-yanev",
     "name": "Етиен Янев",
     "image": "site-assets/etien-yanev.jpg",
