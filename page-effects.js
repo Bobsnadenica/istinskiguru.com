@@ -11,19 +11,20 @@ const moneyGameState = {
   collected: 0,
   target: 1400,
   clicks: 0,
+  expenseSpawns: new Map(),
   rounds: 0,
 };
 const moneyGameHideDelay = 2600;
 const expenseEvents = [
-  { label: "бебе", amountEuro: 260 },
-  { label: "сватба", amountEuro: 480 },
-  { label: "ремонт на кола", amountEuro: 340 },
-  { label: "наем", amountEuro: 420 },
-  { label: "зъболекар", amountEuro: 180 },
-  { label: "ветеринар", amountEuro: 160 },
-  { label: "рожден ден", amountEuro: 140 },
-  { label: "данъци", amountEuro: 390 },
-  { label: "нов телефон", amountEuro: 220 },
+  { id: "bebe", label: "бебе", amountEuro: 260, critical: true, multiplier: 2.1, maxSpawns: 2 },
+  { id: "svatba", label: "сватба", amountEuro: 480, critical: true, multiplier: 2.2, maxSpawns: 2 },
+  { id: "kola", label: "ремонт на кола", amountEuro: 340 },
+  { id: "naem", label: "наем", amountEuro: 420 },
+  { id: "zabolekar", label: "зъболекар", amountEuro: 180 },
+  { id: "veterinar", label: "ветеринар", amountEuro: 160 },
+  { id: "rojden-den", label: "рожден ден", amountEuro: 140 },
+  { id: "danatsi", label: "данъци", amountEuro: 390 },
+  { id: "telefon", label: "нов телефон", amountEuro: 220 },
 ];
 
 function prefersReducedMotion() {
@@ -125,6 +126,10 @@ function getNextMoneyTarget(currentTarget, rounds) {
   return Math.round(currentTarget * 1.72 + 950 + rounds * 420);
 }
 
+function getCurrentMoneyLevel() {
+  return moneyGameState.rounds + 1;
+}
+
 function getMoneyMockMessage(nextTarget) {
   const messages = [
     `Чудесно. Вече си почти там. Остава само още един курс за ${formatMoneyGameAmount(nextTarget)}.`,
@@ -143,13 +148,21 @@ function getMoneyIdleMessage() {
     : "Почти си готов. Остава съвсем малко.";
 }
 
-function getExpenseHitMessage(label) {
-  const messages = [
-    `${label}. Няма страшно. Пак си почти там.`,
-    `${label}. Малък разход. Но вече си доста близо.`,
-    `${label}. Леко те дръпна назад, но си почти готов.`,
-    `${label}. Не е идеално, но следващото ниво пак е съвсем наблизо.`,
-  ];
+function getExpenseHitMessage(label, options = {}) {
+  const prefix = options.critical ? `Критично: ${label}.` : `${label}.`;
+  const messages = options.autoCharged
+    ? [
+        `${prefix} Стигна дъното и директно удари фонда.`,
+        `${prefix} Така или иначе трябваше да се плати.`,
+        `${prefix} Изчака те най-отдолу и си взе своето.`,
+        `${prefix} Не можа да го избегнеш. Пак си почти там.`,
+      ]
+    : [
+        `${prefix} Няма страшно. Пак си почти там.`,
+        `${prefix} Малък разход. Но вече си доста близо.`,
+        `${prefix} Леко те дръпна назад, но си почти готов.`,
+        `${prefix} Не е идеално, но следващото ниво пак е съвсем наблизо.`,
+      ];
 
   return messages[Math.floor(Math.random() * messages.length)];
 }
@@ -166,6 +179,21 @@ function getTaxHitMessage(taxAmount) {
   return `Десети клик. Данък 30%: -${formatMoneyGameAmount(taxAmount)} €. Но спокойно, пак си почти там.`;
 }
 
+function canSpawnExpense(expense) {
+  if (!expense.maxSpawns) {
+    return true;
+  }
+
+  return (moneyGameState.expenseSpawns.get(expense.id) || 0) < expense.maxSpawns;
+}
+
+function pickExpenseEvent() {
+  const availableExpenses = expenseEvents.filter(canSpawnExpense);
+  const pool = availableExpenses.length ? availableExpenses : expenseEvents.filter((expense) => !expense.maxSpawns);
+
+  return pool[Math.floor(Math.random() * pool.length)] || expenseEvents[0];
+}
+
 function createMoneyGamePanel() {
   const panel = document.createElement("aside");
   panel.className = "money-game-panel";
@@ -173,6 +201,7 @@ function createMoneyGamePanel() {
   panel.innerHTML = `
     <p class="money-game-eyebrow">Фонд</p>
     <h2>Следващо ниво</h2>
+    <p class="money-game-level">Ниво <span data-money-game-level>${getCurrentMoneyLevel()}</span></p>
     <div class="money-game-stack">
       <div class="money-game-meter" aria-hidden="true">
         <div class="money-game-meter-fill" data-money-game-fill></div>
@@ -262,6 +291,7 @@ function updateMoneyGamePanel() {
   const fill = panel.querySelector("[data-money-game-fill]");
   const current = panel.querySelector("[data-money-game-current]");
   const target = panel.querySelector("[data-money-game-target]");
+  const level = panel.querySelector("[data-money-game-level]");
   const progress = moneyGameState.target ? Math.max(0, Math.min(1, moneyGameState.collected / moneyGameState.target)) : 0;
 
   panel.dataset.balance = moneyGameState.collected < 0 ? "negative" : "positive";
@@ -277,10 +307,16 @@ function updateMoneyGamePanel() {
   if (target) {
     target.textContent = formatMoneyGameAmount(moneyGameState.target);
   }
+
+  if (level) {
+    level.textContent = String(getCurrentMoneyLevel());
+  }
 }
 
 function spawnMoneyPop(note, amountEuro) {
   const rect = note.getBoundingClientRect();
+  const anchorX = Math.min(window.innerWidth - 28, Math.max(28, rect.left + rect.width / 2));
+  const anchorY = Math.min(window.innerHeight - 36, Math.max(36, rect.top + rect.height / 2));
   const pop = document.createElement("span");
   pop.className = "money-pop";
 
@@ -289,10 +325,20 @@ function spawnMoneyPop(note, amountEuro) {
   }
 
   pop.textContent = `${amountEuro < 0 ? "-" : "+"}${formatMoneyGameAmount(Math.abs(amountEuro))} €`;
-  pop.style.left = `${rect.left + rect.width / 2}px`;
-  pop.style.top = `${rect.top + rect.height / 2}px`;
+  pop.style.left = `${anchorX}px`;
+  pop.style.top = `${anchorY}px`;
   document.body.append(pop);
   window.setTimeout(() => pop.remove(), 950);
+}
+
+function resolveRainItem(note) {
+  if (!(note instanceof HTMLButtonElement) || note.dataset.resolved === "true") {
+    return false;
+  }
+
+  note.dataset.resolved = "true";
+  note.disabled = true;
+  return true;
 }
 
 function replaceMoneyNote(note) {
@@ -351,17 +397,28 @@ function buildMoneyNote() {
 }
 
 function buildExpenseNote() {
-  const expense = expenseEvents[Math.floor(Math.random() * expenseEvents.length)];
+  const expense = pickExpenseEvent();
+  const isCritical = Boolean(expense.critical);
+  const amountEuro = Math.round(expense.amountEuro * (expense.multiplier || 1));
   const note = document.createElement("button");
   note.className = "expense-note";
   note.type = "button";
   note.tabIndex = -1;
   note.dataset.rainItem = "expense";
-  note.dataset.amountEuro = String(-expense.amountEuro);
+  note.dataset.expenseId = expense.id;
+  note.dataset.amountEuro = String(-amountEuro);
   note.dataset.label = expense.label;
+  note.dataset.critical = isCritical ? "true" : "false";
+
+  moneyGameState.expenseSpawns.set(expense.id, (moneyGameState.expenseSpawns.get(expense.id) || 0) + 1);
+
+  if (isCritical) {
+    note.classList.add("is-critical");
+  }
+
   note.setAttribute(
     "aria-label",
-    `${expense.label}. Ако го натиснеш, ще отнеме ${formatMoneyGameAmount(expense.amountEuro)} евро от фонда.`,
+    `${isCritical ? "Критично. " : ""}${expense.label}. Ако го натиснеш, ще отнеме ${formatMoneyGameAmount(amountEuro)} евро от фонда.`,
   );
   note.style.setProperty("--left", `${Math.random() * 100}%`);
   note.style.setProperty("--duration", `${16 + Math.random() * 12}s`);
@@ -372,6 +429,7 @@ function buildExpenseNote() {
   note.style.setProperty("--swing-duration", `${4.2 + Math.random() * 3.4}s`);
   note.innerHTML = `
     <span class="expense-note-core">
+      ${isCritical ? '<span class="expense-note-badge">Критично</span>' : ""}
       <span class="expense-note-label">${expense.label}</span>
     </span>
   `;
@@ -414,6 +472,10 @@ function initMoneyRain() {
       return;
     }
 
+    if (!resolveRainItem(target)) {
+      return;
+    }
+
     const currentCollected = moneyGameState.collected;
     const nextCollected = currentCollected + amountEuro;
     const appliedDelta = nextCollected - currentCollected;
@@ -448,8 +510,9 @@ function initMoneyRain() {
 
     if (amountEuro < 0) {
       const expenseLabel = target.dataset.label || "Разход";
+      const isCritical = target.dataset.critical === "true";
       if (!taxShouldApply) {
-        setMoneyGameMessage(getExpenseHitMessage(expenseLabel), {
+        setMoneyGameMessage(getExpenseHitMessage(expenseLabel, { critical: isCritical }), {
           state: "expense",
           temporary: true,
           duration: 2200,
@@ -487,6 +550,44 @@ function initMoneyRain() {
       moneyGameResetTimeoutId = 0;
       scheduleMoneyGameHide();
     }, 920);
+  });
+
+  rain.addEventListener("animationiteration", (event) => {
+    if (event.animationName !== "money-fall") {
+      return;
+    }
+
+    const target = event.target instanceof Element ? event.target.closest(".expense-note") : null;
+
+    if (!(target instanceof HTMLButtonElement) || moneyGameResetTimeoutId) {
+      return;
+    }
+
+    if (!resolveRainItem(target)) {
+      return;
+    }
+
+    const amountEuro = Number.parseFloat(target.dataset.amountEuro || "0") || 0;
+
+    if (!amountEuro) {
+      replaceMoneyNote(target);
+      return;
+    }
+
+    showMoneyGamePanel();
+    moneyGameState.collected += amountEuro;
+    updateMoneyGamePanel();
+    spawnMoneyPop(target, amountEuro);
+    replaceMoneyNote(target);
+
+    const expenseLabel = target.dataset.label || "Разход";
+    const isCritical = target.dataset.critical === "true";
+    setMoneyGameMessage(getExpenseHitMessage(expenseLabel, { autoCharged: true, critical: isCritical }), {
+      state: "expense",
+      temporary: true,
+      duration: 2400,
+    });
+    scheduleMoneyGameHide();
   });
 
   document.body.prepend(rain);
