@@ -10,6 +10,10 @@ const heroStorageKey = "guruHeroIndex";
 const defaultHeroLabel = heroQuoteLabel?.textContent?.trim() || "Полево наблюдение";
 const defaultHeroText =
   heroQuoteText?.textContent?.trim() || "Силно кафе. Още по-силна енергия за наставничество.";
+let currentRenderedProfiles = [];
+let currentRenderOptions = {};
+let activeProfileId = "";
+let profileGalleryBound = false;
 
 function getProfileId(profile) {
   if (profile?.id) {
@@ -331,11 +335,328 @@ function updateHeroVisual(profiles) {
   }
 }
 
+function getChannelLinksMarkup(profile) {
+  return profile.links
+    .map(
+      (link) =>
+        `<a href="${escapeHtml(link.url)}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`,
+    )
+    .join("");
+}
+
+function getProfileDetailMarkup(profile, options = {}) {
+  const { includeOpenLink = true } = options;
+  const hook = {
+    kicker: profile.kicker || "",
+    summary: profile.summary || "",
+    aura: profile.aura || "",
+    funnel: profile.funnel || "",
+    insight: profile.insight || "",
+  };
+  const profileVideos = getProfileVideos(profile);
+  const kickerBlock = hook.kicker ? `<p class="profile-kicker">${escapeHtml(hook.kicker)}</p>` : "";
+  const summaryBlock = hook.summary ? `<p class="profile-summary">${escapeHtml(hook.summary)}</p>` : "";
+  const shareBlock = getShareButtons(profile, { includeOpenLink });
+  const descriptionBlock = profile.description
+    ? `
+        <div class="profile-description">
+          <p class="profile-description-label">Описание</p>
+          <p>${escapeHtml(profile.description)}</p>
+        </div>
+      `
+    : "";
+  const channelLinks = getChannelLinksMarkup(profile);
+  const signalItems = [
+    `
+      <div>
+        <dt>Канали</dt>
+        <dd class="channel-links">${channelLinks}</dd>
+      </div>
+    `,
+  ];
+
+  if (hook.aura) {
+    signalItems.push(`
+      <div>
+        <dt>Обещан вайб</dt>
+        <dd>${escapeHtml(hook.aura)}</dd>
+      </div>
+    `);
+  }
+
+  if (hook.funnel) {
+    signalItems.push(`
+      <div>
+        <dt>Прочит</dt>
+        <dd>${escapeHtml(hook.funnel)}</dd>
+      </div>
+    `);
+  }
+
+  const signalGrid = `<dl class="signal-grid">${signalItems.join("")}</dl>`;
+  const insightBlock = hook.insight ? `<p class="profile-insight">${escapeHtml(hook.insight)}</p>` : "";
+  const profileVideo = profileVideos.length
+    ? `
+        <div class="profile-video-wrap" data-count="${profileVideos.length}">
+          <p class="profile-video-label">${profileVideos.length > 1 ? "Видеа" : "Видео"}</p>
+          <div class="profile-video-grid">
+            ${profileVideos
+              .map(
+                (videoPath, index) => `
+                  <div class="profile-video-frame">
+                    <button
+                      class="profile-video-launch"
+                      type="button"
+                      data-video-launch
+                      data-video-src="${encodeURI(videoPath)}"
+                      data-video-type="${getVideoMimeType(videoPath)}"
+                      data-video-poster="${encodeURI(profile.image)}"
+                      data-video-title="${escapeHtml(`${profile.name} • ${profileVideos.length > 1 ? `Видео ${index + 1}` : "Видео"}`)}"
+                      aria-label="Отвори ${escapeHtml(profileVideos.length > 1 ? `видео ${index + 1}` : "видеото")} на ${escapeHtml(profile.name)}"
+                    >
+                      <img class="profile-video-poster" src="${encodeURI(profile.image)}" alt="" loading="lazy" decoding="async" fetchpriority="low" />
+                      <span class="profile-video-overlay">
+                        <span class="profile-video-badge">${profileVideos.length > 1 ? `Видео ${index + 1}` : "Видео"}</span>
+                        <span class="profile-video-hint">Гледай на голям екран</span>
+                      </span>
+                    </button>
+                  </div>
+                `,
+              )
+              .join("")}
+          </div>
+        </div>
+      `
+    : "";
+
+  return `
+    <article
+      class="profile-card guru-detail-card"
+      tabindex="-1"
+      data-orientation="${escapeHtml(profile.orientation)}"
+      data-profile-detail="${escapeHtml(getProfileId(profile))}"
+    >
+      <div class="profile-rail">
+        <div class="profile-media">
+          <img src="${encodeURI(profile.image)}" alt="${escapeHtml(profile.alt)}" loading="lazy" decoding="async" fetchpriority="low" />
+          <div class="media-chip">${escapeHtml(profile.imageNote)}</div>
+        </div>
+        ${profileVideo}
+      </div>
+
+      <div class="profile-copy">
+        <div class="profile-main">
+          ${kickerBlock}
+          <h3>${escapeHtml(profile.name)}</h3>
+          ${summaryBlock}
+          ${shareBlock}
+          ${descriptionBlock}
+          ${signalGrid}
+          ${insightBlock}
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+function getPortraitSubtitle(profile) {
+  return profile.kicker || profile.aura || profile.summary || "Натисни за подробности";
+}
+
+function renderPortrait(profile, index, options = {}) {
+  const { active = false } = options;
+  const profileId = getProfileId(profile);
+  const tilt = ((index % 5) - 2) * 1.15;
+  const depth = 12 + (index % 4) * 5;
+
+  return `
+    <button
+      class="guru-portrait${active ? " is-active" : ""}"
+      type="button"
+      data-profile-activator
+      data-profile-id="${escapeHtml(profileId)}"
+      data-profile-anchor="${escapeHtml(profileId)}"
+      data-orientation="${escapeHtml(profile.orientation)}"
+      aria-pressed="${active}"
+      aria-label="Отвори профила на ${escapeHtml(profile.name)}"
+      style="--portrait-tilt: ${tilt.toFixed(2)}deg; --portrait-depth: ${depth}px;"
+    >
+      <span class="guru-portrait-frame">
+        <img src="${encodeURI(profile.image)}" alt="${escapeHtml(profile.alt)}" loading="lazy" decoding="async" fetchpriority="low" />
+      </span>
+      <span class="guru-portrait-meta">
+        <strong>${escapeHtml(profile.name)}</strong>
+        <em>${escapeHtml(getPortraitSubtitle(profile))}</em>
+      </span>
+    </button>
+  `;
+}
+
+function renderReel(profiles, options = {}) {
+  const { activeId = "", reverse = false, animated = true } = options;
+  const orderedProfiles = reverse ? [...profiles].reverse() : profiles;
+  const portraits = orderedProfiles
+    .map((profile, index) => renderPortrait(profile, index, { active: getProfileId(profile) === activeId }))
+    .join("");
+
+  return `
+    <div class="guru-reel${reverse ? " guru-reel-reverse" : ""}${animated ? "" : " is-static"}">
+      <div class="guru-reel-track">
+        ${portraits}
+        ${animated ? portraits : ""}
+      </div>
+    </div>
+  `;
+}
+
+function getProfileInspectorMarkup(profile) {
+  if (!profile) {
+    return `
+      <div class="guru-inspector-placeholder">
+        <p class="guru-inspector-eyebrow">Избери лице</p>
+        <h3>Натисни снимка и тогава идва пълният пакет.</h3>
+        <p>
+          Описания, линкове, видеа и всичката правилно подредена увереност чакат
+          отдясно, но само след като си избереш ментор.
+        </p>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="guru-inspector-head">
+      <div class="guru-inspector-copy">
+        <p class="guru-inspector-eyebrow">Избран наставник</p>
+        <p class="guru-inspector-title">Пълен профил, чак след клик</p>
+      </div>
+      <button class="guru-inspector-close" type="button" data-profile-close aria-label="Затвори профила">
+        Затвори
+      </button>
+    </div>
+    ${getProfileDetailMarkup(profile, { includeOpenLink: true })}
+  `;
+}
+
+function getActiveRenderedProfile() {
+  return currentRenderedProfiles.find((profile) => getProfileId(profile) === activeProfileId) || null;
+}
+
+function updateActiveProfileUI() {
+  if (!profileList) {
+    return;
+  }
+
+  const activeProfile = getActiveRenderedProfile();
+  const activeHash = typeof window !== "undefined" && window.location.hash
+    ? decodeURIComponent(window.location.hash.slice(1))
+    : "";
+  const activators = profileList.querySelectorAll("[data-profile-activator]");
+  const inspector = profileList.querySelector("[data-guru-inspector]");
+
+  activators.forEach((activator) => {
+    const profileId = activator.getAttribute("data-profile-id") || "";
+    const isActive = Boolean(activeProfile) && profileId === activeProfileId;
+    const isTargeted = activeHash && profileId === activeHash;
+
+    activator.classList.toggle("is-active", isActive);
+    activator.classList.toggle("is-targeted", Boolean(isTargeted));
+    activator.setAttribute("aria-pressed", String(isActive));
+  });
+
+  if (inspector) {
+    inspector.dataset.state = activeProfile ? "active" : "idle";
+    inspector.innerHTML = getProfileInspectorMarkup(activeProfile);
+  }
+}
+
+function updateBrowserHash(nextHash = "") {
+  if (typeof window === "undefined" || typeof window.history?.replaceState !== "function") {
+    return;
+  }
+
+  const nextUrl = new URL(window.location.href);
+  nextUrl.hash = nextHash ? nextHash : "";
+  window.history.replaceState(null, "", `${nextUrl.pathname}${nextUrl.search}${nextUrl.hash}`);
+}
+
+function setActiveProfile(profileId, options = {}) {
+  const { updateHash = true, scrollInspector = false } = options;
+  const nextProfile = currentRenderedProfiles.find((profile) => getProfileId(profile) === profileId);
+
+  if (!nextProfile) {
+    return;
+  }
+
+  activeProfileId = getProfileId(nextProfile);
+
+  if (updateHash) {
+    updateBrowserHash(activeProfileId);
+  }
+
+  updateActiveProfileUI();
+
+  if (scrollInspector) {
+    const inspector = profileList?.querySelector(".guru-inspector");
+    const prefersReducedMotion =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    inspector?.scrollIntoView({
+      block: "nearest",
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
+  }
+}
+
+function clearActiveProfile(options = {}) {
+  const { updateHash = true } = options;
+  activeProfileId = "";
+
+  if (updateHash) {
+    updateBrowserHash("");
+  }
+
+  updateActiveProfileUI();
+}
+
+function bindProfileGalleryInteractions() {
+  if (!profileList || profileGalleryBound) {
+    return;
+  }
+
+  profileGalleryBound = true;
+
+  profileList.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+
+    if (!target) {
+      return;
+    }
+
+    const activator = target.closest("[data-profile-activator]");
+
+    if (activator instanceof HTMLElement) {
+      event.preventDefault();
+      setActiveProfile(activator.getAttribute("data-profile-id") || "", { updateHash: true, scrollInspector: true });
+      return;
+    }
+
+    const closeButton = target.closest("[data-profile-close]");
+
+    if (closeButton) {
+      event.preventDefault();
+      clearActiveProfile({ updateHash: true });
+    }
+  });
+}
+
 function renderProfiles(profiles, options = {}) {
   if (!profileList) {
     return;
   }
 
+  currentRenderedProfiles = profiles;
+  currentRenderOptions = options;
   const emptyTitle = options.emptyTitle || "Каталогът е празен";
   const emptyBody =
     options.emptyBody || "Провери отново по-късно за нови попълнения, линкове и блестящи обещания.";
@@ -352,127 +673,40 @@ function renderProfiles(profiles, options = {}) {
     return;
   }
 
-  profileList.innerHTML = profiles
-    .map((profile) => {
-      const profileId = getProfileId(profile);
-      const hook = {
-        kicker: profile.kicker || "",
-        summary: profile.summary || "",
-        aura: profile.aura || "",
-        funnel: profile.funnel || "",
-        insight: profile.insight || "",
-      };
-      const profileVideos = getProfileVideos(profile);
-      const kickerBlock = hook.kicker ? `<p class="profile-kicker">${escapeHtml(hook.kicker)}</p>` : "";
-      const summaryBlock = hook.summary ? `<p class="profile-summary">${escapeHtml(hook.summary)}</p>` : "";
-      const shareBlock = getShareButtons(profile);
-      const descriptionBlock = profile.description
-        ? `
-            <div class="profile-description">
-              <p class="profile-description-label">Описание</p>
-              <p>${escapeHtml(profile.description)}</p>
-            </div>
-          `
-        : "";
-      const channelLinks = profile.links
-        .map(
-          (link) =>
-            `<a href="${escapeHtml(link.url)}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`,
-        )
-        .join("");
-      const signalItems = [
-        `
-          <div>
-            <dt>Канали</dt>
-            <dd class="channel-links">${channelLinks}</dd>
-          </div>
-        `,
-      ];
+  if (activeProfileId && !profiles.some((profile) => getProfileId(profile) === activeProfileId)) {
+    activeProfileId = "";
+  }
 
-      if (hook.aura) {
-        signalItems.push(`
-          <div>
-            <dt>Обещан вайб</dt>
-            <dd>${escapeHtml(hook.aura)}</dd>
-          </div>
-        `);
-      }
+  const query = options.query || "";
+  const animated = !query && profiles.length > 4;
+  const compactGallery =
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(max-width: 820px)").matches;
+  const activeProfile = getActiveRenderedProfile();
 
-      if (hook.funnel) {
-        signalItems.push(`
-          <div>
-            <dt>Прочит</dt>
-            <dd>${escapeHtml(hook.funnel)}</dd>
-          </div>
-        `);
-      }
+  profileList.innerHTML = `
+    <div class="guru-gallery reveal" data-gallery-mode="${animated ? "marquee" : "static"}">
+      <div class="guru-stage">
+        <div class="guru-stage-copy">
+          <p class="guru-stage-label">${query ? "Филтрирана витрина" : "Жива витрина"}</p>
+          <p class="guru-stage-note">
+            ${query
+              ? `Показваме само лицата, които пасват на "${escapeHtml(query)}". Натисни снимка за пълния пакет.`
+              : "Портретите минават бавно по сцената. Подробностите се отключват чак когато натиснеш някого."}
+          </p>
+        </div>
+        <div class="guru-runway" aria-label="Подвижна витрина с гуру профили">
+          ${renderReel(profiles, { activeId: activeProfileId, animated })}
+          ${!compactGallery && profiles.length > 5 ? renderReel(profiles, { activeId: activeProfileId, reverse: true, animated }) : ""}
+        </div>
+      </div>
 
-      const signalGrid = `<dl class="signal-grid">${signalItems.join("")}</dl>`;
-      const insightBlock = hook.insight ? `<p class="profile-insight">${escapeHtml(hook.insight)}</p>` : "";
-      const profileVideo = profileVideos.length
-        ? `
-            <div class="profile-video-wrap" data-count="${profileVideos.length}">
-              <p class="profile-video-label">${profileVideos.length > 1 ? "Видеа" : "Видео"}</p>
-              <div class="profile-video-grid">
-                ${profileVideos
-                  .map(
-                    (videoPath, index) => `
-                      <div class="profile-video-frame">
-                        <button
-                          class="profile-video-launch"
-                          type="button"
-                          data-video-launch
-                          data-video-src="${encodeURI(videoPath)}"
-                          data-video-type="${getVideoMimeType(videoPath)}"
-                          data-video-poster="${encodeURI(profile.image)}"
-                          data-video-title="${escapeHtml(`${profile.name} • ${profileVideos.length > 1 ? `Видео ${index + 1}` : "Видео"}`)}"
-                          aria-label="Отвори ${escapeHtml(profileVideos.length > 1 ? `видео ${index + 1}` : "видеото")} на ${escapeHtml(profile.name)}"
-                        >
-                          <img class="profile-video-poster" src="${encodeURI(profile.image)}" alt="" loading="lazy" decoding="async" fetchpriority="low" />
-                          <span class="profile-video-overlay">
-                            <span class="profile-video-badge">${profileVideos.length > 1 ? `Видео ${index + 1}` : "Видео"}</span>
-                            <span class="profile-video-hint">Гледай на голям екран</span>
-                          </span>
-                        </button>
-                      </div>
-                    `,
-                  )
-                  .join("")}
-              </div>
-            </div>
-          `
-        : "";
-
-      return `
-        <article
-          class="profile-card reveal"
-          id="${escapeHtml(profileId)}"
-          tabindex="-1"
-          data-orientation="${escapeHtml(profile.orientation)}"
-        >
-          <div class="profile-rail">
-            <div class="profile-media">
-              <img src="${encodeURI(profile.image)}" alt="${escapeHtml(profile.alt)}" loading="lazy" decoding="async" fetchpriority="low" />
-              <div class="media-chip">${escapeHtml(profile.imageNote)}</div>
-            </div>
-            ${profileVideo}
-          </div>
-
-          <div class="profile-copy">
-            <div class="profile-main">
-              ${kickerBlock}
-              <h3>${escapeHtml(profile.name)}</h3>
-              ${summaryBlock}
-              ${shareBlock}
-              ${descriptionBlock}
-              ${signalGrid}
-              ${insightBlock}
-            </div>
-          </div>
-        </article>
-      `;
-    })
-    .join("");
+      <aside class="guru-inspector" data-guru-inspector data-state="${activeProfile ? "active" : "idle"}">
+        ${getProfileInspectorMarkup(activeProfile)}
+      </aside>
+    </div>
+  `;
 }
 
 function syncProfileHash(options = {}) {
@@ -482,15 +716,48 @@ function syncProfileHash(options = {}) {
 
   const { scroll = true } = options;
   const activeHash = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : "";
-  const targetedCards = Array.from(document.querySelectorAll(".profile-card.is-targeted"));
+  const targetedCards = Array.from(document.querySelectorAll(".profile-card.is-targeted, .guru-portrait.is-targeted"));
 
   targetedCards.forEach((card) => {
-    if (card.id !== activeHash) {
+    const targetId = card.getAttribute("data-profile-id") || card.id;
+
+    if (targetId !== activeHash) {
       card.classList.remove("is-targeted");
     }
   });
 
   if (!activeHash) {
+    updateActiveProfileUI();
+    return;
+  }
+
+  const portraitMatches = Array.from(document.querySelectorAll(`[data-profile-anchor="${activeHash}"]`));
+
+  if (portraitMatches.length) {
+    portraitMatches.forEach((node) => node.classList.add("is-targeted"));
+
+    if (activeProfileId !== activeHash) {
+      setActiveProfile(activeHash, { updateHash: false });
+    } else {
+      updateActiveProfileUI();
+    }
+
+    if (!scroll) {
+      return;
+    }
+
+    const prefersReducedMotion =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    window.requestAnimationFrame(() => {
+      portraitMatches[0]?.scrollIntoView({
+        block: "nearest",
+        inline: "center",
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+      });
+    });
+
     return;
   }
 
@@ -562,14 +829,14 @@ function attachSearch(allProfiles) {
       return;
     }
 
-    renderProfiles(filteredProfiles);
+    renderProfiles(filteredProfiles, { query: rawQuery });
     setupReveals();
     syncProfileHash({ scroll: false });
     updateSearchStatus(filteredProfiles.length, allProfiles.length, rawQuery);
   };
 
   if (!searchInput) {
-    renderProfiles(allProfiles);
+    renderProfiles(allProfiles, { query: "" });
     setupReveals();
     syncProfileHash({ scroll: false });
     updateSearchStatus(allProfiles.length, allProfiles.length, "");
@@ -657,6 +924,7 @@ function setupReveals() {
 async function initPage() {
   const profiles = shuffleProfiles(await loadProfiles());
   updateHeroVisual(profiles);
+  bindProfileGalleryInteractions();
   attachSearch(profiles);
   window.addEventListener("hashchange", () => syncProfileHash());
   syncProfileHash({ scroll: Boolean(window.location.hash) });
