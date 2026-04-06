@@ -121,6 +121,13 @@ function getSearchableText(profile) {
   );
 }
 
+function buildSearchIndex(profiles) {
+  return profiles.map((profile) => ({
+    profile,
+    searchableText: getSearchableText(profile),
+  }));
+}
+
 function getVideoMimeType(videoPath) {
   const lowered = String(videoPath || "").toLowerCase();
 
@@ -530,15 +537,18 @@ function updateSearchStatus(filteredCount, totalCount, query) {
 }
 
 function attachSearch(allProfiles) {
-  if (!searchInput) {
+  if (!profileList) {
     return;
   }
 
+  const searchIndex = buildSearchIndex(allProfiles);
+  let filterTimeoutId = 0;
+
   const applyFilter = () => {
-    const rawQuery = searchInput.value.trim();
+    const rawQuery = searchInput?.value.trim() || "";
     const query = normalizeForSearch(rawQuery);
     const filteredProfiles = query
-      ? allProfiles.filter((profile) => getSearchableText(profile).includes(query))
+      ? searchIndex.filter((entry) => entry.searchableText.includes(query)).map((entry) => entry.profile)
       : allProfiles;
 
     if (!filteredProfiles.length) {
@@ -558,7 +568,20 @@ function attachSearch(allProfiles) {
     updateSearchStatus(filteredProfiles.length, allProfiles.length, rawQuery);
   };
 
-  searchInput.addEventListener("input", applyFilter);
+  if (!searchInput) {
+    renderProfiles(allProfiles);
+    setupReveals();
+    syncProfileHash({ scroll: false });
+    updateSearchStatus(allProfiles.length, allProfiles.length, "");
+    return;
+  }
+
+  const scheduleFilter = () => {
+    window.clearTimeout(filterTimeoutId);
+    filterTimeoutId = window.setTimeout(applyFilter, 90);
+  };
+
+  searchInput.addEventListener("input", scheduleFilter);
   applyFilter();
 }
 
@@ -634,8 +657,6 @@ function setupReveals() {
 async function initPage() {
   const profiles = shuffleProfiles(await loadProfiles());
   updateHeroVisual(profiles);
-  renderProfiles(profiles);
-  setupReveals();
   attachSearch(profiles);
   window.addEventListener("hashchange", () => syncProfileHash());
   syncProfileHash({ scroll: Boolean(window.location.hash) });
