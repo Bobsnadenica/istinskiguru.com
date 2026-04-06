@@ -1,5 +1,62 @@
 window.__GURU_PROFILES__ = [
   {
+    "id": "masterbrand",
+    "name": "MasterBrand",
+    "image": "site-assets/masterbrand.jpeg",
+    "alt": "Профилно изображение за MasterBrand",
+    "imageNote": "Широк кадър с достатъчно въздух за визия, растеж и още една покана за включване.",
+    "videos": [
+      "site-assets/masterbrand-video.mp4"
+    ],
+    "orientation": "landscape",
+    "description": "Ей тоя маняк ще те научи как да правиш пасивен доход он още пита майка си за джобни. Не съм се занимавал да го търся как се казва реално.",
+    "kicker": "",
+    "summary": "",
+    "aura": "",
+    "funnel": "",
+    "insight": "Трагедия брат, малки Тонкинчета навсякъде",
+    "channels": [
+      "Facebook"
+    ],
+    "links": [
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/profile.php?id=61584213413017"
+      }
+    ],
+    "shareImage": "site-assets/masterbrand-share.jpg"
+  },
+  {
+    "id": "trendline-forex",
+    "name": "Trendline_Forex",
+    "image": "site-assets/trendline-forex.png",
+    "alt": "Профилно изображение за Trendline_Forex",
+    "imageNote": "Пейзажен формат с увереност, че големите резултати са точно зад следващия бутон.",
+    "videos": [],
+    "orientation": "landscape",
+    "description": "Направо трябваше да го кръстят Популярно Имногояко",
+    "kicker": "",
+    "summary": "",
+    "aura": "",
+    "funnel": "",
+    "insight": "",
+    "channels": [
+      "Уебсайт",
+      "Facebook"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://trendlineforex.com/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExdHFBOHJCNmpBSXlIdVNwR3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR7msNFUhoEwDojWl6ulvGJZcyjbc_DI533P19ti9sBecNszm0kOfpmdoOQvHA_aem_yyLBfx-VHp_BnPNdW7pQDQ"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/TrendlineForexLtd"
+      }
+    ],
+    "shareImage": "site-assets/trendline-forex-share.jpg"
+  },
+  {
     "id": "aleksandar-chilingirov",
     "name": "Александър Чилингиров",
     "image": "site-assets/aleksandar-chilingirov.jpg",
@@ -50,7 +107,7 @@ window.__GURU_PROFILES__ = [
     "name": "Ахмед Мерчев",
     "image": "site-assets/ahmed-merchev.jpg",
     "alt": "Профилно изображение за Ахмед Мерчев",
-    "imageNote": "Широк кадър с достатъчно въздух за визия, растеж и още една покана за включване.",
+    "imageNote": "Кадър с промо мащаб и ясно усещане за внимателно режисиран успех.",
     "videos": [
       "site-assets/ahmed-merchev-video.mp4"
     ],
@@ -156,6 +213,38 @@ window.__GURU_PROFILES__ = [
       }
     ],
     "shareImage": "site-assets/boyan-moskov-share.jpg"
+  },
+  {
+    "id": "valeri-draganov",
+    "name": "Валери Драганов",
+    "image": "site-assets/valeri-draganov.jpg",
+    "alt": "Профилно изображение за Валери Драганов",
+    "imageNote": "Широкоформатно присъствие, подготвено да побере обещание, авторитет и плавен ъпсел.",
+    "videos": [
+      "site-assets/valeri-draganov-video.mp4"
+    ],
+    "orientation": "landscape",
+    "description": "",
+    "kicker": "",
+    "summary": "",
+    "aura": "",
+    "funnel": "",
+    "insight": "",
+    "channels": [
+      "Уебсайт",
+      "Facebook"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://vdtrader.com/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExdHFBOHJCNmpBSXlIdVNwR3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR5zLwF4suLJXqTbconh_iNZpR2COKHBXIpVmHH9OPzy2s-kkJyD4-_j5QddEw_aem_RUKB_4kVEnezDku-aifxOA"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/profile.php?id=61583782953583"
+      }
+    ],
+    "shareImage": "site-assets/valeri-draganov-share.jpg"
   },
   {
     "id": "vesela-mangeyna",
@@ -282,8 +371,10 @@ window.__GURU_PROFILES__ = [
     "name": "Емил Стефанов",
     "image": "site-assets/emil-stefanov.jpg",
     "alt": "Профилно изображение за Емил Стефанов",
-    "imageNote": "Пейзажен формат с увереност, че големите резултати са точно зад следващия бутон.",
-    "videos": [],
+    "imageNote": "Сцена с достатъчно пространство за амбиция, статус и едно добре осветено послание.",
+    "videos": [
+      "site-assets/emil-stefanov-video.mp4"
+    ],
     "orientation": "landscape",
     "description": "Емил Оронов или Емил Стефанов - пичагата си крие истинското име, жена му я намерил в алобг, ама ви учи как да правите пари.",
     "kicker": "",
@@ -444,6 +535,38 @@ window.__GURU_PROFILES__ = [
     "shareImage": "site-assets/yordan-yonchev-share.jpg"
   },
   {
+    "id": "kaloyan-dinev",
+    "name": "Калоян Динев",
+    "image": "site-assets/kaloyan-dinev.jpg",
+    "alt": "Профилно изображение за Калоян Динев",
+    "imageNote": "Визуален размах, който говори за хоризонти, програми и следващо ниво на достъп.",
+    "videos": [
+      "site-assets/kaloyan-dinev-video.mp4"
+    ],
+    "orientation": "landscape",
+    "description": "",
+    "kicker": "",
+    "summary": "",
+    "aura": "",
+    "funnel": "",
+    "insight": "",
+    "channels": [
+      "Уебсайт",
+      "Facebook"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://laptopkariera.com/?fbclid=IwZXh0bgNhZW0CMTEAYnJpZBExdHFBOHJCNmpBSXlIdVNwR3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6fPQ1VtKdcZUgRs80Z_rrEkCHbrh6hRWJWoXAh5K7fLIwcEbZowyn51eFMag_aem_MqdgQPDH0zNqPpHdi46_2g"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/profile.php?id=61584213413017"
+      }
+    ],
+    "shareImage": "site-assets/kaloyan-dinev-share.jpg"
+  },
+  {
     "id": "krasimir-tsvetanov",
     "name": "Красимир Цветанов",
     "image": "site-assets/krasimir-tsvetanov.jpg",
@@ -521,6 +644,60 @@ window.__GURU_PROFILES__ = [
       }
     ],
     "shareImage": "site-assets/mariya-boeva-share.jpg"
+  },
+  {
+    "id": "ognyan-stanoev",
+    "name": "Огнян Станоев",
+    "image": "site-assets/ognyan-stanoev.jpg",
+    "alt": "Профилно изображение за Огнян Станоев",
+    "imageNote": "Широк кадър с достатъчно въздух за визия, растеж и още една покана за включване.",
+    "videos": [],
+    "orientation": "landscape",
+    "description": "Скоро",
+    "kicker": "",
+    "summary": "",
+    "aura": "",
+    "funnel": "",
+    "insight": "",
+    "channels": [
+      "Уебсайт",
+      "Facebook",
+      "Instagram",
+      "YouTube",
+      "TikTok",
+      "LinkedIn"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://www.ognyanstanoev.com/masterclass1?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExdHFBOHJCNmpBSXlIdVNwR3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR5bAFq0WineZISU6tXAf302yRCdG5aVXah4ReNan-MDoPGoGfYa9X-FBtySbg_aem_WSGXga-rmczsZtFkgSKTHg"
+      },
+      {
+        "label": "Уебсайт 2",
+        "url": "https://investcompass.net/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExdHFBOHJCNmpBSXlIdVNwR3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4iENqHP5dYHX6i9ajEz9mYg2YRtdFWZZJCxqtRY3TAf-4NMebyZiHc2qB1yg_aem_6fiT4NQa7kpNfK9vuIXqmA"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/ognyanstanoev"
+      },
+      {
+        "label": "Instagram",
+        "url": "https://www.instagram.com/ognyanstanoev?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExdHFBOHJCNmpBSXlIdVNwR3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR5uWCI_hmgaB2Eo2E9_ZUR-gdZ0FZfhSndgrXQus49Eg19Q0o3TusKdO8W6wQ_aem_Hf6wxDJr_F5yDdrVoOk2yw"
+      },
+      {
+        "label": "YouTube",
+        "url": "https://www.youtube.com/@ognyanstanoev"
+      },
+      {
+        "label": "TikTok",
+        "url": "https://www.tiktok.com/@ognyanstanoev?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExdHFBOHJCNmpBSXlIdVNwR3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4NAf2QstlolYtORIXLcbXfudppJfpmgQ5MQEAvu6nV-_GLaeSL94-4Xqn66A_aem_mhKJ7ogt66o0ij8_OAcY0g"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/ognyan-stanoev/"
+      }
+    ],
+    "shareImage": "site-assets/ognyan-stanoev-share.jpg"
   },
   {
     "id": "rumen-vista",
