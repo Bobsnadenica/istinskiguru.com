@@ -75,7 +75,8 @@ code {
 .page-shell {
   position: relative;
   z-index: 1;
-  overflow: clip;
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 .money-rain {
@@ -870,7 +871,7 @@ body.performance-lite .reveal.is-visible {
 }
 
 .ticker {
-  overflow: clip;
+  overflow: hidden;
   border-top: 1px solid rgba(16, 20, 17, 0.08);
   border-bottom: 1px solid rgba(16, 20, 17, 0.08);
   background: rgba(255, 255, 255, 0.26);
@@ -1094,8 +1095,6 @@ body.performance-lite .reveal.is-visible {
     linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.34)),
     linear-gradient(135deg, rgba(184, 132, 69, 0.08), rgba(32, 55, 47, 0.08));
   box-shadow: var(--shadow);
-  content-visibility: auto;
-  contain-intrinsic-size: 920px;
 }
 
 .profile-card:target,
@@ -2528,6 +2527,7 @@ body.performance-lite .reveal.is-visible {
 
   .hero h1 {
     max-width: none;
+    font-size: clamp(2.7rem, 12vw, 4rem);
   }
 
   .hero-actions,
@@ -2578,6 +2578,18 @@ body.performance-lite .reveal.is-visible {
     font-size: 0.68rem;
   }
 
+  .hero-text,
+  .profile-summary,
+  .profile-description p,
+  .profile-insight,
+  .signal-grid dd,
+  .media-chip,
+  .site-intro-copy,
+  .site-intro-love {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
   .site-intro-panel {
     width: min(720px, calc(100vw - 1rem));
     max-height: calc(100dvh - 1rem);
@@ -2605,6 +2617,15 @@ body.performance-lite .reveal.is-visible {
 }
 
 @media (max-width: 820px) {
+  .reveal,
+  body.performance-lite .reveal {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+
   body.performance-lite .money-game-toggle {
     box-shadow: 0 12px 28px rgba(16, 20, 17, 0.12);
   }

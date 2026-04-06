@@ -90,9 +90,15 @@ function getRainItemCount() {
 
 function readMoneyGamePreference() {
   try {
-    return window.localStorage.getItem(moneyGamePreferenceKey) !== "off";
+    const storedPreference = window.localStorage.getItem(moneyGamePreferenceKey);
+
+    if (storedPreference === null) {
+      return !shouldUseLiteEffects();
+    }
+
+    return storedPreference !== "off";
   } catch {
-    return true;
+    return !shouldUseLiteEffects();
   }
 }
 
@@ -162,7 +168,7 @@ function refreshPageEffects() {
   const revealNodes = Array.from(document.querySelectorAll(".reveal"));
   decorateRevealNodes(revealNodes);
 
-  if (prefersReducedMotion() || !("IntersectionObserver" in window)) {
+  if (prefersReducedMotion() || shouldUseLiteEffects() || !("IntersectionObserver" in window)) {
     revealNodes.forEach((node) => node.classList.add("is-visible"));
     return;
   }
