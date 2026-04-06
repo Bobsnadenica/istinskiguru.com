@@ -195,6 +195,38 @@ window.__GURU_PROFILES__ = [
     "shareImage": "site-assets/georgi-zahariev-share.jpg"
   },
   {
+    "id": "zornitsa-gyurova",
+    "name": "Зорница Гюрова",
+    "image": "site-assets/zornitsa-gyurova.jpeg",
+    "alt": "Профилно изображение за Зорница Гюрова",
+    "imageNote": "Портрет, подготвен да внушава увереност още преди първия линк.",
+    "videos": [
+      "site-assets/zornitsa-gyurova-video.mp4"
+    ],
+    "orientation": "portrait",
+    "description": "THETA HEALING БРАТО!!!! ТЕТА HEALING ААХАХАХАХХАХААХАХАХ Тва бабе е чист скамър, да ме съди ако иска ХАХАХАХ ТЕТА ХИЙЛИНГ ХАХАХАХАХАХХААХХАХА",
+    "kicker": "",
+    "summary": "",
+    "aura": "",
+    "funnel": "",
+    "insight": "",
+    "channels": [
+      "Уебсайт",
+      "Facebook"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://www.thetabg.com"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/zornitsa.gyurova/"
+      }
+    ],
+    "shareImage": "site-assets/zornitsa-gyurova-share.jpg"
+  },
+  {
     "id": "ivelin-mihaylov",
     "name": "Ивелин Михайлов",
     "image": "site-assets/ivelin-mihaylov.jpg",
@@ -257,6 +289,48 @@ window.__GURU_PROFILES__ = [
       }
     ],
     "shareImage": "site-assets/yordan-yonchev-share.jpg"
+  },
+  {
+    "id": "krasimir-tsvetanov",
+    "name": "Красимир Цветанов",
+    "image": "site-assets/krasimir-tsvetanov.jpg",
+    "alt": "Профилно изображение за Красимир Цветанов",
+    "imageNote": "Пейзажен формат с увереност, че големите резултати са точно зад следващия бутон.",
+    "videos": [
+      "site-assets/krasimir-tsvetanov-video.mp4"
+    ],
+    "orientation": "landscape",
+    "description": "",
+    "kicker": "",
+    "summary": "",
+    "aura": "",
+    "funnel": "",
+    "insight": "",
+    "channels": [
+      "Уебсайт",
+      "Facebook",
+      "YouTube",
+      "TikTok"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://awakenpotential.bg"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/awakenpotentialbulgaria"
+      },
+      {
+        "label": "YouTube",
+        "url": "https://www.youtube.com/@krasimirtsvetanov"
+      },
+      {
+        "label": "TikTok",
+        "url": "https://www.tiktok.com/@krasimir.tsvetanov"
+      }
+    ],
+    "shareImage": "site-assets/krasimir-tsvetanov-share.jpg"
   },
   {
     "id": "mariya-boeva",
