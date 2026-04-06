@@ -421,7 +421,7 @@ function renderProfiles(profiles, options = {}) {
                           data-video-title="${escapeHtml(`${profile.name} • ${profileVideos.length > 1 ? `Видео ${index + 1}` : "Видео"}`)}"
                           aria-label="Отвори ${escapeHtml(profileVideos.length > 1 ? `видео ${index + 1}` : "видеото")} на ${escapeHtml(profile.name)}"
                         >
-                          <img class="profile-video-poster" src="${encodeURI(profile.image)}" alt="" loading="lazy" />
+                          <img class="profile-video-poster" src="${encodeURI(profile.image)}" alt="" loading="lazy" decoding="async" fetchpriority="low" />
                           <span class="profile-video-overlay">
                             <span class="profile-video-badge">${profileVideos.length > 1 ? `Видео ${index + 1}` : "Видео"}</span>
                             <span class="profile-video-hint">Гледай на голям екран</span>
@@ -445,7 +445,7 @@ function renderProfiles(profiles, options = {}) {
         >
           <div class="profile-rail">
             <div class="profile-media">
-              <img src="${encodeURI(profile.image)}" alt="${escapeHtml(profile.alt)}" />
+              <img src="${encodeURI(profile.image)}" alt="${escapeHtml(profile.alt)}" loading="lazy" decoding="async" fetchpriority="low" />
               <div class="media-chip">${escapeHtml(profile.imageNote)}</div>
             </div>
             ${profileVideo}

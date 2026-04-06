@@ -67,6 +67,7 @@ function initSiteIntro() {
     markSiteIntroDismissed();
     document.body.classList.remove("site-intro-open");
     intro.classList.add("is-dismissed");
+    document.dispatchEvent(new CustomEvent("guru:intro-dismissed"));
     window.setTimeout(() => {
       intro.remove();
     }, 240);
@@ -91,6 +92,7 @@ function initSiteIntro() {
 
   document.body.append(intro);
   document.body.classList.add("site-intro-open");
+  document.dispatchEvent(new CustomEvent("guru:intro-shown"));
   window.requestAnimationFrame(() => {
     intro.classList.add("is-visible");
     closeButton?.focus();

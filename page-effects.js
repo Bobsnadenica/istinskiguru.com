@@ -8,6 +8,7 @@ let moneyGameToggle = null;
 let moneyGameMessageTimeoutId = 0;
 let moneyGameResetTimeoutId = 0;
 let moneyGameHideTimeoutId = 0;
+let moneyRainStartTimeoutId = 0;
 let moneyGameEnabled = true;
 const moneyGameState = {
   collected: 0,
@@ -32,6 +33,59 @@ const expenseEvents = [
 
 function prefersReducedMotion() {
   return typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function matchesMedia(query) {
+  return typeof window.matchMedia === "function" && window.matchMedia(query).matches;
+}
+
+function shouldUseLiteEffects() {
+  const likelyMobileDevice =
+    matchesMedia("(pointer: coarse)") ||
+    matchesMedia("(hover: none)") ||
+    (typeof navigator.deviceMemory === "number" && navigator.deviceMemory <= 4) ||
+    (typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4);
+
+  return prefersReducedMotion() || matchesMedia("(max-width: 820px)") || likelyMobileDevice;
+}
+
+function applyPerformanceMode() {
+  const liteEffects = shouldUseLiteEffects();
+  document.body.classList.toggle("performance-lite", liteEffects);
+  return liteEffects;
+}
+
+function isSiteIntroOpen() {
+  return document.body.classList.contains("site-intro-open") || Boolean(document.querySelector("[data-site-intro]"));
+}
+
+function startMoneyRainWhenReady() {
+  if (!moneyGameEnabled || moneyRainBound || prefersReducedMotion() || !document.body) {
+    return;
+  }
+
+  const bootMoneyRain = () => {
+    if (!moneyGameEnabled || moneyRainBound || prefersReducedMotion() || !document.body) {
+      return;
+    }
+
+    if (shouldUseLiteEffects() && isSiteIntroOpen()) {
+      return;
+    }
+
+    initMoneyRain();
+  };
+
+  window.clearTimeout(moneyRainStartTimeoutId);
+  moneyRainStartTimeoutId = window.setTimeout(bootMoneyRain, shouldUseLiteEffects() ? 360 : 120);
+}
+
+function getRainItemCount() {
+  if (shouldUseLiteEffects()) {
+    return Math.max(5, Math.min(8, Math.round(window.innerWidth / 135)));
+  }
+
+  return Math.max(10, Math.min(18, Math.round(window.innerWidth / 95)));
 }
 
 function readMoneyGamePreference() {
@@ -425,6 +479,7 @@ function replaceMoneyNote(note) {
 }
 
 function buildMoneyNote() {
+  const liteEffects = shouldUseLiteEffects();
   const values = [
     { amount: 100, mark: "100", currency: "лв" },
     { amount: 500, mark: "500", currency: "лв" },
@@ -448,12 +503,12 @@ function buildMoneyNote() {
   note.dataset.amountEuro = String(amountEuro);
   note.dataset.currency = currency;
   note.style.setProperty("--left", `${Math.random() * 100}%`);
-  note.style.setProperty("--duration", `${14 + Math.random() * 12}s`);
-  note.style.setProperty("--delay", `${-Math.random() * 18}s`);
-  note.style.setProperty("--drift", `${-80 + Math.random() * 160}px`);
-  note.style.setProperty("--rotation", `${-18 + Math.random() * 36}deg`);
-  note.style.setProperty("--scale", `${0.76 + Math.random() * 0.48}`);
-  note.style.setProperty("--swing-duration", `${3.4 + Math.random() * 3.2}s`);
+  note.style.setProperty("--duration", `${(liteEffects ? 22 : 14) + Math.random() * (liteEffects ? 14 : 12)}s`);
+  note.style.setProperty("--delay", `${-Math.random() * (liteEffects ? 12 : 18)}s`);
+  note.style.setProperty("--drift", `${(liteEffects ? -42 : -80) + Math.random() * (liteEffects ? 84 : 160)}px`);
+  note.style.setProperty("--rotation", `${(liteEffects ? -10 : -18) + Math.random() * (liteEffects ? 20 : 36)}deg`);
+  note.style.setProperty("--scale", `${(liteEffects ? 0.72 : 0.76) + Math.random() * (liteEffects ? 0.28 : 0.48)}`);
+  note.style.setProperty("--swing-duration", `${(liteEffects ? 5.4 : 3.4) + Math.random() * (liteEffects ? 3.4 : 3.2)}s`);
   note.innerHTML = `
     <span class="money-note-core">
       <span class="money-note-mark">${mark}</span>
@@ -464,6 +519,7 @@ function buildMoneyNote() {
 }
 
 function buildExpenseNote() {
+  const liteEffects = shouldUseLiteEffects();
   const expense = pickExpenseEvent();
   const isCritical = Boolean(expense.critical);
   const amountEuro = Math.round(expense.amountEuro * (expense.multiplier || 1));
@@ -488,12 +544,12 @@ function buildExpenseNote() {
     `${isCritical ? "Критично. " : ""}${expense.label}. Ако го натиснеш, ще отнеме ${formatMoneyGameAmount(amountEuro)} евро от фонда.`,
   );
   note.style.setProperty("--left", `${Math.random() * 100}%`);
-  note.style.setProperty("--duration", `${16 + Math.random() * 12}s`);
-  note.style.setProperty("--delay", `${-Math.random() * 18}s`);
-  note.style.setProperty("--drift", `${-100 + Math.random() * 200}px`);
-  note.style.setProperty("--rotation", `${-16 + Math.random() * 32}deg`);
-  note.style.setProperty("--scale", `${0.84 + Math.random() * 0.4}`);
-  note.style.setProperty("--swing-duration", `${4.2 + Math.random() * 3.4}s`);
+  note.style.setProperty("--duration", `${(liteEffects ? 24 : 16) + Math.random() * (liteEffects ? 14 : 12)}s`);
+  note.style.setProperty("--delay", `${-Math.random() * (liteEffects ? 12 : 18)}s`);
+  note.style.setProperty("--drift", `${(liteEffects ? -48 : -100) + Math.random() * (liteEffects ? 96 : 200)}px`);
+  note.style.setProperty("--rotation", `${(liteEffects ? -9 : -16) + Math.random() * (liteEffects ? 18 : 32)}deg`);
+  note.style.setProperty("--scale", `${(liteEffects ? 0.8 : 0.84) + Math.random() * (liteEffects ? 0.22 : 0.4)}`);
+  note.style.setProperty("--swing-duration", `${(liteEffects ? 5.8 : 4.2) + Math.random() * (liteEffects ? 3 : 3.4)}s`);
   note.innerHTML = `
     <span class="expense-note-core">
       ${isCritical ? '<span class="expense-note-badge">Критично</span>' : ""}
@@ -514,8 +570,12 @@ function buildRainItem() {
 function teardownMoneyGame() {
   window.clearTimeout(moneyGameMessageTimeoutId);
   window.clearTimeout(moneyGameHideTimeoutId);
+  window.clearTimeout(moneyGameResetTimeoutId);
+  window.clearTimeout(moneyRainStartTimeoutId);
   moneyGameMessageTimeoutId = 0;
   moneyGameHideTimeoutId = 0;
+  moneyGameResetTimeoutId = 0;
+  moneyRainStartTimeoutId = 0;
 
   if (moneyRainRoot) {
     moneyRainRoot.remove();
@@ -541,7 +601,7 @@ function setMoneyGameEnabled(enabled) {
   }
 
   if (!prefersReducedMotion()) {
-    initMoneyRain();
+    startMoneyRainWhenReady();
   }
 }
 
@@ -555,9 +615,10 @@ function initMoneyRain() {
   const rain = document.createElement("div");
   rain.className = "money-rain";
   rain.setAttribute("aria-hidden", "true");
+  rain.dataset.mode = shouldUseLiteEffects() ? "lite" : "full";
   moneyRainRoot = rain;
 
-  const count = Math.max(10, Math.min(18, Math.round(window.innerWidth / 95)));
+  const count = getRainItemCount();
   Array.from({ length: count }, () => buildRainItem()).forEach((note) => rain.append(note));
 
   rain.addEventListener("click", (event) => {
@@ -706,7 +767,7 @@ function initMoneyRain() {
 }
 
 function initScrollEffects() {
-  if (scrollEffectsBound || prefersReducedMotion()) {
+  if (scrollEffectsBound || prefersReducedMotion() || shouldUseLiteEffects()) {
     return;
   }
 
@@ -748,12 +809,22 @@ function initPageEffects() {
     return;
   }
 
+  const liteEffects = applyPerformanceMode();
   moneyGameEnabled = readMoneyGamePreference();
   updateMoneyGameToggle();
   refreshPageEffects();
   if (moneyGameEnabled) {
-    initMoneyRain();
+    if (liteEffects && document.readyState !== "complete") {
+      window.addEventListener("load", startMoneyRainWhenReady, { once: true });
+    } else {
+      startMoneyRainWhenReady();
+    }
   }
+  document.addEventListener("guru:intro-dismissed", () => {
+    if (moneyGameEnabled) {
+      startMoneyRainWhenReady();
+    }
+  });
   initScrollEffects();
 }
 
