@@ -847,5 +847,37 @@ window.__GURU_PROFILES__ = [
       }
     ],
     "shareImage": "site-assets/yuli-tonkin-share.jpg"
+  },
+  {
+    "id": "yavor-berbenkov",
+    "name": "Явор Бербенков",
+    "image": "site-assets/yavor-berbenkov.jpg",
+    "alt": "Профилно изображение за Явор Бербенков",
+    "imageNote": "Портрет, подготвен да внушава увереност още преди първия линк.",
+    "videos": [
+      "site-assets/yavor-berbenkov-video.mp4"
+    ],
+    "orientation": "portrait",
+    "description": "",
+    "kicker": "",
+    "summary": "",
+    "aura": "",
+    "funnel": "",
+    "insight": "",
+    "channels": [
+      "Уебсайт",
+      "Facebook"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://bgincome.com/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExdHFBOHJCNmpBSXlIdVNwR3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR5Tu9C-Dls2E5MjptCKgflUmFNhrOQSE_iyxtk7Y5ez1JtYn-F6gQ0N0325wA_aem_Kp-HT77sxqjbwLvpqCcanQ"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/profile.php?id=61583389888170"
+      }
+    ],
+    "shareImage": "site-assets/yavor-berbenkov-share.jpg"
   }
 ];
