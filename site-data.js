@@ -515,6 +515,39 @@ window.__GURU_PROFILES__ = [
     "shareImage": "site-assets/rumen-vista-share.jpg"
   },
   {
+    "id": "stefan-minchev",
+    "name": "Стефан Минчев",
+    "image": "site-assets/stefan-minchev.jpg",
+    "alt": "Профилно изображение за Стефан Минчев",
+    "imageNote": "Портрет, подготвен да внушава увереност още преди първия линк.",
+    "videos": [
+      "site-assets/stefan-minchev-video.mp4",
+      "site-assets/stefan-minchev-video-2.mp4"
+    ],
+    "orientation": "portrait",
+    "description": "",
+    "kicker": "",
+    "summary": "",
+    "aura": "",
+    "funnel": "",
+    "insight": "",
+    "channels": [
+      "Уебсайт",
+      "Facebook"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://stefmino.com/"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/profile.php?id=61573648761973"
+      }
+    ],
+    "shareImage": "site-assets/stefan-minchev-share.jpg"
+  },
+  {
     "id": "tsvetan-radushev",
     "name": "Цветан Радушев",
     "image": "site-assets/tsvetan-radushev.webp",
