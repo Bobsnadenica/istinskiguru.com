@@ -13,6 +13,17 @@ const moneyGameState = {
   rounds: 0,
 };
 const moneyGameHideDelay = 2600;
+const expenseEvents = [
+  { label: "baby", amountEuro: 260 },
+  { label: "wedding", amountEuro: 480 },
+  { label: "car broke down", amountEuro: 340 },
+  { label: "rent", amountEuro: 420 },
+  { label: "dentist", amountEuro: 180 },
+  { label: "vet bill", amountEuro: 160 },
+  { label: "birthday", amountEuro: 140 },
+  { label: "taxes", amountEuro: 390 },
+  { label: "phone died", amountEuro: 220 },
+];
 
 function prefersReducedMotion() {
   return typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -131,6 +142,17 @@ function getMoneyIdleMessage() {
     : "Почти си готов. Остава съвсем малко.";
 }
 
+function getExpenseHitMessage(label) {
+  const messages = [
+    `${label}. Няма страшно. Пак си почти там.`,
+    `${label}. Малък разход. Но вече си доста близо.`,
+    `${label}. Леко те дръпна назад, но си почти готов.`,
+    `${label}. Не е идеално, но следващото ниво пак е съвсем наблизо.`,
+  ];
+
+  return messages[Math.floor(Math.random() * messages.length)];
+}
+
 function createMoneyGamePanel() {
   const panel = document.createElement("aside");
   panel.className = "money-game-panel";
@@ -246,7 +268,12 @@ function spawnMoneyPop(note, amountEuro) {
   const rect = note.getBoundingClientRect();
   const pop = document.createElement("span");
   pop.className = "money-pop";
-  pop.textContent = `+${formatMoneyGameAmount(amountEuro)} €`;
+
+  if (amountEuro < 0) {
+    pop.classList.add("is-negative");
+  }
+
+  pop.textContent = `${amountEuro < 0 ? "-" : "+"}${formatMoneyGameAmount(Math.abs(amountEuro))} €`;
   pop.style.left = `${rect.left + rect.width / 2}px`;
   pop.style.top = `${rect.top + rect.height / 2}px`;
   document.body.append(pop);
@@ -258,7 +285,7 @@ function replaceMoneyNote(note) {
     return;
   }
 
-  const replacement = buildMoneyNote();
+  const replacement = buildRainItem();
   moneyRainRoot.append(replacement);
 
   note.classList.add("is-collected");
@@ -284,6 +311,7 @@ function buildMoneyNote() {
   note.className = "money-note";
   note.type = "button";
   note.tabIndex = -1;
+  note.dataset.rainItem = "money";
   note.setAttribute(
     "aria-label",
     `Събери ${mark} ${currency} за следващия курс. Към фонда се броят ${formatMoneyGameAmount(amountEuro)} евро.`,
@@ -307,6 +335,38 @@ function buildMoneyNote() {
   return note;
 }
 
+function buildExpenseNote() {
+  const expense = expenseEvents[Math.floor(Math.random() * expenseEvents.length)];
+  const note = document.createElement("button");
+  note.className = "expense-note";
+  note.type = "button";
+  note.tabIndex = -1;
+  note.dataset.rainItem = "expense";
+  note.dataset.amountEuro = String(-expense.amountEuro);
+  note.dataset.label = expense.label;
+  note.setAttribute(
+    "aria-label",
+    `${expense.label}. Ако го натиснеш, ще отнеме ${formatMoneyGameAmount(expense.amountEuro)} евро от фонда.`,
+  );
+  note.style.setProperty("--left", `${Math.random() * 100}%`);
+  note.style.setProperty("--duration", `${16 + Math.random() * 12}s`);
+  note.style.setProperty("--delay", `${-Math.random() * 18}s`);
+  note.style.setProperty("--drift", `${-100 + Math.random() * 200}px`);
+  note.style.setProperty("--rotation", `${-16 + Math.random() * 32}deg`);
+  note.style.setProperty("--scale", `${0.84 + Math.random() * 0.4}`);
+  note.style.setProperty("--swing-duration", `${4.2 + Math.random() * 3.4}s`);
+  note.innerHTML = `
+    <span class="expense-note-core">
+      <span class="expense-note-label">${expense.label}</span>
+    </span>
+  `;
+  return note;
+}
+
+function buildRainItem() {
+  return Math.random() < 0.24 ? buildExpenseNote() : buildMoneyNote();
+}
+
 function initMoneyRain() {
   if (moneyRainBound || prefersReducedMotion() || !document.body) {
     return;
@@ -320,10 +380,10 @@ function initMoneyRain() {
   moneyRainRoot = rain;
 
   const count = Math.max(10, Math.min(18, Math.round(window.innerWidth / 95)));
-  Array.from({ length: count }, () => buildMoneyNote()).forEach((note) => rain.append(note));
+  Array.from({ length: count }, () => buildRainItem()).forEach((note) => rain.append(note));
 
   rain.addEventListener("click", (event) => {
-    const target = event.target instanceof Element ? event.target.closest(".money-note") : null;
+    const target = event.target instanceof Element ? event.target.closest("[data-rain-item]") : null;
 
     if (!(target instanceof HTMLButtonElement)) {
       return;
@@ -339,11 +399,30 @@ function initMoneyRain() {
       return;
     }
 
+    const currentCollected = moneyGameState.collected;
+    const nextCollected = Math.max(0, Math.min(moneyGameState.target, currentCollected + amountEuro));
+    const appliedDelta = nextCollected - currentCollected;
+
     showMoneyGamePanel();
-    moneyGameState.collected = Math.min(moneyGameState.target, moneyGameState.collected + amountEuro);
+    moneyGameState.collected = nextCollected;
     updateMoneyGamePanel();
-    spawnMoneyPop(target, amountEuro);
+
+    if (appliedDelta) {
+      spawnMoneyPop(target, appliedDelta);
+    }
+
     replaceMoneyNote(target);
+
+    if (amountEuro < 0) {
+      const expenseLabel = target.dataset.label || "Разход";
+      setMoneyGameMessage(getExpenseHitMessage(expenseLabel), {
+        state: "expense",
+        temporary: true,
+        duration: 2200,
+      });
+      scheduleMoneyGameHide();
+      return;
+    }
 
     if (moneyGameState.collected < moneyGameState.target) {
       setMoneyGameMessage(getMoneyIdleMessage(), { state: "collecting" });
