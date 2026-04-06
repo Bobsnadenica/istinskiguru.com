@@ -1,0 +1,20 @@
+# Копирай този файл в папката на новия профил и попълни редовете.
+# Остави ненужните полета празни.
+# Ако имаш повече от един линк от един и същ тип, просто повтори реда.
+
+Description:
+Надзаглавие:
+Резюме:
+Обещан вайб:
+Прочит:
+Наблюдение:
+Бележка върху снимката:
+
+Website: https://veselamangeyna.com
+Website: https://bilet.bg/bg/cart/uverenost-na-360-na-zhivo-v-tursene-na-smisula-7761
+Facebook: https://www.facebook.com/TheVoiceOfMindCoaching
+Instagram: https://www.instagram.com/veselamangeyna
+YouTube: https://www.youtube.com/channel/UCrl9-6suEvCV7-jq2fbxUpg
+TikTok: https://www.tiktok.com/@veselamangeyna
+LinkedIn: https://www.linkedin.com/in/vesela-mangeyna/
+Viber:

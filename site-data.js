@@ -158,6 +158,62 @@ window.__GURU_PROFILES__ = [
     "shareImage": "site-assets/boyan-moskov-share.jpg"
   },
   {
+    "id": "vesela-mangeyna",
+    "name": "Весела Мангейна",
+    "image": "site-assets/vesela-mangeyna.jpeg",
+    "alt": "Профилно изображение за Весела Мангейна",
+    "imageNote": "Портрет, подготвен да внушава увереност още преди първия линк.",
+    "videos": [
+      "site-assets/vesela-mangeyna-video.mp4"
+    ],
+    "orientation": "portrait",
+    "description": "",
+    "kicker": "",
+    "summary": "",
+    "aura": "",
+    "funnel": "",
+    "insight": "",
+    "channels": [
+      "Уебсайт",
+      "Facebook",
+      "Instagram",
+      "YouTube",
+      "TikTok",
+      "LinkedIn"
+    ],
+    "links": [
+      {
+        "label": "Уебсайт",
+        "url": "https://veselamangeyna.com"
+      },
+      {
+        "label": "Уебсайт 2",
+        "url": "https://bilet.bg/bg/cart/uverenost-na-360-na-zhivo-v-tursene-na-smisula-7761"
+      },
+      {
+        "label": "Facebook",
+        "url": "https://www.facebook.com/TheVoiceOfMindCoaching"
+      },
+      {
+        "label": "Instagram",
+        "url": "https://www.instagram.com/veselamangeyna"
+      },
+      {
+        "label": "YouTube",
+        "url": "https://www.youtube.com/channel/UCrl9-6suEvCV7-jq2fbxUpg"
+      },
+      {
+        "label": "TikTok",
+        "url": "https://www.tiktok.com/@veselamangeyna"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/vesela-mangeyna/"
+      }
+    ],
+    "shareImage": "site-assets/vesela-mangeyna-share.jpg"
+  },
+  {
     "id": "georgi-zahariev",
     "name": "Георги Захариев",
     "image": "site-assets/georgi-zahariev.jpg",
@@ -199,7 +255,7 @@ window.__GURU_PROFILES__ = [
     "name": "Зорница Гюрова",
     "image": "site-assets/zornitsa-gyurova.jpeg",
     "alt": "Профилно изображение за Зорница Гюрова",
-    "imageNote": "Портрет, подготвен да внушава увереност още преди първия линк.",
+    "imageNote": "Кадър с внимателно дозирана сериозност и достатъчно обещание за следващо ниво.",
     "videos": [
       "site-assets/zornitsa-gyurova-video.mp4"
     ],
