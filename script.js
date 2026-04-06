@@ -7,7 +7,6 @@ const heroQuoteText = document.querySelector("#hero-quote-text");
 const canonicalLink = document.querySelector('link[rel="canonical"]');
 const fallbackProfiles = Array.isArray(window.__GURU_PROFILES__) ? window.__GURU_PROFILES__ : [];
 const heroStorageKey = "guruHeroIndex";
-const facebookShareAppId = "145634995501895";
 const defaultHeroLabel = heroQuoteLabel?.textContent?.trim() || "Полево наблюдение";
 const defaultHeroText =
   heroQuoteText?.textContent?.trim() || "Силно кафе. Още по-силна енергия за наставничество.";
@@ -173,23 +172,11 @@ function getProfileShareUrl(profile) {
 }
 
 function getFacebookShareUrl(profile) {
-  const shareUrl = getProfileShareUrl(profile);
-
-  if (!facebookShareAppId) {
-    const legacyShareParams = new URLSearchParams({
-      u: shareUrl,
-    });
-
-    return `https://www.facebook.com/sharer/sharer.php?${legacyShareParams.toString()}`;
-  }
-
   const shareParams = new URLSearchParams({
-    app_id: facebookShareAppId,
-    display: "page",
-    href: shareUrl,
+    u: getProfileShareUrl(profile),
   });
 
-  return `https://www.facebook.com/dialog/share?${shareParams.toString()}`;
+  return `https://www.facebook.com/sharer/sharer.php?${shareParams.toString()}`;
 }
 
 function getLinkedInShareUrl(profile) {
