@@ -503,8 +503,12 @@ function buildExpenseNote() {
   return note;
 }
 
+function getExpenseSpawnChance() {
+  return getCurrentMoneyLevel() <= 1 ? 0.16 : 0.2;
+}
+
 function buildRainItem() {
-  return Math.random() < 0.24 ? buildExpenseNote() : buildMoneyNote();
+  return Math.random() < getExpenseSpawnChance() ? buildExpenseNote() : buildMoneyNote();
 }
 
 function teardownMoneyGame() {
