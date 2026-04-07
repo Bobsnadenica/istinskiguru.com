@@ -469,9 +469,8 @@ body.gallery-detail-open {
   }
 
   .gallery-hero-window {
-    overflow-x: auto;
+    overflow: hidden;
     padding: 0.85rem;
-    scroll-snap-type: x proximity;
   }
 
   .gallery-hero-window::before {
@@ -479,16 +478,15 @@ body.gallery-detail-open {
   }
 
   .gallery-hero-track {
-    animation: none;
+    animation: gallery-runway 72s linear infinite;
   }
 
   .gallery-hero-track-group[aria-hidden="true"] {
-    display: none;
+    display: flex;
   }
 
   .gallery-hero-card {
     width: clamp(156px, 44vw, 220px);
-    scroll-snap-align: start;
   }
 
   .gallery-hero-card:nth-child(odd),
