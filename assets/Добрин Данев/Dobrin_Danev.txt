@@ -1,0 +1,19 @@
+# Копирай този файл в папката на новия профил и попълни редовете.
+# Остави ненужните полета празни.
+# Ако имаш повече от един линк от един и същ тип, просто повтори реда.
+
+Description:
+Надзаглавие:
+Резюме:
+Обещан вайб:
+Прочит:
+Наблюдение:
+Бележка върху снимката:
+
+Website:
+Facebook: https://www.facebook.com/profile.php?id=100011092879226&locale=bg_BG
+Instagram: https://www.instagram.com/czrdnv?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExdHFBOHJCNmpBSXlIdVNwR3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4T-8IQwWzDAhHTYRngum9F4HZGgke7-TjlJNxEvFo5y3qm7tWRD5t9PmN-Ow_aem_4LqYwO_9sr71luuX2IZQfw
+YouTube:
+TikTok:
+LinkedIn:
+Фирми: https://papagal.bg/p/c11c39f0835e1c58b686651b65421d936018eeda9ae4aaa9e021d885127cb014-1/0e4d#google_vignette

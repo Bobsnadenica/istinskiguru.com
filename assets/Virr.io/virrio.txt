@@ -1,0 +1,19 @@
+# Копирай този файл в папката на новия профил и попълни редовете.
+# Остави ненужните полета празни.
+# Ако имаш повече от един линк от един и същ тип, просто повтори реда.
+
+Description:
+Надзаглавие:
+Резюме:
+Обещан вайб:
+Прочит:
+Наблюдение:
+Бележка върху снимката:
+
+Website: https://virr.io/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExdHFBOHJCNmpBSXlIdVNwR3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR7_yKoXSbwjp9sTJYwK15QJ3GDRfktKr2VWJfDLEllBp8LoIJelLIC0NAxEwA_aem_WQUVKN-QryzHZrFZtE-tEg
+Facebook: https://www.facebook.com/virrp2p.io
+Instagram: https://www.instagram.com/virrp2p.io?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExdHFBOHJCNmpBSXlIdVNwR3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR7J6QksoUmomRmmm5J-ae_CIj4m8MlpkVXNeMpNOEJOM29gEmTRA6g88w7PKw_aem_an4l1rGGbAjavNpDYluriA
+YouTube:
+TikTok:
+LinkedIn:
+Viber:
