@@ -15,10 +15,22 @@ const moneyGameState = {
   target: 1400,
   clicks: 0,
   expenseSpawns: new Map(),
+  expenseHits: new Map(),
+  expenseTotal: 0,
   rounds: 0,
 };
 const moneyGameHideDelay = 2600;
 const moneyGamePreferenceKey = "istinski-guru-money-game";
+const moneyPromiseStages = [
+  { title: "Пасивен доход" },
+  { title: "Работа от телефона" },
+  { title: "Финансова свобода" },
+  { title: "Доход докато спиш" },
+  { title: "10 000 € без шеф" },
+  { title: "Лукс от лаптопа" },
+  { title: "Империя без офис" },
+  { title: "Пари от бранда" },
+];
 const expenseEvents = [
   { id: "bebe", label: "бебе", amountEuro: 260, critical: true, multiplier: 2.1, maxSpawns: 2 },
   { id: "svatba", label: "сватба", amountEuro: 480, critical: true, multiplier: 2.2, maxSpawns: 2 },
@@ -189,6 +201,15 @@ function formatMoneyGameAmount(value) {
   return new Intl.NumberFormat("bg-BG").format(Math.round(value));
 }
 
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
 function normaliseMoneyToEuro(amount, currency) {
   if (currency === "лв") {
     return amount * 0.5;
@@ -209,12 +230,17 @@ function getCurrentMoneyLevel() {
   return moneyGameState.rounds + 1;
 }
 
-function getMoneyMockMessage(nextTarget) {
+function getMoneyPromise(offset = 0) {
+  const promiseIndex = (moneyGameState.rounds + offset) % moneyPromiseStages.length;
+  return moneyPromiseStages[promiseIndex] || moneyPromiseStages[0];
+}
+
+function getMoneyMockMessage(nextTarget, completedPromise, nextPromise) {
   const messages = [
-    `Чудесно. Вече си почти там. Остава само още един курс за ${formatMoneyGameAmount(nextTarget)}.`,
-    "Браво. Наистина си съвсем близо. Само още един курс и вече започва истинската промяна.",
-    "Супер напредък. Буквално си на крачка. Следващата стъпка е само още един курс.",
-    "Вече си толкова близо, че би било жалко да спреш точно преди още един курс. Почти стана.",
+    `Чудесно. "${completedPromise.title}" почти стана, но сега идва "${nextPromise.title}" за само ${formatMoneyGameAmount(nextTarget)} €.`,
+    `Браво. Мина през "${completedPromise.title}", а сега вече си на една крачка от "${nextPromise.title}".`,
+    `Супер напредък. След "${completedPromise.title}" логично идва "${nextPromise.title}". Само още малко.`,
+    `Ето така започва свободата: първо "${completedPromise.title}", после "${nextPromise.title}" и пак си почти там.`,
   ];
 
   return messages[moneyGameState.rounds % messages.length];
@@ -222,9 +248,10 @@ function getMoneyMockMessage(nextTarget) {
 
 function getMoneyIdleMessage() {
   const remaining = Math.max(0, moneyGameState.target - moneyGameState.collected);
+  const currentPromise = getMoneyPromise();
   return remaining
-    ? `Почти си там. Остават само още ${formatMoneyGameAmount(remaining)}.`
-    : "Почти си готов. Остава съвсем малко.";
+    ? `Почти си там. Остават само още ${formatMoneyGameAmount(remaining)} € до "${currentPromise.title}".`
+    : `Почти си готов. "${currentPromise.title}" е съвсем близо.`;
 }
 
 function createMoneyGameToggle() {
@@ -290,6 +317,24 @@ function getTaxHitMessage(taxAmount) {
   return `Десети клик. Данък 30%: -${formatMoneyGameAmount(taxAmount)} €. Но спокойно, пак си почти там.`;
 }
 
+function recordMoneyGameExpense(label, amountEuro) {
+  const normalizedLabel = String(label || "разход").trim() || "разход";
+  const expenseAmount = Math.abs(amountEuro);
+
+  moneyGameState.expenseHits.set(normalizedLabel, (moneyGameState.expenseHits.get(normalizedLabel) || 0) + 1);
+  moneyGameState.expenseTotal += expenseAmount;
+}
+
+function getMoneyGameExpenseSummary() {
+  return Array.from(moneyGameState.expenseHits.entries()).sort((left, right) => {
+    if (right[1] !== left[1]) {
+      return right[1] - left[1];
+    }
+
+    return left[0].localeCompare(right[0], "bg");
+  });
+}
+
 function canSpawnExpense(expense) {
   if (!expense.maxSpawns) {
     return true;
@@ -310,8 +355,8 @@ function createMoneyGamePanel() {
   panel.className = "money-game-panel";
   panel.hidden = true;
   panel.innerHTML = `
-    <p class="money-game-eyebrow">Фонд</p>
-    <h2>Следващо ниво</h2>
+    <p class="money-game-eyebrow">Гуру обещание</p>
+    <h2 data-money-game-promise>${getMoneyPromise().title}</h2>
     <p class="money-game-level">Ниво <span data-money-game-level>${getCurrentMoneyLevel()}</span></p>
     <div class="money-game-stack">
       <div class="money-game-meter" aria-hidden="true">
@@ -319,8 +364,13 @@ function createMoneyGamePanel() {
       </div>
       <div class="money-game-stats">
         <p class="money-game-amount"><strong data-money-game-current>0</strong> €</p>
-        <p class="money-game-target">цел <span data-money-game-target>${formatMoneyGameAmount(moneyGameState.target)}</span> €</p>
+        <p class="money-game-target">още <span data-money-game-target>${formatMoneyGameAmount(moneyGameState.target)}</span> €</p>
       </div>
+    </div>
+    <div class="money-game-expenses" data-money-game-expenses hidden>
+      <p class="money-game-expenses-label">Животът досега</p>
+      <p class="money-game-expenses-total"><strong data-money-game-expense-total>0</strong> € разходи</p>
+      <div class="money-game-expenses-list" data-money-game-expense-list></div>
     </div>
     <p class="money-game-message" data-money-game-message>${getMoneyIdleMessage()}</p>
   `;
@@ -419,7 +469,13 @@ function updateMoneyGamePanel() {
   const current = panel.querySelector("[data-money-game-current]");
   const target = panel.querySelector("[data-money-game-target]");
   const level = panel.querySelector("[data-money-game-level]");
+  const promise = panel.querySelector("[data-money-game-promise]");
+  const expenses = panel.querySelector("[data-money-game-expenses]");
+  const expenseTotal = panel.querySelector("[data-money-game-expense-total]");
+  const expenseList = panel.querySelector("[data-money-game-expense-list]");
   const progress = moneyGameState.target ? Math.max(0, Math.min(1, moneyGameState.collected / moneyGameState.target)) : 0;
+  const expenseSummary = getMoneyGameExpenseSummary();
+  const currentPromise = getMoneyPromise();
 
   panel.dataset.balance = moneyGameState.collected < 0 ? "negative" : "positive";
 
@@ -437,6 +493,38 @@ function updateMoneyGamePanel() {
 
   if (level) {
     level.textContent = String(getCurrentMoneyLevel());
+  }
+
+  if (promise) {
+    promise.textContent = currentPromise.title;
+  }
+
+  if (expenses) {
+    expenses.hidden = expenseSummary.length === 0;
+  }
+
+  if (expenseTotal) {
+    expenseTotal.textContent = formatMoneyGameAmount(moneyGameState.expenseTotal);
+  }
+
+  if (expenseList) {
+    if (!expenseSummary.length) {
+      expenseList.innerHTML = "";
+    } else {
+      const visibleItems = expenseSummary.slice(0, 4);
+      const remainingItems = expenseSummary.length - visibleItems.length;
+
+      expenseList.innerHTML = visibleItems
+        .map(
+          ([label, count]) =>
+            `<span class="money-game-expense-chip">${escapeHtml(label)} <strong>x${count}</strong></span>`,
+        )
+        .join("");
+
+      if (remainingItems > 0) {
+        expenseList.innerHTML += `<span class="money-game-expense-chip money-game-expense-chip-more">+${remainingItems} още</span>`;
+      }
+    }
   }
 }
 
@@ -670,6 +758,7 @@ function initMoneyRain() {
 
       if (taxAmount > 0) {
         moneyGameState.collected -= taxAmount;
+        recordMoneyGameExpense("данък", taxAmount);
         updateMoneyGamePanel();
         spawnMoneyPop(target, -taxAmount);
         setMoneyGameMessage(getTaxHitMessage(taxAmount), {
@@ -683,6 +772,8 @@ function initMoneyRain() {
     if (amountEuro < 0) {
       const expenseLabel = target.dataset.label || "Разход";
       const isCritical = target.dataset.critical === "true";
+      recordMoneyGameExpense(expenseLabel, amountEuro);
+      updateMoneyGamePanel();
       if (!taxShouldApply) {
         setMoneyGameMessage(getExpenseHitMessage(expenseLabel, { critical: isCritical }), {
           state: "expense",
@@ -703,12 +794,14 @@ function initMoneyRain() {
     }
 
     const completedTarget = moneyGameState.target;
+    const completedPromise = getMoneyPromise();
     const nextTarget = getNextMoneyTarget(completedTarget, moneyGameState.rounds);
     moneyGameState.rounds += 1;
+    const nextPromise = getMoneyPromise();
     const panel = getMoneyGamePanel();
     panel.classList.add("is-complete");
     updateMoneyGamePanel();
-    setMoneyGameMessage(getMoneyMockMessage(nextTarget), {
+    setMoneyGameMessage(getMoneyMockMessage(nextTarget, completedPromise, nextPromise), {
       state: "mocking",
       temporary: true,
       duration: 3200,
@@ -760,6 +853,8 @@ function initMoneyRain() {
 
     const expenseLabel = target.dataset.label || "Разход";
     const isCritical = target.dataset.critical === "true";
+    recordMoneyGameExpense(expenseLabel, amountEuro);
+    updateMoneyGamePanel();
     setMoneyGameMessage(getExpenseHitMessage(expenseLabel, { autoCharged: true, critical: isCritical }), {
       state: "expense",
       temporary: true,

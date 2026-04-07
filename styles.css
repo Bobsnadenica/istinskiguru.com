@@ -85,12 +85,12 @@ code {
   z-index: 4;
   overflow: hidden;
   pointer-events: none;
-  opacity: 0.8;
+  opacity: 0.96;
 }
 
 body.performance-lite .money-rain {
   inset: -10rem 0 -7rem;
-  opacity: 0.62;
+  opacity: 0.84;
 }
 
 body.performance-lite .money-game-toggle,
@@ -235,13 +235,13 @@ body.performance-lite .reveal.is-visible {
   min-width: 4.8rem;
   padding: 0.45rem 0.6rem;
   border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.34);
   background:
-    linear-gradient(180deg, rgba(203, 235, 193, 0.32), rgba(184, 132, 69, 0.12)),
-    rgba(247, 255, 241, 0.18);
+    linear-gradient(180deg, rgba(203, 235, 193, 0.68), rgba(184, 132, 69, 0.24)),
+    rgba(247, 255, 241, 0.62);
   box-shadow:
-    0 18px 36px rgba(16, 20, 17, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    0 18px 36px rgba(16, 20, 17, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.46);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   animation: money-sway var(--swing-duration) ease-in-out infinite alternate;
@@ -263,7 +263,7 @@ body.performance-lite .reveal.is-visible {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(16, 20, 17, 0.58);
+  color: rgba(16, 20, 17, 0.78);
 }
 
 .expense-note {
@@ -278,13 +278,13 @@ body.performance-lite .reveal.is-visible {
   min-height: 5.25rem;
   padding: 0.75rem 0.7rem;
   border-radius: 1.45rem;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   background:
-    linear-gradient(180deg, rgba(255, 227, 224, 0.4), rgba(109, 54, 45, 0.18)),
-    rgba(255, 244, 241, 0.22);
+    linear-gradient(180deg, rgba(255, 227, 224, 0.74), rgba(109, 54, 45, 0.28)),
+    rgba(255, 244, 241, 0.72);
   box-shadow:
-    0 18px 36px rgba(16, 20, 17, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.34);
+    0 18px 36px rgba(16, 20, 17, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   animation: money-sway var(--swing-duration) ease-in-out infinite alternate;
@@ -295,11 +295,11 @@ body.performance-lite .reveal.is-visible {
 
 .expense-note.is-critical .expense-note-core {
   background:
-    linear-gradient(180deg, rgba(255, 214, 206, 0.52), rgba(109, 54, 45, 0.34)),
-    rgba(255, 238, 233, 0.28);
+    linear-gradient(180deg, rgba(255, 214, 206, 0.82), rgba(109, 54, 45, 0.48)),
+    rgba(255, 238, 233, 0.8);
   box-shadow:
-    0 24px 42px rgba(109, 54, 45, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.38);
+    0 24px 42px rgba(109, 54, 45, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.54);
 }
 
 .expense-note-badge {
@@ -309,7 +309,7 @@ body.performance-lite .reveal.is-visible {
   min-height: 1.3rem;
   padding: 0.15rem 0.48rem;
   border-radius: 999px;
-  background: rgba(109, 54, 45, 0.14);
+  background: rgba(109, 54, 45, 0.22);
   color: rgba(109, 54, 45, 0.94);
   font-size: 0.58rem;
   font-weight: 800;
@@ -401,11 +401,14 @@ body.performance-lite .reveal.is-visible {
 
 .money-game-panel h2 {
   margin: 0;
+  max-width: 8.5ch;
+  margin-inline: auto;
   font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
   font-size: clamp(1.1rem, 1.5vw, 1.4rem);
   line-height: 0.98;
   letter-spacing: -0.04em;
   text-align: center;
+  text-wrap: balance;
 }
 
 .money-game-level {
@@ -491,6 +494,71 @@ body.performance-lite .reveal.is-visible {
   font-size: 0.78rem;
   line-height: 1.38;
   text-align: center;
+}
+
+.money-game-expenses {
+  margin-top: 0.85rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(16, 20, 17, 0.08);
+}
+
+.money-game-expenses-label,
+.money-game-expenses-total {
+  margin: 0;
+  text-align: center;
+}
+
+.money-game-expenses-label {
+  color: rgba(16, 20, 17, 0.56);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.money-game-expenses-total {
+  margin-top: 0.32rem;
+  color: rgba(16, 20, 17, 0.82);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.money-game-expenses-total strong {
+  font-size: 0.96rem;
+  font-weight: 800;
+}
+
+.money-game-expenses-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.34rem;
+  margin-top: 0.6rem;
+}
+
+.money-game-expense-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  min-height: 1.3rem;
+  padding: 0.18rem 0.44rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.52);
+  border: 1px solid rgba(16, 20, 17, 0.08);
+  color: rgba(16, 20, 17, 0.82);
+  font-size: 0.62rem;
+  line-height: 1;
+  text-align: center;
+}
+
+.money-game-expense-chip strong {
+  font-weight: 800;
+}
+
+.money-game-expense-chip-more {
+  background: rgba(109, 54, 45, 0.12);
+  color: rgba(109, 54, 45, 0.9);
 }
 
 .money-game-panel[data-state="mocking"] .money-game-message {
@@ -2509,6 +2577,27 @@ body.performance-lite .reveal.is-visible {
 
   .money-game-panel h2 {
     font-size: 1rem;
+  }
+
+  .money-game-expenses-label {
+    font-size: 0.58rem;
+  }
+
+  .money-game-expenses-total {
+    font-size: 0.68rem;
+  }
+
+  .money-game-expenses-total strong {
+    font-size: 0.88rem;
+  }
+
+  .money-game-expenses-list {
+    gap: 0.28rem;
+  }
+
+  .money-game-expense-chip {
+    padding: 0.16rem 0.36rem;
+    font-size: 0.58rem;
   }
 
   .hero,
