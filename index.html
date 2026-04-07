@@ -97,6 +97,7 @@
       }
     </script>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="gallery.css" />
   </head>
   <body>
     <div class="page-shell">
@@ -111,7 +112,6 @@
           </p>
           <div class="hero-actions">
             <a class="button" href="#directory">Виж каталога</a>
-            <a class="button button-secondary" href="gallery.html">Виж галерията</a>
             <a class="button button-secondary" href="scams.html">Как работи този бизнес</a>
           </div>
           <div class="mini-button-row">
@@ -199,21 +199,12 @@
             <p>Лица, канали, обещания и правилно подбраната увереност на едно място.</p>
           </div>
 
-          <div class="directory-tools reveal">
-            <label class="search-field" for="guru-search">
-              <span>Търси гуру</span>
-              <input
-                id="guru-search"
-                name="guru-search"
-                type="search"
-                placeholder="Име, описание, канал..."
-                autocomplete="off"
-              />
-            </label>
-            <p id="search-status" class="search-status" aria-live="polite"></p>
+          <div class="gallery-inline reveal">
+            <div class="gallery-hero-window gallery-hero-window-inline" aria-label="Подвижна лента с портрети">
+              <div class="gallery-hero-track" id="gallery-hero-track"></div>
+            </div>
+            <div id="gallery-mosaic" class="gallery-mosaic" aria-live="polite"></div>
           </div>
-
-          <div id="profile-list" class="profile-list"></div>
         </section>
 
         <section class="closing reveal" id="notice">
@@ -241,11 +232,26 @@
       </footer>
     </div>
 
+    <div class="gallery-detail" id="gallery-detail" hidden>
+      <div class="gallery-detail-backdrop" data-gallery-close></div>
+      <aside
+        class="gallery-detail-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="gallery-detail-title"
+      >
+        <button class="gallery-detail-close" type="button" data-gallery-close aria-label="Затвори профила">
+          Затвори
+        </button>
+        <div class="gallery-detail-scroll" id="gallery-detail-content"></div>
+      </aside>
+    </div>
+
     <script src="share-actions.js" defer></script>
     <script src="video-viewer.js" defer></script>
     <script src="page-effects.js" defer></script>
     <script src="site-intro.js" defer></script>
     <script src="site-data.js" defer></script>
-    <script src="script.js" defer></script>
+    <script src="gallery.js" defer></script>
   </body>
 </html>

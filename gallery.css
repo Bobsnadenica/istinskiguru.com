@@ -163,6 +163,16 @@
   padding: clamp(1rem, 2vw, 1.5rem) 0 clamp(4rem, 8vw, 6rem);
 }
 
+.gallery-inline {
+  display: grid;
+  gap: 1.15rem;
+  margin-top: 2rem;
+}
+
+.gallery-hero-window-inline {
+  padding: 0.9rem;
+}
+
 .gallery-mosaic {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
