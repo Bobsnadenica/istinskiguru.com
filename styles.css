@@ -2060,6 +2060,105 @@ body.performance-lite .reveal.is-visible {
   text-decoration: none;
 }
 
+.site-footer-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.95rem;
+}
+
+.contact-page .hero-text {
+  max-width: 38rem;
+  font-size: clamp(1.08rem, 1.72vw, 1.24rem);
+  line-height: 1.72;
+}
+
+.contact-board {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.contact-board .scam-board-card strong {
+  font-size: 1.48rem;
+  line-height: 1.04;
+}
+
+.contact-board .scam-board-card p,
+.contact-page .mechanics-copy p,
+.contact-page .mechanics-grid p,
+.contact-page .watchlist-grid p,
+.contact-page .contact-card p {
+  font-size: 1.04rem;
+  line-height: 1.68;
+}
+
+.contact-page .mechanics {
+  border-top: 1px solid var(--line);
+}
+
+.contact-reachout {
+  width: min(1220px, calc(100vw - 2rem));
+  margin: 0 auto;
+  padding: clamp(4rem, 7vw, 7rem) 0;
+  border-top: 1px solid var(--line);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.contact-card {
+  display: grid;
+  align-content: start;
+  gap: 0.95rem;
+  padding: 1.45rem 1.35rem 1.5rem;
+  border: 1px solid rgba(16, 20, 17, 0.08);
+  border-radius: calc(var(--radius) - 8px);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.28)),
+    linear-gradient(135deg, rgba(184, 132, 69, 0.08), rgba(32, 55, 47, 0.08));
+  box-shadow: 0 18px 42px rgba(16, 20, 17, 0.08);
+}
+
+.contact-card-featured {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.34)),
+    linear-gradient(135deg, rgba(184, 132, 69, 0.14), rgba(109, 54, 45, 0.1));
+}
+
+.contact-card-label {
+  margin: 0;
+  color: var(--accent-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.74rem;
+}
+
+.contact-card h3 {
+  margin: 0;
+  font-size: 1.45rem;
+  line-height: 1.15;
+}
+
+.contact-card p:last-child {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.contact-mail-link {
+  color: var(--ink);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.contact-mail-link:hover,
+.contact-mail-link:focus-visible {
+  color: var(--accent-deep);
+}
+
 .site-intro {
   position: fixed;
   inset: 0;
@@ -2493,6 +2592,7 @@ body.performance-lite .reveal.is-visible {
   .watchlist-grid,
   .course-grid,
   .method-grid,
+  .contact-grid,
   .theme-selector-grid,
   .model-layout,
   .pattern-grid {
@@ -2501,7 +2601,8 @@ body.performance-lite .reveal.is-visible {
 
   .mechanics-grid,
   .model-points,
-  .advice-board {
+  .advice-board,
+  .contact-board {
     grid-template-columns: 1fr;
   }
 
@@ -2660,6 +2761,12 @@ body.performance-lite .reveal.is-visible {
   .site-footer {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .site-footer-links {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 
   .ticker-track {
