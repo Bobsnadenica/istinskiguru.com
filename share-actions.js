@@ -54,12 +54,60 @@ function guessMimeType(filePath) {
 
 function getPlatformLabel(platform) {
   switch (platform) {
+    case "facebook":
+      return "Facebook";
     case "instagram":
       return "Instagram";
     case "tiktok":
       return "TikTok";
     default:
       return "приложението";
+  }
+}
+
+function isLikelyMobileDevice() {
+  if (typeof window === "undefined" || typeof navigator === "undefined") {
+    return false;
+  }
+
+  const userAgent = navigator.userAgent || "";
+
+  if (/iPhone|iPad|iPod|Android/i.test(userAgent)) {
+    return true;
+  }
+
+  if (navigator.maxTouchPoints > 1 && window.innerWidth <= 1024) {
+    return true;
+  }
+
+  return Boolean(window.matchMedia?.("(max-width: 980px) and (pointer: coarse)").matches);
+}
+
+function buildFacebookMobileShareUrl(href) {
+  if (!href) {
+    return "";
+  }
+
+  try {
+    const parsedUrl = new URL(href, window.location.href);
+    const sharedUrl = parsedUrl.searchParams.get("u") || parsedUrl.searchParams.get("href") || "";
+
+    if (!sharedUrl) {
+      return parsedUrl.toString();
+    }
+
+    const mobileShareUrl = new URL("https://m.facebook.com/sharer.php");
+    mobileShareUrl.searchParams.set("u", sharedUrl);
+
+    const quote = parsedUrl.searchParams.get("quote");
+
+    if (quote) {
+      mobileShareUrl.searchParams.set("quote", quote);
+    }
+
+    return mobileShareUrl.toString();
+  } catch {
+    return href;
   }
 }
 
@@ -138,13 +186,50 @@ async function shareToMediaApp(button) {
   );
 }
 
+async function shareToFacebook(button) {
+  const shareUrl = button.getAttribute("data-share-url") || "";
+  const shareText = button.getAttribute("data-share-text") || "";
+  const href = button.getAttribute("href") || "";
+  const isMobile = isLikelyMobileDevice();
+  const targetHref = isMobile ? buildFacebookMobileShareUrl(href) : href;
+
+  if (isMobile && targetHref) {
+    window.location.assign(targetHref);
+    return;
+  }
+
+  if (targetHref) {
+    const popup = window.open(targetHref, "_blank", "noopener,noreferrer");
+
+    if (popup) {
+      return;
+    }
+  }
+
+  const copied = await copyShareText([shareText, shareUrl].filter(Boolean).join(" ") || shareUrl);
+  showShareToast(
+    copied
+      ? "Facebook не отвори share прозореца, затова копирах линка."
+      : "Facebook share не се отвори. Опитай пак или сподели линка ръчно.",
+  );
+}
+
 document.addEventListener("click", (event) => {
-  const button = event.target instanceof Element ? event.target.closest("[data-native-share]") : null;
+  const button =
+    event.target instanceof Element
+      ? event.target.closest("[data-facebook-share], [data-native-share]")
+      : null;
 
   if (!button) {
     return;
   }
 
   event.preventDefault();
+
+  if (button.hasAttribute("data-facebook-share")) {
+    shareToFacebook(button);
+    return;
+  }
+
   shareToMediaApp(button);
 });

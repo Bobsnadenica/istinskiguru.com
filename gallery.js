@@ -245,6 +245,10 @@ function getShareButtons(profile, options = {}) {
       <a
         class="share-button share-button-facebook"
         href="${escapeHtml(getFacebookShareUrl(profile))}"
+        data-facebook-share="facebook"
+        data-share-title="${escapeHtml(profile.name)}"
+        data-share-text="${escapeHtml(shareMessage)}"
+        data-share-url="${escapeHtml(shareUrl)}"
         target="_blank"
         rel="noopener"
         aria-label="Сподели профила на ${escapeHtml(profile.name)} във Facebook"
