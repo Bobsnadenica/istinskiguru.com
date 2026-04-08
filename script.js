@@ -203,8 +203,7 @@ function getProfileVideos(profile) {
   return [];
 }
 
-function getShareButtons(profile, options = {}) {
-  const { includeOpenLink = false } = options;
+function getShareButtons(profile) {
   const shareUrl = getProfileShareUrl(profile);
   const shareMessage = getShareMessage(profile);
   const profileVideos = getProfileVideos(profile);
@@ -271,14 +270,6 @@ function getShareButtons(profile, options = {}) {
         title="TikTok"
       >
         ${getShareIcon("tiktok")}
-      </a>
-    `);
-  }
-
-  if (includeOpenLink) {
-    buttons.push(`
-      <a class="button button-secondary profile-open-link" href="${escapeHtml(shareUrl)}">
-        Отвори споделимата страница
       </a>
     `);
   }
