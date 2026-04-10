@@ -1,0 +1,19 @@
+# Копирай този файл в папката на новия профил и попълни редовете.
+# Остави ненужните полета празни.
+# Ако имаш повече от един линк от един и същ тип, просто повтори реда.
+
+Description:
+Надзаглавие:
+Резюме:
+Обещан вайб:
+Прочит:
+Наблюдение:
+Бележка върху снимката:
+
+Website: https://yatanium.com/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExQTJRNVowNk1taE92MTZYWHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR5TokXMt4AsAxbi5iWz9bvAa8RgF5CKaAHWiEo2EYk8qxUDhT8EwOC6kAY_3w_aem_o5quPvJTsHs-JTWYsaicNQ
+Facebook: https://www.facebook.com/profile.php?id=61580016417890
+Instagram:
+YouTube:
+TikTok:
+LinkedIn:
+Viber:
