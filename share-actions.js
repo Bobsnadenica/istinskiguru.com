@@ -83,34 +83,6 @@ function isLikelyMobileDevice() {
   return Boolean(window.matchMedia?.("(max-width: 980px) and (pointer: coarse)").matches);
 }
 
-function buildFacebookMobileShareUrl(href) {
-  if (!href) {
-    return "";
-  }
-
-  try {
-    const parsedUrl = new URL(href, window.location.href);
-    const sharedUrl = parsedUrl.searchParams.get("u") || parsedUrl.searchParams.get("href") || "";
-
-    if (!sharedUrl) {
-      return parsedUrl.toString();
-    }
-
-    const mobileShareUrl = new URL("https://m.facebook.com/sharer.php");
-    mobileShareUrl.searchParams.set("u", sharedUrl);
-
-    const quote = parsedUrl.searchParams.get("quote");
-
-    if (quote) {
-      mobileShareUrl.searchParams.set("quote", quote);
-    }
-
-    return mobileShareUrl.toString();
-  } catch {
-    return href;
-  }
-}
-
 async function buildShareFile(videoUrl, title) {
   if (!videoUrl || typeof window.fetch !== "function") {
     return null;
@@ -187,19 +159,29 @@ async function shareToMediaApp(button) {
 }
 
 async function shareToFacebook(button) {
-  const shareUrl = button.getAttribute("data-share-url") || "";
+  const title = button.getAttribute("data-share-title") || "";
   const shareText = button.getAttribute("data-share-text") || "";
+  const shareUrl = button.getAttribute("data-share-url") || "";
   const href = button.getAttribute("href") || "";
   const isMobile = isLikelyMobileDevice();
-  const targetHref = isMobile ? buildFacebookMobileShareUrl(href) : href;
 
-  if (isMobile && targetHref) {
-    window.location.assign(targetHref);
-    return;
+  if (isMobile && navigator.share) {
+    try {
+      await navigator.share({
+        title,
+        text: shareText,
+        url: shareUrl,
+      });
+      return;
+    } catch (error) {
+      if (error instanceof Error && error.name === "AbortError") {
+        return;
+      }
+    }
   }
 
-  if (targetHref) {
-    const popup = window.open(targetHref, "_blank", "noopener,noreferrer");
+  if (href) {
+    const popup = window.open(href, "_blank", "noopener,noreferrer");
 
     if (popup) {
       return;
@@ -209,8 +191,8 @@ async function shareToFacebook(button) {
   const copied = await copyShareText([shareText, shareUrl].filter(Boolean).join(" ") || shareUrl);
   showShareToast(
     copied
-      ? "Facebook не отвори share прозореца, затова копирах линка."
-      : "Facebook share не се отвори. Опитай пак или сподели линка ръчно.",
+      ? "На телефона копирах линка. Facebook app не приема надеждно директния web share flow."
+      : "Facebook share не се отвори надеждно на този телефон. Опитай през системното споделяне или сподели линка ръчно.",
   );
 }
 
