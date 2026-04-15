@@ -217,8 +217,6 @@ function getShareButtons(profile) {
         data-share-title="${escapeHtml(profile.name)}"
         data-share-text="${escapeHtml(shareMessage)}"
         data-share-url="${escapeHtml(shareUrl)}"
-        target="_blank"
-        rel="noopener"
         aria-label="Сподели профила на ${escapeHtml(profile.name)} във Facebook"
         title="Facebook"
       >

@@ -159,40 +159,44 @@ async function shareToMediaApp(button) {
 }
 
 async function shareToFacebook(button) {
-  const title = button.getAttribute("data-share-title") || "";
   const shareText = button.getAttribute("data-share-text") || "";
   const shareUrl = button.getAttribute("data-share-url") || "";
   const href = button.getAttribute("href") || "";
   const isMobile = isLikelyMobileDevice();
 
-  if (isMobile && navigator.share) {
+  if (href && isMobile) {
     try {
-      await navigator.share({
-        title,
-        text: shareText,
-        url: shareUrl,
-      });
+      window.location.assign(href);
       return;
-    } catch (error) {
-      if (error instanceof Error && error.name === "AbortError") {
-        return;
-      }
+    } catch {
+      // Fall through to the next share attempt below.
     }
   }
 
   if (href) {
-    const popup = window.open(href, "_blank", "noopener,noreferrer");
+    const popup = window.open(
+      href,
+      "facebook-share",
+      "popup=yes,noopener,noreferrer,width=720,height=660",
+    );
 
     if (popup) {
       return;
+    }
+
+    try {
+      window.location.assign(href);
+      return;
+    } catch {
+      // Fall back to copying the share URL below.
     }
   }
 
   const copied = await copyShareText([shareText, shareUrl].filter(Boolean).join(" ") || shareUrl);
   showShareToast(
     copied
-      ? "На телефона копирах линка. Facebook app не приема надеждно директния web share flow."
-      : "Facebook share не се отвори надеждно на този телефон. Опитай през системното споделяне или сподели линка ръчно.",
+      ? "Копирах линка към профила. Постави го във Facebook, ако прозорецът за споделяне не се отвори."
+      : "Facebook share не се отвори надеждно. Опитай отново или сподели профилния линк ръчно.",
   );
 }
 
