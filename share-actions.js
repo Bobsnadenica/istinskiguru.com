@@ -83,6 +83,19 @@ function isLikelyMobileDevice() {
   return Boolean(window.matchMedia?.("(max-width: 980px) and (pointer: coarse)").matches);
 }
 
+function buildFacebookShareUrl(shareUrl, mobile = false) {
+  if (!shareUrl) {
+    return "";
+  }
+
+  const shareParams = new URLSearchParams({
+    u: shareUrl,
+  });
+
+  const host = mobile ? "m.facebook.com" : "www.facebook.com";
+  return `https://${host}/sharer/sharer.php?${shareParams.toString()}`;
+}
+
 async function buildShareFile(videoUrl, title) {
   if (!videoUrl || typeof window.fetch !== "function") {
     return null;
@@ -161,15 +174,15 @@ async function shareToMediaApp(button) {
 async function shareToFacebook(button) {
   const shareText = button.getAttribute("data-share-text") || "";
   const shareUrl = button.getAttribute("data-share-url") || "";
-  const href = button.getAttribute("href") || "";
   const isMobile = isLikelyMobileDevice();
+  const fallbackHref = button.getAttribute("href") || "";
+  const href = buildFacebookShareUrl(shareUrl, isMobile) || fallbackHref;
 
   if (href && isMobile) {
-    try {
-      window.location.assign(href);
+    const popup = window.open(href, "_blank", "noopener,noreferrer");
+
+    if (popup) {
       return;
-    } catch {
-      // Fall through to the next share attempt below.
     }
   }
 

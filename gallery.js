@@ -78,6 +78,20 @@ function getSiteRootUrl() {
   return new URL("/", window.location.href).toString();
 }
 
+function toRootRelativeUrl(value) {
+  const normalised = String(value || "").trim();
+
+  if (!normalised) {
+    return "";
+  }
+
+  if (/^(?:https?:)?\/\//i.test(normalised)) {
+    return normalised;
+  }
+
+  return `/${normalised.replace(/^\/+/u, "")}`;
+}
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -126,7 +140,7 @@ function updateHeroVisual(profiles) {
     return;
   }
 
-  heroImage.src = encodeURI(heroProfile.image);
+  heroImage.src = encodeURI(toRootRelativeUrl(heroProfile.image));
   heroImage.alt = heroProfile.alt || "";
   heroImage.style.objectPosition = heroProfile.orientation === "landscape" ? "center center" : "center 32%";
 
@@ -238,7 +252,7 @@ function getShareButtons(profile) {
   const shareUrl = getProfileShareUrl(profile);
   const shareMessage = getShareMessage(profile);
   const profileVideos = getProfileVideos(profile);
-  const firstVideo = profileVideos[0] || "";
+  const firstVideo = toRootRelativeUrl(profileVideos[0] || "");
   const buttons = [
     `
       <a
@@ -385,6 +399,7 @@ async function loadProfiles() {
 function getTileMarkup(profile, index, options = {}) {
   const { className = "gallery-tile", inert = false, eager = false } = options;
   const profileId = getProfileId(profile);
+  const imageUrl = toRootRelativeUrl(profile.image);
   const isFeatured = profile.orientation !== "landscape" && index % 7 === 0;
   const loading = eager ? "eager" : "lazy";
   const fetchpriority = eager ? "high" : "low";
@@ -402,7 +417,7 @@ function getTileMarkup(profile, index, options = {}) {
       ${buttonAttributes}
     >
       <img
-        src="${encodeURI(profile.image)}"
+        src="${encodeURI(imageUrl)}"
         alt="${inert ? "" : escapeHtml(profile.alt || `Портрет на ${profile.name}`)}"
         loading="${loading}"
         decoding="async"
@@ -469,6 +484,7 @@ function getDefaultDetailMarkup() {
 }
 
 function buildDetailMarkup(profile) {
+  const imageUrl = toRootRelativeUrl(profile.image);
   const channelLinks = (profile.links || [])
     .map(
       (link) =>
@@ -526,13 +542,13 @@ function buildDetailMarkup(profile) {
                       class="profile-video-launch"
                       type="button"
                       data-video-launch
-                      data-video-src="${encodeURI(videoPath)}"
+                      data-video-src="${encodeURI(toRootRelativeUrl(videoPath))}"
                       data-video-type="${getVideoMimeType(videoPath)}"
-                      data-video-poster="${encodeURI(profile.image)}"
+                      data-video-poster="${encodeURI(imageUrl)}"
                       data-video-title="${escapeHtml(`${profile.name} • ${profileVideos.length > 1 ? `Видео ${index + 1}` : "Видео"}`)}"
                       aria-label="Отвори ${escapeHtml(profileVideos.length > 1 ? `видео ${index + 1}` : "видеото")} на ${escapeHtml(profile.name)}"
                     >
-                      <img class="profile-video-poster" src="${encodeURI(profile.image)}" alt="" loading="lazy" decoding="async" fetchpriority="low" />
+                      <img class="profile-video-poster" src="${encodeURI(imageUrl)}" alt="" loading="lazy" decoding="async" fetchpriority="low" />
                       <span class="profile-video-overlay">
                         <span class="profile-video-badge">${profileVideos.length > 1 ? `Видео ${index + 1}` : "Видео"}</span>
                         <span class="profile-video-hint">Гледай на голям екран</span>
@@ -558,7 +574,7 @@ function buildDetailMarkup(profile) {
       </div>
 
       <div class="gallery-detail-media" data-orientation="${escapeHtml(profile.orientation || "portrait")}">
-        <img src="${encodeURI(profile.image)}" alt="${escapeHtml(profile.alt || profile.name)}" loading="eager" decoding="async" fetchpriority="high" />
+        <img src="${encodeURI(imageUrl)}" alt="${escapeHtml(profile.alt || profile.name)}" loading="eager" decoding="async" fetchpriority="high" />
         <div class="media-chip">${escapeHtml(profile.imageNote || profile.kicker || profile.name)}</div>
       </div>
 
@@ -587,9 +603,12 @@ function updateGalleryHash(profileId) {
     return;
   }
 
-  const nextUrl = new URL(window.location.href);
-  nextUrl.hash = profileId ? encodeURIComponent(profileId) : "";
-  window.history.replaceState({}, "", nextUrl.toString());
+  const nextUrl =
+    profileId && galleryProfilesById.has(profileId)
+      ? getProfileShareUrl(galleryProfilesById.get(profileId))
+      : getCanonicalPageUrl() || new URL(window.location.href).toString();
+
+  window.history.replaceState({}, "", nextUrl);
 }
 
 function openGalleryDetail(profile, trigger, options = {}) {
@@ -676,9 +695,7 @@ function attachGalleryInteractions() {
 
     if (galleryProfilesById.has(nextHash)) {
       const nextProfile = galleryProfilesById.get(nextHash);
-      openGalleryDetail(nextProfile, findGalleryTrigger(nextHash), {
-        updateHash: false,
-      });
+      openGalleryDetail(nextProfile, findGalleryTrigger(nextHash));
       return;
     }
 
@@ -705,9 +722,7 @@ async function initGalleryPage() {
 
   if (galleryProfilesById.has(initialHash)) {
     const initialProfile = galleryProfilesById.get(initialHash);
-    openGalleryDetail(initialProfile, findGalleryTrigger(initialHash), {
-      updateHash: false,
-    });
+    openGalleryDetail(initialProfile, findGalleryTrigger(initialHash));
   }
 }
 
