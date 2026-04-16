@@ -83,7 +83,16 @@ function isLikelyMobileDevice() {
   return Boolean(window.matchMedia?.("(max-width: 980px) and (pointer: coarse)").matches);
 }
 
-function buildFacebookShareUrl(shareUrl, mobile = false) {
+function isAppleMobileDevice() {
+  if (typeof navigator === "undefined") {
+    return false;
+  }
+
+  const userAgent = navigator.userAgent || "";
+  return /iPhone|iPad|iPod/i.test(userAgent);
+}
+
+function buildFacebookShareUrl(shareUrl) {
   if (!shareUrl) {
     return "";
   }
@@ -92,8 +101,7 @@ function buildFacebookShareUrl(shareUrl, mobile = false) {
     u: shareUrl,
   });
 
-  const host = mobile ? "m.facebook.com" : "www.facebook.com";
-  return `https://${host}/sharer/sharer.php?${shareParams.toString()}`;
+  return `https://www.facebook.com/sharer/sharer.php?${shareParams.toString()}`;
 }
 
 async function buildShareFile(videoUrl, title) {
@@ -172,11 +180,27 @@ async function shareToMediaApp(button) {
 }
 
 async function shareToFacebook(button) {
+  const title = button.getAttribute("data-share-title") || "";
   const shareText = button.getAttribute("data-share-text") || "";
   const shareUrl = button.getAttribute("data-share-url") || "";
   const isMobile = isLikelyMobileDevice();
   const fallbackHref = button.getAttribute("href") || "";
-  const href = buildFacebookShareUrl(shareUrl, isMobile) || fallbackHref;
+  const href = buildFacebookShareUrl(shareUrl) || fallbackHref;
+
+  if (isAppleMobileDevice() && navigator.share && shareUrl) {
+    try {
+      await navigator.share({
+        title,
+        text: shareText,
+        url: shareUrl,
+      });
+      return;
+    } catch (error) {
+      if (error instanceof Error && error.name === "AbortError") {
+        return;
+      }
+    }
+  }
 
   if (href && isMobile) {
     const popup = window.open(href, "_blank", "noopener,noreferrer");
