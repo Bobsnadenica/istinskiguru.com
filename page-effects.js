@@ -1,3 +1,6 @@
+(function() {
+  const utils = window.__GURU_UTILS__;
+
 let revealObserver = null;
 const observedRevealNodes = new WeakSet();
 let scrollEffectsBound = false;
@@ -199,15 +202,6 @@ function refreshPageEffects() {
 
 function formatMoneyGameAmount(value) {
   return new Intl.NumberFormat("bg-BG").format(Math.round(value));
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
 }
 
 function normaliseMoneyToEuro(amount, currency) {
@@ -517,7 +511,7 @@ function updateMoneyGamePanel() {
       expenseList.innerHTML = visibleItems
         .map(
           ([label, count]) =>
-            `<span class="money-game-expense-chip">${escapeHtml(label)} <strong>x${count}</strong></span>`,
+            `<span class="money-game-expense-chip">${utils.escapeHtml(label)} <strong>x${count}</strong></span>`,
         )
         .join("");
 
@@ -936,3 +930,4 @@ if (document.readyState === "loading") {
 } else {
   initPageEffects();
 }
+})();

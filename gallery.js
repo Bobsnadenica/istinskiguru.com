@@ -487,11 +487,11 @@ function getDefaultDetailMarkup() {
 }
 
 function buildDetailMarkup(profile) {
-  const imageUrl = toRootRelativeUrl(profile.image);
+  const imageUrl = utils.toRootRelativeUrl(profile.image);
   const channelLinks = (profile.links || [])
     .map(
       (link) =>
-        `<a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label)}</a>`,
+        `<a href="${utils.escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${utils.escapeHtml(link.label)}</a>`,
     )
     .join("");
   const signalItems = [
@@ -508,7 +508,7 @@ function buildDetailMarkup(profile) {
     signalItems.push(`
       <div>
         <dt>Обещан вайб</dt>
-        <dd>${escapeHtml(profile.aura)}</dd>
+        <dd>${utils.escapeHtml(profile.aura)}</dd>
       </div>
     `);
   }
@@ -517,7 +517,7 @@ function buildDetailMarkup(profile) {
     signalItems.push(`
       <div>
         <dt>Прочит</dt>
-        <dd>${escapeHtml(profile.funnel)}</dd>
+        <dd>${utils.escapeHtml(profile.funnel)}</dd>
       </div>
     `);
   }
@@ -526,12 +526,12 @@ function buildDetailMarkup(profile) {
     ? `
         <div class="profile-description">
           <p class="profile-description-label">Описание</p>
-          <p>${escapeHtml(profile.description)}</p>
+          <p>${utils.escapeHtml(profile.description)}</p>
         </div>
       `
     : "";
-  const insightBlock = profile.insight ? `<p class="profile-insight">${escapeHtml(profile.insight)}</p>` : "";
-  const summaryBlock = profile.summary ? `<p class="profile-summary">${escapeHtml(profile.summary)}</p>` : "";
+  const insightBlock = profile.insight ? `<p class="profile-insight">${utils.escapeHtml(profile.insight)}</p>` : "";
+  const summaryBlock = profile.summary ? `<p class="profile-summary">${utils.escapeHtml(profile.summary)}</p>` : "";
   const profileVideoBlock = profileVideos.length
     ? `
         <div class="profile-video-wrap" data-count="${profileVideos.length}">
@@ -545,11 +545,11 @@ function buildDetailMarkup(profile) {
                       class="profile-video-launch"
                       type="button"
                       data-video-launch
-                      data-video-src="${encodeURI(toRootRelativeUrl(videoPath))}"
-                      data-video-type="${getVideoMimeType(videoPath)}"
+                      data-video-src="${encodeURI(utils.toRootRelativeUrl(videoPath))}"
+                      data-video-type="${utils.getVideoMimeType(videoPath)}"
                       data-video-poster="${encodeURI(imageUrl)}"
-                      data-video-title="${escapeHtml(`${profile.name} • ${profileVideos.length > 1 ? `Видео ${index + 1}` : "Видео"}`)}"
-                      aria-label="Отвори ${escapeHtml(profileVideos.length > 1 ? `видео ${index + 1}` : "видеото")} на ${escapeHtml(profile.name)}"
+                      data-video-title="${utils.escapeHtml(`${profile.name} • ${profileVideos.length > 1 ? `Видео ${index + 1}` : "Видео"}`)}"
+                      aria-label="Отвори ${utils.escapeHtml(profileVideos.length > 1 ? `видео ${index + 1}` : "видеото")} на ${utils.escapeHtml(profile.name)}"
                     >
                       <img class="profile-video-poster" src="${encodeURI(imageUrl)}" alt="" loading="lazy" decoding="async" fetchpriority="low" />
                       <span class="profile-video-overlay">
@@ -569,16 +569,16 @@ function buildDetailMarkup(profile) {
   return `
     <div class="gallery-detail-stack">
       <div class="gallery-detail-header">
-        <p class="gallery-detail-kicker">${escapeHtml(profile.kicker || "Полево наблюдение")}</p>
-        <h2 class="gallery-detail-title" id="gallery-detail-title">${escapeHtml(profile.name)}</h2>
+        <p class="gallery-detail-kicker">${utils.escapeHtml(profile.kicker || "Полево наблюдение")}</p>
+        <h2 class="gallery-detail-title" id="gallery-detail-title">${utils.escapeHtml(profile.name)}</h2>
         <p class="gallery-detail-lead">
-          ${escapeHtml(profile.imageNote || profile.summary || "Тук вече идват думите след стойката.")}
+          ${utils.escapeHtml(profile.imageNote || profile.summary || "Тук вече идват думите след стойката.")}
         </p>
       </div>
 
-      <div class="gallery-detail-media" data-orientation="${escapeHtml(profile.orientation || "portrait")}">
-        <img src="${encodeURI(imageUrl)}" alt="${escapeHtml(profile.alt || profile.name)}" loading="eager" decoding="async" fetchpriority="high" />
-        <div class="media-chip">${escapeHtml(profile.imageNote || profile.kicker || profile.name)}</div>
+      <div class="gallery-detail-media" data-orientation="${utils.escapeHtml(profile.orientation || "portrait")}">
+        <img src="${encodeURI(imageUrl)}" alt="${utils.escapeHtml(profile.alt || profile.name)}" loading="eager" decoding="async" fetchpriority="high" />
+        <div class="media-chip">${utils.escapeHtml(profile.imageNote || profile.kicker || profile.name)}</div>
       </div>
 
       <div class="gallery-detail-copy">
