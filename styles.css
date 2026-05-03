@@ -72,6 +72,25 @@ code {
   font-size: 0.92em;
 }
 
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0 0 1rem 1rem;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  transition: top 240ms ease;
+}
+
+.skip-link:focus-visible {
+  top: 0;
+}
+
 .page-shell {
   position: relative;
   z-index: 1;

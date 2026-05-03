@@ -83,6 +83,7 @@
     <link rel="stylesheet" href="gallery.css" />
   </head>
   <body>
+    <a href="#gallery-grid" class="skip-link">Към галерията</a>
     <div class="page-shell">
       <header class="hero article-hero gallery-page-hero" id="top">
         <div class="hero-copy reveal">
@@ -125,6 +126,19 @@
               ти хване окото и тогава идват линковете, видеото, описанието и
               добре подреденото самочувствие.
             </p>
+          </div>
+
+          <div class="directory-tools reveal">
+            <div class="search-field">
+              <span>Търси по име или ключова дума</span>
+              <input
+                id="guru-search"
+                type="search"
+                placeholder="Напр. Ивелин Михайлов, крипто, бизнес..."
+                aria-label="Търсене в каталога"
+              />
+            </div>
+            <p id="search-status" class="search-status" aria-live="polite"></p>
           </div>
 
           <div id="gallery-mosaic" class="gallery-mosaic" aria-live="polite"></div>
@@ -175,6 +189,7 @@
       </aside>
     </div>
 
+    <script src="guru-utils.js" defer></script>
     <script src="share-actions.js" defer></script>
     <script src="video-viewer.js" defer></script>
     <script src="page-effects.js" defer></script>

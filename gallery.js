@@ -3,6 +3,8 @@ const galleryHeroTrack = document.querySelector("#gallery-hero-track");
 const galleryDetail = document.querySelector("#gallery-detail");
 const galleryDetailContent = document.querySelector("#gallery-detail-content");
 const galleryCanonicalLink = document.querySelector('link[rel="canonical"]');
+const searchInput = document.querySelector("#guru-search");
+const searchStatus = document.querySelector("#search-status");
 const galleryFallbackProfiles = Array.isArray(window.__GURU_PROFILES__) ? window.__GURU_PROFILES__ : [];
 const heroImage = document.querySelector("#hero-image");
 const heroQuoteLabel = document.querySelector("#hero-quote-label");
@@ -11,6 +13,8 @@ const heroStorageKey = "guruHeroIndex";
 const defaultHeroLabel = heroQuoteLabel?.textContent?.trim() || "Полево наблюдение";
 const defaultHeroText =
   heroQuoteText?.textContent?.trim() || "Силно кафе. Още по-силна енергия за наставничество.";
+
+const utils = window.__GURU_UTILS__;
 
 let galleryProfiles = [];
 let galleryProfilesById = new Map();
@@ -29,22 +33,6 @@ function findGalleryTrigger(profileId) {
     allButtons.find((button) => button.dataset.profileId === profileId) ||
     null
   );
-}
-
-function getProfileId(profile) {
-  if (profile?.id) {
-    return String(profile.id).trim() || "profil";
-  }
-
-  const preferredSource = String(profile?.image || "").split("/").pop() || String(profile?.name || "profil");
-
-  return preferredSource
-    .replace(/\.[^.]+$/u, "")
-    .normalize("NFKD")
-    .replace(/\p{M}/gu, "")
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}]+/gu, "-")
-    .replace(/^-+|-+$/g, "") || "profil";
 }
 
 function getCanonicalPageUrl() {
@@ -76,29 +64,6 @@ function getSiteRootUrl() {
   }
 
   return new URL("/", window.location.href).toString();
-}
-
-function toRootRelativeUrl(value) {
-  const normalised = String(value || "").trim();
-
-  if (!normalised) {
-    return "";
-  }
-
-  if (/^(?:https?:)?\/\//i.test(normalised)) {
-    return normalised;
-  }
-
-  return `/${normalised.replace(/^\/+/u, "")}`;
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
 }
 
 function shuffleProfiles(profiles) {
@@ -140,7 +105,7 @@ function updateHeroVisual(profiles) {
     return;
   }
 
-  heroImage.src = encodeURI(toRootRelativeUrl(heroProfile.image));
+  heroImage.src = encodeURI(utils.toRootRelativeUrl(heroProfile.image));
   heroImage.alt = heroProfile.alt || "";
   heroImage.style.objectPosition = heroProfile.orientation === "landscape" ? "center center" : "center 32%";
 
@@ -156,7 +121,7 @@ function updateHeroVisual(profiles) {
 
 function getProfileShareUrl(profile) {
   const baseUrl = getSiteRootUrl();
-  const profileId = getProfileId(profile);
+  const profileId = utils.getProfileId(profile);
 
   if (!baseUrl || !profileId) {
     return baseUrl;
@@ -197,122 +162,71 @@ function getProfileVideos(profile) {
   return [];
 }
 
-function getVideoMimeType(videoPath) {
-  const lowered = String(videoPath || "").toLowerCase();
-
-  if (lowered.endsWith(".webm")) {
-    return "video/webm";
-  }
-
-  if (lowered.endsWith(".mov")) {
-    return "video/quicktime";
-  }
-
-  if (lowered.endsWith(".m4v")) {
-    return "video/x-m4v";
-  }
-
-  return "video/mp4";
-}
-
-function getShareIcon(platform) {
-  switch (platform) {
-    case "facebook":
-      return `
-        <svg class="share-button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path fill="currentColor" d="M13.6 21v-7.3h2.45l.37-2.87H13.6V9.01c0-.83.23-1.4 1.42-1.4h1.52V5.05c-.27-.04-1.2-.11-2.28-.11-2.25 0-3.79 1.37-3.79 3.89v1.97H7.93v2.87h2.54V21z" />
-        </svg>
-      `;
-    case "linkedin":
-      return `
-        <svg class="share-button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path fill="currentColor" d="M6.78 8.64a1.62 1.62 0 1 1 0-3.24 1.62 1.62 0 0 1 0 3.24zM5.38 9.92h2.8V18h-2.8zM9.95 9.92h2.68v1.1h.04c.38-.7 1.29-1.44 2.65-1.44 2.84 0 3.37 1.8 3.37 4.13V18h-2.8v-3.58c0-.85-.02-1.94-1.24-1.94-1.24 0-1.43.91-1.43 1.89V18h-2.8z" />
-        </svg>
-      `;
-    case "instagram":
-      return `
-        <svg class="share-button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <rect x="3.35" y="3.35" width="17.3" height="17.3" rx="5.1" fill="none" stroke="currentColor" stroke-width="1.9" />
-          <circle cx="12" cy="12" r="4.15" fill="none" stroke="currentColor" stroke-width="1.9" />
-          <circle cx="17.35" cy="6.75" r="1.2" fill="currentColor" />
-        </svg>
-      `;
-    case "tiktok":
-      return `
-        <svg class="share-button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path fill="currentColor" d="M14.58 3.4c.84 1.22 1.83 2.03 3.49 2.27v2.3a7.05 7.05 0 0 1-3.35-1.06v5.15c0 3.42-2.36 5.84-5.71 5.84A5.48 5.48 0 0 1 3.5 12.4c0-3.02 2.3-5.41 5.45-5.41.35 0 .68.03.98.1v2.42a3.49 3.49 0 0 0-.98-.14c-1.67 0-2.94 1.27-2.94 3.01 0 1.86 1.42 3.03 2.89 3.03 1.95 0 3.17-1.53 3.17-3.68V3.4z" />
-        </svg>
-      `;
-    default:
-      return "";
-  }
-}
-
 function getShareButtons(profile) {
   const shareUrl = getProfileShareUrl(profile);
   const shareMessage = getShareMessage(profile);
   const profileVideos = getProfileVideos(profile);
-  const firstVideo = toRootRelativeUrl(profileVideos[0] || "");
+  const firstVideo = utils.toRootRelativeUrl(profileVideos[0] || "");
   const buttons = [
     `
       <a
         class="share-button share-button-facebook"
-        href="${escapeHtml(getFacebookShareUrl(profile))}"
+        href="${utils.escapeHtml(getFacebookShareUrl(profile))}"
         data-facebook-share="facebook"
-        data-share-title="${escapeHtml(profile.name)}"
-        data-share-text="${escapeHtml(shareMessage)}"
-        data-share-url="${escapeHtml(shareUrl)}"
-        aria-label="Сподели профила на ${escapeHtml(profile.name)} във Facebook"
+        data-share-title="${utils.escapeHtml(profile.name)}"
+        data-share-text="${utils.escapeHtml(shareMessage)}"
+        data-share-url="${utils.escapeHtml(shareUrl)}"
+        aria-label="Сподели профила на ${utils.escapeHtml(profile.name)} във Facebook"
         title="Facebook"
       >
-        ${getShareIcon("facebook")}
+        ${utils.getShareIcon("facebook")}
       </a>
     `,
     `
       <a
         class="share-button share-button-linkedin"
-        href="${escapeHtml(getLinkedInShareUrl(profile))}"
+        href="${utils.escapeHtml(getLinkedInShareUrl(profile))}"
         target="_blank"
         rel="noopener"
-        aria-label="Сподели профила на ${escapeHtml(profile.name)} в LinkedIn"
+        aria-label="Сподели профила на ${utils.escapeHtml(profile.name)} в LinkedIn"
         title="LinkedIn"
       >
-        ${getShareIcon("linkedin")}
+        ${utils.getShareIcon("linkedin")}
       </a>
     `,
   ];
 
   if (firstVideo) {
     const nativeAttributes = `
-        href="${escapeHtml(shareUrl)}"
+        href="${utils.escapeHtml(shareUrl)}"
         role="button"
         data-native-share="instagram"
-        data-share-title="${escapeHtml(profile.name)}"
-        data-share-text="${escapeHtml(shareMessage)}"
-        data-share-url="${escapeHtml(shareUrl)}"
-        data-share-video="${escapeHtml(firstVideo)}"
-        aria-label="Сподели профила на ${escapeHtml(profile.name)} към Instagram"
+        data-share-title="${utils.escapeHtml(profile.name)}"
+        data-share-text="${utils.escapeHtml(shareMessage)}"
+        data-share-url="${utils.escapeHtml(shareUrl)}"
+        data-share-video="${utils.escapeHtml(firstVideo)}"
+        aria-label="Сподели профила на ${utils.escapeHtml(profile.name)} към Instagram"
         title="Instagram"
       `;
     buttons.push(`
       <a class="share-button share-button-instagram" ${nativeAttributes}>
-        ${getShareIcon("instagram")}
+        ${utils.getShareIcon("instagram")}
       </a>
     `);
     buttons.push(`
       <a
         class="share-button share-button-tiktok"
-        href="${escapeHtml(shareUrl)}"
+        href="${utils.escapeHtml(shareUrl)}"
         role="button"
         data-native-share="tiktok"
-        data-share-title="${escapeHtml(profile.name)}"
-        data-share-text="${escapeHtml(shareMessage)}"
-        data-share-url="${escapeHtml(shareUrl)}"
-        data-share-video="${escapeHtml(firstVideo)}"
-        aria-label="Сподели профила на ${escapeHtml(profile.name)} към TikTok"
+        data-share-title="${utils.escapeHtml(profile.name)}"
+        data-share-text="${utils.escapeHtml(shareMessage)}"
+        data-share-url="${utils.escapeHtml(shareUrl)}"
+        data-share-video="${utils.escapeHtml(firstVideo)}"
+        aria-label="Сподели профила на ${utils.escapeHtml(profile.name)} към TikTok"
         title="TikTok"
       >
-        ${getShareIcon("tiktok")}
+        ${utils.getShareIcon("tiktok")}
       </a>
     `);
   }
@@ -358,6 +272,47 @@ function setupReveals() {
   );
 
   revealNodes.forEach((node) => observer.observe(node));
+}
+
+function getSearchableText(profile) {
+  return utils.normalizeForSearch(
+    [
+      profile.name,
+      profile.description,
+      profile.kicker,
+      profile.summary,
+      profile.aura,
+      profile.funnel,
+      profile.insight,
+      profile.channels?.join(" "),
+      profile.links?.map((link) => `${link.label} ${link.url}`).join(" "),
+    ].join(" "),
+  );
+}
+
+function buildSearchIndex(profiles) {
+  return profiles.map((profile) => ({
+    profile,
+    searchableText: getSearchableText(profile),
+  }));
+}
+
+function updateSearchStatus(filteredCount, totalCount, query) {
+  if (!searchStatus) {
+    return;
+  }
+
+  if (!totalCount) {
+    searchStatus.textContent = "";
+    return;
+  }
+
+  if (!query) {
+    searchStatus.textContent = `${totalCount} профила в каталога.`;
+    return;
+  }
+
+  searchStatus.textContent = `Показани ${filteredCount} от ${totalCount} резултата за "${query}".`;
 }
 
 async function loadProfiles() {
@@ -450,16 +405,19 @@ function renderHeroTrack(profiles) {
   `;
 }
 
-function renderGalleryMosaic(profiles) {
+function renderGalleryMosaic(profiles, options = {}) {
   if (!galleryMosaic) {
     return;
   }
 
+  const emptyTitle = options.emptyTitle || "Галерията е празна";
+  const emptyBody = options.emptyBody || "Няма портрети за показване в момента. Явно величието е излязло по задачи.";
+
   if (!profiles.length) {
     galleryMosaic.innerHTML = `
       <article class="gallery-empty reveal">
-        <h3>Галерията е празна</h3>
-        <p>Няма портрети за показване в момента. Явно величието е излязло по задачи.</p>
+        <h3>${utils.escapeHtml(emptyTitle)}</h3>
+        <p>${utils.escapeHtml(emptyBody)}</p>
       </article>
     `;
     return;
@@ -468,6 +426,51 @@ function renderGalleryMosaic(profiles) {
   galleryMosaic.innerHTML = profiles
     .map((profile, index) => getTileMarkup(profile, index))
     .join("");
+}
+
+function attachSearch(allProfiles) {
+  if (!galleryMosaic) {
+    return;
+  }
+
+  const searchIndex = buildSearchIndex(allProfiles);
+  let filterTimeoutId = 0;
+
+  const applyFilter = () => {
+    const rawQuery = searchInput?.value.trim() || "";
+    const query = utils.normalizeForSearch(rawQuery);
+    const filteredProfiles = query
+      ? searchIndex.filter((entry) => entry.searchableText.includes(query)).map((entry) => entry.profile)
+      : allProfiles;
+
+    if (!filteredProfiles.length) {
+      renderGalleryMosaic([], {
+        emptyTitle: "Няма съвпадения",
+        emptyBody: `Нищо не беше намерено за "${rawQuery}".`,
+      });
+      setupReveals();
+      return;
+    }
+
+    renderGalleryMosaic(filteredProfiles);
+    setupReveals();
+    updateSearchStatus(filteredProfiles.length, allProfiles.length, rawQuery);
+  };
+
+  if (!searchInput) {
+    renderGalleryMosaic(allProfiles);
+    setupReveals();
+    updateSearchStatus(allProfiles.length, allProfiles.length, "");
+    return;
+  }
+
+  const scheduleFilter = () => {
+    window.clearTimeout(filterTimeoutId);
+    filterTimeoutId = window.setTimeout(applyFilter, 90);
+  };
+
+  searchInput.addEventListener("input", scheduleFilter);
+  applyFilter();
 }
 
 function getDefaultDetailMarkup() {
@@ -705,11 +708,11 @@ function attachGalleryInteractions() {
 
 async function initGalleryPage() {
   galleryProfiles = shuffleProfiles(await loadProfiles());
-  galleryProfilesById = new Map(galleryProfiles.map((profile) => [getProfileId(profile), profile]));
+  galleryProfilesById = new Map(galleryProfiles.map((profile) => [utils.getProfileId(profile), profile]));
 
   updateHeroVisual(galleryProfiles);
   renderHeroTrack(galleryProfiles);
-  renderGalleryMosaic(galleryProfiles);
+  attachSearch(galleryProfiles);
 
   if (galleryDetailContent) {
     galleryDetailContent.innerHTML = getDefaultDetailMarkup();
