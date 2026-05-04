@@ -353,32 +353,32 @@ async function loadProfiles() {
 
 function getTileMarkup(profile, index, options = {}) {
   const { className = "gallery-tile", inert = false, eager = false } = options;
-  const profileId = getProfileId(profile);
-  const imageUrl = toRootRelativeUrl(profile.image);
+  const profileId = utils.getProfileId(profile);
+  const imageUrl = utils.toRootRelativeUrl(profile.image);
   const isFeatured = profile.orientation !== "landscape" && index % 7 === 0;
   const loading = eager ? "eager" : "lazy";
   const fetchpriority = eager ? "high" : "low";
   const buttonAttributes = inert
     ? 'tabindex="-1" aria-hidden="true"'
-    : `aria-label="Отвори профила на ${escapeHtml(profile.name)}"`;
+    : `aria-label="Отвори профила на ${utils.escapeHtml(profile.name)}"`;
 
   return `
     <button
       class="${className}"
       type="button"
-      data-profile-id="${escapeHtml(profileId)}"
-      data-orientation="${escapeHtml(profile.orientation || "portrait")}"
+      data-profile-id="${utils.escapeHtml(profileId)}"
+      data-orientation="${utils.escapeHtml(profile.orientation || "portrait")}"
       data-featured="${isFeatured ? "true" : "false"}"
       ${buttonAttributes}
     >
       <img
         src="${encodeURI(imageUrl)}"
-        alt="${inert ? "" : escapeHtml(profile.alt || `Портрет на ${profile.name}`)}"
+        alt="${inert ? "" : utils.escapeHtml(profile.alt || `Портрет на ${profile.name}`)}"
         loading="${loading}"
         decoding="async"
         fetchpriority="${fetchpriority}"
       />
-      <span class="sr-only">${escapeHtml(profile.name)}</span>
+      <span class="sr-only">${utils.escapeHtml(profile.name)}</span>
     </button>
   `;
 }
@@ -622,7 +622,7 @@ function openGalleryDetail(profile, trigger, options = {}) {
   const { updateHash = true } = options;
   window.clearTimeout(galleryCloseTimer);
   lastGalleryTrigger = trigger || document.activeElement;
-  activeGalleryProfileId = getProfileId(profile);
+  activeGalleryProfileId = utils.getProfileId(profile);
   galleryDetailContent.innerHTML = buildDetailMarkup(profile);
   galleryDetail.hidden = false;
   document.body.classList.add("gallery-detail-open");
