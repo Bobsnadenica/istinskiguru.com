@@ -16,6 +16,10 @@ function markSiteIntroDismissed() {
   }
 }
 
+function hasDirectContentTarget() {
+  return Boolean(window.location.hash) || document.body.classList.contains("profile-page");
+}
+
 function createSiteIntro() {
   const intro = document.createElement("div");
   intro.className = "site-intro";
@@ -56,7 +60,7 @@ function createSiteIntro() {
 }
 
 function initSiteIntro() {
-  if (typeof document === "undefined" || !document.body || !shouldShowSiteIntro()) {
+  if (typeof document === "undefined" || !document.body || hasDirectContentTarget() || !shouldShowSiteIntro()) {
     return;
   }
 

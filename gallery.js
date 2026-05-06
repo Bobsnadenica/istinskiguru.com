@@ -130,6 +130,19 @@ function getProfileShareUrl(profile) {
   return new URL(`profiles/${profileId}/`, baseUrl).toString();
 }
 
+function toSameOriginUrl(value) {
+  if (typeof window === "undefined") {
+    return value || "";
+  }
+
+  try {
+    const parsedUrl = new URL(value, window.location.href);
+    return new URL(`${parsedUrl.pathname}${parsedUrl.search}${parsedUrl.hash}`, window.location.origin).toString();
+  } catch {
+    return "";
+  }
+}
+
 function getFacebookShareUrl(profile) {
   const shareParams = new URLSearchParams({
     u: getProfileShareUrl(profile),
@@ -608,8 +621,8 @@ function updateGalleryHash(profileId) {
 
   const nextUrl =
     profileId && galleryProfilesById.has(profileId)
-      ? getProfileShareUrl(galleryProfilesById.get(profileId))
-      : getCanonicalPageUrl() || new URL(window.location.href).toString();
+      ? toSameOriginUrl(getProfileShareUrl(galleryProfilesById.get(profileId)))
+      : toSameOriginUrl(getCanonicalPageUrl()) || new URL(window.location.href).toString();
 
   window.history.replaceState({}, "", nextUrl);
 }
