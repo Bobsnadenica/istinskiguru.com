@@ -8,6 +8,7 @@ let moneyRainBound = false;
 let moneyRainRoot = null;
 let moneyGamePanel = null;
 let moneyGameToggle = null;
+let topActionsContainer = null;
 let moneyGameMessageTimeoutId = 0;
 let moneyGameResetTimeoutId = 0;
 let moneyGameHideTimeoutId = 0;
@@ -249,6 +250,7 @@ function getMoneyIdleMessage() {
 }
 
 function createMoneyGameToggle() {
+  const container = getTopActionsContainer();
   const button = document.createElement("button");
   button.className = "money-game-toggle";
   button.type = "button";
@@ -259,8 +261,31 @@ function createMoneyGameToggle() {
   button.addEventListener("click", () => {
     setMoneyGameEnabled(!moneyGameEnabled);
   });
-  document.body.append(button);
+  container.append(button);
   return button;
+}
+
+function getTopActionsContainer() {
+  if (topActionsContainer) {
+    return topActionsContainer;
+  }
+
+  topActionsContainer = document.createElement("div");
+  topActionsContainer.className = "site-top-actions";
+
+  const fbLink = document.createElement("a");
+  fbLink.className = "facebook-top-link";
+  fbLink.href = "https://www.facebook.com/profile.php?id=61573227173786";
+  fbLink.target = "_blank";
+  fbLink.rel = "noreferrer";
+  fbLink.setAttribute("aria-label", "Facebook страницата ни");
+  fbLink.title = "Facebook";
+  fbLink.innerHTML = utils.getShareIcon("facebook");
+
+  topActionsContainer.append(fbLink);
+  document.body.append(topActionsContainer);
+
+  return topActionsContainer;
 }
 
 function getMoneyGameToggle() {
