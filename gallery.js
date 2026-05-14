@@ -106,7 +106,7 @@ function updateHeroVisual(profiles) {
     return;
   }
 
-  heroImage.src = encodeURI(utils.toRootRelativeUrl(heroProfile.image));
+  heroImage.src = encodeURI(getProfileThumbnailUrl(heroProfile));
   heroImage.alt = heroProfile.alt || "";
   heroImage.style.objectPosition = heroProfile.orientation === "landscape" ? "center center" : "center 32%";
 

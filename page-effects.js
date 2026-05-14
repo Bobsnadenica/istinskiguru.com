@@ -106,7 +106,7 @@ function startMoneyRainWhenReady() {
       return;
     }
 
-    if (shouldUseLiteEffects() && isSiteIntroOpen()) {
+    if (isSiteIntroOpen()) {
       return;
     }
 
@@ -115,6 +115,30 @@ function startMoneyRainWhenReady() {
 
   window.clearTimeout(moneyRainStartTimeoutId);
   moneyRainStartTimeoutId = window.setTimeout(bootMoneyRain, shouldUseLiteEffects() ? 360 : 120);
+}
+
+function scheduleMoneyRainStart(liteEffects) {
+  const queueStart = () => {
+    if (!moneyGameEnabled) {
+      return;
+    }
+
+    const start = () => startMoneyRainWhenReady();
+
+    if (typeof window.requestIdleCallback === "function") {
+      window.requestIdleCallback(start, { timeout: liteEffects ? 2400 : 1800 });
+      return;
+    }
+
+    window.setTimeout(start, liteEffects ? 900 : 520);
+  };
+
+  if (document.readyState !== "complete") {
+    window.addEventListener("load", queueStart, { once: true });
+    return;
+  }
+
+  queueStart();
 }
 
 function getRainItemCount() {
@@ -130,12 +154,12 @@ function readMoneyGamePreference() {
     const storedPreference = window.localStorage.getItem(moneyGamePreferenceKey);
 
     if (storedPreference === null) {
-      return !shouldUseLiteEffects();
+      return false;
     }
 
     return storedPreference !== "off";
   } catch {
-    return !shouldUseLiteEffects();
+    return false;
   }
 }
 
@@ -955,11 +979,7 @@ function initPageEffects() {
   updateMoneyGameToggle();
   refreshPageEffects();
   if (moneyGameEnabled) {
-    if (liteEffects && document.readyState !== "complete") {
-      window.addEventListener("load", startMoneyRainWhenReady, { once: true });
-    } else {
-      startMoneyRainWhenReady();
-    }
+    scheduleMoneyRainStart(liteEffects);
   }
   document.addEventListener("guru:intro-dismissed", () => {
     if (moneyGameEnabled) {
