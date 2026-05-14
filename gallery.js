@@ -606,6 +606,9 @@ function buildDetailMarkup(profile) {
         <p class="gallery-detail-lead">
           ${utils.escapeHtml(profile.imageNote || profile.summary || "Тук вече идват думите след стойката.")}
         </p>
+        <p class="satire-note">
+          Сатиричен редакционен прочит върху публично съдържание. Това не е юридическо твърдение за вина.
+        </p>
       </div>
 
       <div class="gallery-detail-media" data-orientation="${utils.escapeHtml(profile.orientation || "portrait")}">
