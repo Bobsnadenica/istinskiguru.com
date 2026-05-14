@@ -95,9 +95,8 @@ function getVideoShareUrl(shareId) {
     return "";
   }
 
-  const shareUrl = getCanonicalPageUrl();
-  shareUrl.hash = shareId;
-  return shareUrl.toString();
+  const shareBaseUrl = getCanonicalPageUrl().toString().replace(/#.*$/u, "");
+  return `${shareBaseUrl}#${encodeURIComponent(shareId)}`;
 }
 
 function getCurrentHashShareId() {
