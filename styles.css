@@ -882,11 +882,28 @@ body.performance-lite .reveal.is-visible {
   will-change: transform;
 }
 
+.hero-profile-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.hero-profile-link:focus-visible {
+  outline: 3px solid rgba(109, 54, 45, 0.58);
+  outline-offset: 0.45rem;
+}
+
 .hero-frame img {
   width: 100%;
   aspect-ratio: 0.74;
   object-fit: cover;
   object-position: center 32%;
+  transition: transform 260ms ease;
+}
+
+.hero-profile-link:hover img,
+.hero-profile-link:focus-visible img {
+  transform: scale(1.025);
 }
 
 .hero-quote {

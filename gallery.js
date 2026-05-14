@@ -7,6 +7,7 @@ const searchInput = document.querySelector("#guru-search");
 const searchStatus = document.querySelector("#search-status");
 const galleryFallbackProfiles = Array.isArray(window.__GURU_PROFILES__) ? window.__GURU_PROFILES__ : [];
 const heroImage = document.querySelector("#hero-image");
+const heroProfileLink = document.querySelector("#hero-profile-link");
 const heroQuoteLabel = document.querySelector("#hero-quote-label");
 const heroQuoteText = document.querySelector("#hero-quote-text");
 const heroStorageKey = "guruHeroIndex";
@@ -108,6 +109,14 @@ function updateHeroVisual(profiles) {
   heroImage.src = encodeURI(utils.toRootRelativeUrl(heroProfile.image));
   heroImage.alt = heroProfile.alt || "";
   heroImage.style.objectPosition = heroProfile.orientation === "landscape" ? "center center" : "center 32%";
+
+  if (heroProfileLink) {
+    const heroProfileUrl = toSameOriginUrl(getProfileShareUrl(heroProfile));
+    const heroProfileLabel = heroProfile.name ? `Отвори профила на ${heroProfile.name}` : "Отвори профила";
+    heroProfileLink.href = heroProfileUrl || heroProfileLink.href;
+    heroProfileLink.setAttribute("aria-label", heroProfileLabel);
+    heroProfileLink.title = heroProfileLabel;
+  }
 
   if (heroQuoteLabel) {
     heroQuoteLabel.textContent = heroProfile.name || defaultHeroLabel;
@@ -570,7 +579,7 @@ function buildDetailMarkup(profile) {
                       data-video-launch
                       data-video-src="${encodeURI(utils.toRootRelativeUrl(videoPath))}"
                       data-video-type="${utils.getVideoMimeType(videoPath)}"
-                      data-video-poster="${encodeURI(imageUrl)}"
+                      data-video-poster="${encodeURI(thumbnailUrl)}"
                       data-video-title="${utils.escapeHtml(`${profile.name} • ${profileVideos.length > 1 ? `Видео ${index + 1}` : "Видео"}`)}"
                       aria-label="Отвори ${utils.escapeHtml(profileVideos.length > 1 ? `видео ${index + 1}` : "видеото")} на ${utils.escapeHtml(profile.name)}"
                     >

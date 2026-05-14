@@ -20,7 +20,7 @@
       `;
     },
   };
-  const utils = window.__GURU_UTILS__ || fallbackUtils;
+  const utils = { ...fallbackUtils, ...(window.__GURU_UTILS__ || {}) };
 
 let revealObserver = null;
 const observedRevealNodes = new WeakSet();
