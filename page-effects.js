@@ -1,5 +1,26 @@
 (function() {
-  const utils = window.__GURU_UTILS__;
+  const fallbackUtils = {
+    escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    },
+    getShareIcon(platform) {
+      if (platform !== "facebook") {
+        return "";
+      }
+
+      return `
+        <svg class="share-button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M13.6 21v-7.3h2.45l.37-2.87H13.6V9.01c0-.83.23-1.4 1.42-1.4h1.52V5.05c-.27-.04-1.2-.11-2.28-.11-2.25 0-3.79 1.37-3.79 3.89v1.97H7.93v2.87h2.54V21z" />
+        </svg>
+      `;
+    },
+  };
+  const utils = window.__GURU_UTILS__ || fallbackUtils;
 
 let revealObserver = null;
 const observedRevealNodes = new WeakSet();

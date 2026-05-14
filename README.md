@@ -11,6 +11,7 @@ The production site is published as static output on GitHub Pages at [www.istins
 - A Node-based content build pipeline
 - Generated static profile pages in `profiles/`
 - Generated optimized media in `site-assets/`
+- Generated gallery thumbnails in `site-assets/thumbs/`
 - SEO files such as `sitemap.xml`, `robots.txt`, `CNAME`, and `.nojekyll`
 
 This repository intentionally keeps generated output checked in because GitHub Pages serves files directly and does not run the build step for you.
@@ -40,7 +41,7 @@ If you only edit layout, copy, or front-end behavior, you may not need to rebuil
 assets/              Source profile folders (image + .txt + optional videos)
 lib/profiles.mjs     Profile parser, static page generator, sitemap/robots generator
 scripts/             Build entrypoint and share-card renderer
-site-assets/         Generated optimized images, videos, and share thumbnails
+site-assets/         Generated optimized images, videos, share thumbnails, and gallery thumbnails
 profiles/            Generated static profile pages for sharing and indexing
 site-data.js         Generated browser dataset used by the front-end
 
@@ -202,7 +203,7 @@ The local server also exposes:
 /api/profiles
 ```
 
-That API is for local preview and debugging only. Production on GitHub Pages is static and uses `site-data.js`.
+That API is for source-content debugging only. The front-end uses generated `site-data.js` by default, even on localhost, so local preview matches the production static site and uses optimized gallery thumbnails. Add `?source=assets` to a catalog URL when you intentionally want to preview raw `assets/` content without rebuilding.
 
 ## Publishing Workflow
 

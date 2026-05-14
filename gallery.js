@@ -328,12 +328,19 @@ function updateSearchStatus(filteredCount, totalCount, query) {
   searchStatus.textContent = `Показани ${filteredCount} от ${totalCount} резултата за "${query}".`;
 }
 
+function getProfileThumbnailUrl(profile) {
+  return utils.toRootRelativeUrl(profile.thumbnailImage || profile.image);
+}
+
 async function loadProfiles() {
   const isLocalRuntime =
     typeof window !== "undefined" &&
     ["localhost", "127.0.0.1"].includes(window.location.hostname);
+  const useSourceApi =
+    typeof window !== "undefined" &&
+    new URLSearchParams(window.location.search).get("source") === "assets";
 
-  if (typeof window.fetch !== "function" || !isLocalRuntime) {
+  if (typeof window.fetch !== "function" || !isLocalRuntime || !useSourceApi) {
     return galleryFallbackProfiles;
   }
 
@@ -367,10 +374,11 @@ async function loadProfiles() {
 function getTileMarkup(profile, index, options = {}) {
   const { className = "gallery-tile", inert = false, eager = false } = options;
   const profileId = utils.getProfileId(profile);
-  const imageUrl = utils.toRootRelativeUrl(profile.image);
+  const imageUrl = getProfileThumbnailUrl(profile);
   const isFeatured = profile.orientation !== "landscape" && index % 7 === 0;
   const loading = eager ? "eager" : "lazy";
   const fetchpriority = eager ? "high" : "low";
+  const sizes = className === "gallery-hero-card" ? "(max-width: 760px) 38vw, 180px" : "(max-width: 760px) 44vw, 240px";
   const buttonAttributes = inert
     ? 'tabindex="-1" aria-hidden="true"'
     : `aria-label="Отвори профила на ${utils.escapeHtml(profile.name)}"`;
@@ -390,6 +398,7 @@ function getTileMarkup(profile, index, options = {}) {
         loading="${loading}"
         decoding="async"
         fetchpriority="${fetchpriority}"
+        sizes="${sizes}"
       />
       <span class="sr-only">${utils.escapeHtml(profile.name)}</span>
     </button>
@@ -501,6 +510,7 @@ function getDefaultDetailMarkup() {
 
 function buildDetailMarkup(profile) {
   const imageUrl = utils.toRootRelativeUrl(profile.image);
+  const thumbnailUrl = getProfileThumbnailUrl(profile);
   const channelLinks = (profile.links || [])
     .map(
       (link) =>
@@ -564,7 +574,7 @@ function buildDetailMarkup(profile) {
                       data-video-title="${utils.escapeHtml(`${profile.name} • ${profileVideos.length > 1 ? `Видео ${index + 1}` : "Видео"}`)}"
                       aria-label="Отвори ${utils.escapeHtml(profileVideos.length > 1 ? `видео ${index + 1}` : "видеото")} на ${utils.escapeHtml(profile.name)}"
                     >
-                      <img class="profile-video-poster" src="${encodeURI(imageUrl)}" alt="" loading="lazy" decoding="async" fetchpriority="low" />
+                      <img class="profile-video-poster" src="${encodeURI(thumbnailUrl)}" alt="" loading="lazy" decoding="async" fetchpriority="low" />
                       <span class="profile-video-overlay">
                         <span class="profile-video-badge">${profileVideos.length > 1 ? `Видео ${index + 1}` : "Видео"}</span>
                         <span class="profile-video-hint">Гледай на голям екран</span>
