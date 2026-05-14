@@ -746,8 +746,11 @@ body.performance-lite .reveal.is-visible {
   justify-content: center;
   min-height: 48px;
   padding: 0.85rem 1.3rem;
+  border: 0;
   border-radius: 999px;
+  font: inherit;
   text-decoration: none;
+  cursor: pointer;
   transition:
     transform 220ms ease,
     background-color 220ms ease,
@@ -777,6 +780,57 @@ body.performance-lite .reveal.is-visible {
   background: #fffaf3;
   color: var(--ink);
   border-color: rgba(16, 20, 17, 0.2);
+}
+
+.promo-launch-button {
+  position: relative;
+  isolation: isolate;
+  gap: 0.72rem;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, #ae2f28 0%, #e8b44d 54%, #20372f 100%);
+  color: #fffaf3;
+  box-shadow:
+    0 18px 42px rgba(174, 47, 40, 0.3),
+    0 0 0 0 rgba(232, 180, 77, 0.5);
+  animation: promo-button-pulse 1.45s ease-in-out infinite;
+}
+
+.promo-launch-button::before {
+  content: "";
+  position: absolute;
+  inset: -80% -34%;
+  z-index: 0;
+  background: linear-gradient(105deg, transparent 32%, rgba(255, 255, 255, 0.52) 50%, transparent 68%);
+  transform: translateX(-54%) rotate(8deg);
+  animation: promo-button-sweep 2.4s ease-in-out infinite;
+}
+
+.promo-launch-button > * {
+  position: relative;
+  z-index: 1;
+}
+
+.promo-launch-button:hover,
+.promo-launch-button:focus-visible {
+  background:
+    linear-gradient(135deg, #8f221e 0%, #d69b34 54%, #162820 100%);
+  color: #fffaf3;
+}
+
+.promo-launch-button-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.55rem;
+  padding: 0 0.58rem;
+  border-radius: 999px;
+  background: rgba(255, 250, 243, 0.92);
+  color: #7b211d;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .text-link {
@@ -2529,6 +2583,17 @@ body.performance-lite .reveal.is-visible {
   line-height: 1.1;
 }
 
+.video-viewer-status {
+  margin: 0;
+  color: rgba(255, 247, 239, 0.66);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.video-viewer-status:empty {
+  display: none;
+}
+
 .video-viewer-close {
   min-height: 2.75rem;
   padding: 0.72rem 1rem;
@@ -2597,6 +2662,33 @@ body.performance-lite .reveal.is-visible {
 
   to {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes promo-button-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 18px 42px rgba(174, 47, 40, 0.3),
+      0 0 0 0 rgba(232, 180, 77, 0.46);
+  }
+
+  50% {
+    box-shadow:
+      0 22px 54px rgba(174, 47, 40, 0.4),
+      0 0 0 0.42rem rgba(232, 180, 77, 0);
+  }
+}
+
+@keyframes promo-button-sweep {
+  0%,
+  38% {
+    transform: translateX(-58%) rotate(8deg);
+  }
+
+  74%,
+  100% {
+    transform: translateX(58%) rotate(8deg);
   }
 }
 
@@ -3006,6 +3098,8 @@ body.performance-lite .reveal.is-visible {
 
   .money-rain,
   .money-game-panel,
+  .promo-launch-button,
+  .promo-launch-button::before,
   .ticker-track {
     animation: none;
   }

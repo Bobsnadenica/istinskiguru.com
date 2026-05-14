@@ -1,4 +1,49 @@
 let activeVideoViewerTrigger = null;
+let activeVideoViewerPlaylist = [];
+let activeVideoViewerIndex = 0;
+let activeVideoViewerTitle = "Видео";
+let activeVideoViewerType = "";
+
+function getVideoMimeType(videoPath) {
+  const lowered = String(videoPath || "").toLowerCase();
+
+  if (lowered.endsWith(".webm")) {
+    return "video/webm";
+  }
+
+  if (lowered.endsWith(".mov")) {
+    return "video/quicktime";
+  }
+
+  if (lowered.endsWith(".m4v")) {
+    return "video/x-m4v";
+  }
+
+  return "video/mp4";
+}
+
+function getPlaylistFromTrigger(trigger) {
+  const playlistValue = trigger.getAttribute("data-video-playlist") || "";
+  const playlist = playlistValue
+    .split("|")
+    .map((source) => source.trim())
+    .filter(Boolean);
+
+  if (playlist.length) {
+    return playlist;
+  }
+
+  const videoSrc = trigger.getAttribute("data-video-src") || "";
+  return videoSrc ? [videoSrc] : [];
+}
+
+function getSequenceTitle() {
+  if (activeVideoViewerPlaylist.length <= 1) {
+    return activeVideoViewerTitle;
+  }
+
+  return `${activeVideoViewerTitle} (${activeVideoViewerIndex + 1}/${activeVideoViewerPlaylist.length})`;
+}
 
 function createVideoViewer() {
   const viewer = document.createElement("div");
@@ -11,6 +56,7 @@ function createVideoViewer() {
         <div class="video-viewer-copy">
           <p class="video-viewer-eyebrow">Видео</p>
           <h2 id="video-viewer-title">Видео</h2>
+          <p class="video-viewer-status" aria-live="polite"></p>
         </div>
         <button class="video-viewer-close" type="button" data-video-viewer-close aria-label="Затвори видеото">
           Затвори
@@ -24,6 +70,13 @@ function createVideoViewer() {
     </section>
   `;
   document.body.append(viewer);
+
+  const player = viewer.querySelector(".video-viewer-player");
+
+  if (player instanceof HTMLVideoElement) {
+    player.addEventListener("ended", handleVideoViewerEnded);
+  }
+
   return viewer;
 }
 
@@ -59,6 +112,10 @@ function closeVideoViewer() {
   viewer.classList.remove("is-visible");
   viewer.hidden = true;
   document.body.classList.remove("video-viewer-open");
+  activeVideoViewerPlaylist = [];
+  activeVideoViewerIndex = 0;
+  activeVideoViewerTitle = "Видео";
+  activeVideoViewerType = "";
 
   if (activeVideoViewerTrigger instanceof HTMLElement) {
     activeVideoViewerTrigger.focus();
@@ -67,29 +124,26 @@ function closeVideoViewer() {
   activeVideoViewerTrigger = null;
 }
 
-function openVideoViewer(trigger) {
-  const videoSrc = trigger.getAttribute("data-video-src") || "";
-  const videoType = trigger.getAttribute("data-video-type") || "";
-
-  if (!videoSrc) {
-    return;
-  }
-
-  const videoTitle = trigger.getAttribute("data-video-title") || "Видео";
-  const videoPoster = trigger.getAttribute("data-video-poster") || "";
-  const viewer = getVideoViewer();
+function setVideoViewerSource(viewer, shouldAutoplay = true) {
   const title = viewer.querySelector("#video-viewer-title");
+  const status = viewer.querySelector(".video-viewer-status");
   const player = viewer.querySelector(".video-viewer-player");
   const source = viewer.querySelector(".video-viewer-source");
+  const videoSrc = activeVideoViewerPlaylist[activeVideoViewerIndex] || "";
 
-  if (!(player instanceof HTMLVideoElement)) {
+  if (!(player instanceof HTMLVideoElement) || !videoSrc) {
     return;
   }
 
-  activeVideoViewerTrigger = trigger;
-
   if (title) {
-    title.textContent = videoTitle;
+    title.textContent = getSequenceTitle();
+  }
+
+  if (status) {
+    status.textContent =
+      activeVideoViewerPlaylist.length > 1
+        ? "Следва автоматично, защото очевидно едно видео не стига."
+        : "";
   }
 
   player.pause();
@@ -97,15 +151,59 @@ function openVideoViewer(trigger) {
 
   if (source instanceof HTMLSourceElement) {
     source.src = videoSrc;
-
-    if (videoType) {
-      source.type = videoType;
-    } else {
-      source.removeAttribute("type");
-    }
+    source.type =
+      activeVideoViewerPlaylist.length === 1 && activeVideoViewerType
+        ? activeVideoViewerType
+        : getVideoMimeType(videoSrc);
   } else {
     player.src = videoSrc;
   }
+
+  player.load();
+
+  if (!shouldAutoplay) {
+    return;
+  }
+
+  const playAttempt = player.play();
+
+  if (playAttempt && typeof playAttempt.catch === "function") {
+    playAttempt.catch(() => {});
+  }
+}
+
+function handleVideoViewerEnded() {
+  const viewer = document.querySelector(".video-viewer");
+
+  if (!viewer || viewer.hidden || activeVideoViewerIndex >= activeVideoViewerPlaylist.length - 1) {
+    return;
+  }
+
+  activeVideoViewerIndex += 1;
+  setVideoViewerSource(viewer, true);
+}
+
+function openVideoViewer(trigger) {
+  const playlist = getPlaylistFromTrigger(trigger);
+
+  if (!playlist.length) {
+    return;
+  }
+
+  const videoTitle = trigger.getAttribute("data-video-title") || "Видео";
+  const videoPoster = trigger.getAttribute("data-video-poster") || "";
+  const viewer = getVideoViewer();
+  const player = viewer.querySelector(".video-viewer-player");
+
+  if (!(player instanceof HTMLVideoElement)) {
+    return;
+  }
+
+  activeVideoViewerTrigger = trigger;
+  activeVideoViewerPlaylist = playlist;
+  activeVideoViewerIndex = 0;
+  activeVideoViewerTitle = videoTitle;
+  activeVideoViewerType = trigger.getAttribute("data-video-type") || "";
 
   if (videoPoster) {
     player.poster = videoPoster;
@@ -113,7 +211,7 @@ function openVideoViewer(trigger) {
     player.removeAttribute("poster");
   }
 
-  player.load();
+  setVideoViewerSource(viewer, false);
   viewer.hidden = false;
   document.body.classList.add("video-viewer-open");
 
