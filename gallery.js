@@ -606,8 +606,8 @@ function buildDetailMarkup(profile) {
         <p class="gallery-detail-lead">
           ${utils.escapeHtml(profile.imageNote || profile.summary || "Тук вече идват думите след стойката.")}
         </p>
-        <p class="satire-note">
-          Сатиричен редакционен прочит върху публично съдържание. Това не е юридическо твърдение за вина.
+        <p class="context-note">
+          Публично съдържание, видими обещания и достатъчно увереност, за да си струва един втори поглед.
         </p>
       </div>
 

@@ -1,6 +1,6 @@
 # IstinskiGuru.com
 
-IstinskiGuru.com is a static Bulgarian editorial and satirical website that catalogues public-facing online gurus, coaches, mentors, and course sellers. The project combines hand-written profile copy, public links, media assets, and generated share pages optimized for social previews.
+IstinskiGuru.com is a static Bulgarian editorial website that catalogues public-facing online gurus, coaches, mentors, course sellers, and the public promises around them. The project combines hand-written profile copy, public links, media assets, and generated share pages optimized for social previews.
 
 The production site is published as static output on GitHub Pages at [www.istinskiguru.com](https://www.istinskiguru.com/).
 

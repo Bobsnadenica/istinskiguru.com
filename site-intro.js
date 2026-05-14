@@ -27,18 +27,18 @@ function createSiteIntro() {
   intro.innerHTML = `
     <div class="site-intro-backdrop"></div>
     <section class="site-intro-panel" role="dialog" aria-modal="true" aria-labelledby="site-intro-title" aria-describedby="site-intro-description">
-      <p class="site-intro-eyebrow">Сатира • Scam Сигнали • Публични Материали</p>
-      <h2 id="site-intro-title">Комедия за обещанията, които продават лесни пари прекалено красиво.</h2>
+      <p class="site-intro-eyebrow">Scam Сигнали • Публични Материали • Големи Обещания</p>
+      <h2 id="site-intro-title">Обещанията за лесни пари са подредени. Най-после.</h2>
       <div class="site-intro-body" id="site-intro-description">
         <p class="site-intro-copy">
-          Това е сатиричен каталог за публични онлайн гуру образи, курсове,
-          менторства, пасивен доход и други обещания, които звучат твърде добре,
-          за да не ги погледнем с лупа и усмивка.
+          Тук събираме публични онлайн гуру образи, курсове, менторства,
+          пасивен доход и други обещания, които звучат твърде добре, за да ги
+          оставим без витрина.
         </p>
         <p class="site-intro-copy">
-          Работим с публични материали и редакционен коментар. Шегуваме се с
-          маркетингови модели, натиск, ъпсел и чудодейни формули, без да
-          произнасяме присъди вместо съд.
+          Работим с публични материали и видими маркетингови модели: натиск,
+          ъпсел, чудодейни формули и онова приятно чувство, че истинската цена
+          идва след “безплатното”.
         </p>
         <p class="site-intro-copy site-intro-copy-muted">
           Накратко: смей се, но проверявай. Особено преди да пратиш пари след
@@ -46,7 +46,7 @@ function createSiteIntro() {
         </p>
       </div>
       <div class="site-intro-footer">
-        <p class="site-intro-love">Сатира, публичен интерес и малко здравословно недоверие.</p>
+        <p class="site-intro-love">Публичен интерес и малко здравословно недоверие.</p>
         <button class="button site-intro-button" type="button" data-site-intro-close>
           Продължи
         </button>

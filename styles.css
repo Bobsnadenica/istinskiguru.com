@@ -720,7 +720,7 @@ body.performance-lite .reveal.is-visible {
   font-size: clamp(1rem, 1.6vw, 1.15rem);
 }
 
-.satire-note {
+.context-note {
   max-width: 36rem;
   margin: 1rem 0 0;
   padding: 0.85rem 1rem;
