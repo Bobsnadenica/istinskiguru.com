@@ -2964,6 +2964,17 @@ body.performance-lite .reveal.is-visible {
     align-items: stretch;
   }
 
+  .video-viewer-header,
+  .video-viewer-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .video-viewer-facebook-share,
+  .video-viewer-close {
+    width: 100%;
+  }
+
   .share-button-group {
     justify-content: center;
   }
