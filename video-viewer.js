@@ -3,6 +3,25 @@ let activeVideoViewerPlaylist = [];
 let activeVideoViewerIndex = 0;
 let activeVideoViewerTitle = "Видео";
 let activeVideoViewerType = "";
+let activeVideoViewerShareId = "";
+let activeVideoViewerShareText = "";
+let activeVideoViewerShareUrl = "";
+
+function getGuruUtils() {
+  return window.__GURU_UTILS__ || {};
+}
+
+function buildFacebookShareUrl(shareUrl) {
+  if (!shareUrl) {
+    return "";
+  }
+
+  const shareParams = new URLSearchParams({
+    u: shareUrl,
+  });
+
+  return `https://www.facebook.com/sharer/sharer.php?${shareParams.toString()}`;
+}
 
 function getVideoMimeType(videoPath) {
   const lowered = String(videoPath || "").toLowerCase();
@@ -45,7 +64,96 @@ function getSequenceTitle() {
   return `${activeVideoViewerTitle} (${activeVideoViewerIndex + 1}/${activeVideoViewerPlaylist.length})`;
 }
 
+function normaliseShareId(value) {
+  return String(value || "")
+    .replace(/^#/u, "")
+    .trim();
+}
+
+function getCanonicalPageUrl() {
+  const canonicalHref = document.querySelector('link[rel="canonical"]')?.getAttribute("href") || "";
+
+  if (canonicalHref) {
+    try {
+      const canonicalUrl = new URL(canonicalHref, window.location.href);
+      canonicalUrl.search = "";
+      canonicalUrl.hash = "";
+      return canonicalUrl;
+    } catch {
+      // Fall through to the current page URL.
+    }
+  }
+
+  const currentUrl = new URL(window.location.href);
+  currentUrl.search = "";
+  currentUrl.hash = "";
+  return currentUrl;
+}
+
+function getVideoShareUrl(shareId) {
+  if (!shareId) {
+    return "";
+  }
+
+  const shareUrl = getCanonicalPageUrl();
+  shareUrl.hash = shareId;
+  return shareUrl.toString();
+}
+
+function getCurrentHashShareId() {
+  try {
+    return normaliseShareId(decodeURIComponent(window.location.hash.slice(1)));
+  } catch {
+    return normaliseShareId(window.location.hash.slice(1));
+  }
+}
+
+function findVideoTriggerByShareId(shareId) {
+  const normalizedShareId = normaliseShareId(shareId);
+
+  if (!normalizedShareId) {
+    return null;
+  }
+
+  return (
+    Array.from(document.querySelectorAll("[data-video-share-id]")).find(
+      (trigger) => normaliseShareId(trigger.getAttribute("data-video-share-id")) === normalizedShareId,
+    ) || null
+  );
+}
+
+function setVideoViewerUrl(shareId) {
+  if (!shareId || typeof window.history?.pushState !== "function") {
+    return;
+  }
+
+  const currentUrl = new URL(window.location.href);
+
+  if (normaliseShareId(currentUrl.hash) === shareId) {
+    return;
+  }
+
+  currentUrl.hash = shareId;
+  window.history.pushState({ videoViewer: shareId }, "", currentUrl);
+}
+
+function clearVideoViewerUrl(shareId) {
+  if (!shareId || typeof window.history?.replaceState !== "function") {
+    return;
+  }
+
+  const currentUrl = new URL(window.location.href);
+
+  if (normaliseShareId(currentUrl.hash) !== shareId) {
+    return;
+  }
+
+  currentUrl.hash = "";
+  window.history.replaceState({}, "", `${currentUrl.pathname}${currentUrl.search}`);
+}
+
 function createVideoViewer() {
+  const facebookIcon = getGuruUtils().getShareIcon?.("facebook") || "f";
   const viewer = document.createElement("div");
   viewer.className = "video-viewer";
   viewer.hidden = true;
@@ -58,9 +166,27 @@ function createVideoViewer() {
           <h2 id="video-viewer-title">Видео</h2>
           <p class="video-viewer-status" aria-live="polite"></p>
         </div>
-        <button class="video-viewer-close" type="button" data-video-viewer-close aria-label="Затвори видеото">
-          Затвори
-        </button>
+        <div class="video-viewer-controls">
+          <a
+            class="video-viewer-facebook-share"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-video-viewer-facebook-share
+            data-facebook-share="facebook"
+            data-share-title=""
+            data-share-text=""
+            data-share-url=""
+            aria-label="Сподели видеото във Facebook"
+            hidden
+          >
+            ${facebookIcon}
+            <span>Facebook</span>
+          </a>
+          <button class="video-viewer-close" type="button" data-video-viewer-close aria-label="Затвори видеото">
+            Затвори
+          </button>
+        </div>
       </div>
       <div class="video-viewer-stage">
         <video class="video-viewer-player" controls playsinline preload="metadata">
@@ -84,7 +210,7 @@ function getVideoViewer() {
   return document.querySelector(".video-viewer") || createVideoViewer();
 }
 
-function closeVideoViewer() {
+function closeVideoViewer(options = {}) {
   const viewer = document.querySelector(".video-viewer");
 
   if (!viewer) {
@@ -116,12 +242,44 @@ function closeVideoViewer() {
   activeVideoViewerIndex = 0;
   activeVideoViewerTitle = "Видео";
   activeVideoViewerType = "";
+  const shareIdToClear = activeVideoViewerShareId;
+  activeVideoViewerShareId = "";
+  activeVideoViewerShareText = "";
+  activeVideoViewerShareUrl = "";
+
+  if (options.updateUrl !== false) {
+    clearVideoViewerUrl(shareIdToClear);
+  }
 
   if (activeVideoViewerTrigger instanceof HTMLElement) {
     activeVideoViewerTrigger.focus();
   }
 
   activeVideoViewerTrigger = null;
+}
+
+function updateVideoViewerShareControls(viewer) {
+  const facebookShare = viewer.querySelector("[data-video-viewer-facebook-share]");
+
+  if (!(facebookShare instanceof HTMLAnchorElement)) {
+    return;
+  }
+
+  if (!activeVideoViewerShareUrl) {
+    facebookShare.hidden = true;
+    facebookShare.href = "#";
+    facebookShare.setAttribute("data-share-title", "");
+    facebookShare.setAttribute("data-share-text", "");
+    facebookShare.setAttribute("data-share-url", "");
+    return;
+  }
+
+  facebookShare.hidden = false;
+  facebookShare.href = buildFacebookShareUrl(activeVideoViewerShareUrl);
+  facebookShare.setAttribute("data-share-title", activeVideoViewerTitle);
+  facebookShare.setAttribute("data-share-text", activeVideoViewerShareText);
+  facebookShare.setAttribute("data-share-url", activeVideoViewerShareUrl);
+  facebookShare.setAttribute("aria-label", `Сподели ${activeVideoViewerTitle} във Facebook`);
 }
 
 function setVideoViewerSource(viewer, shouldAutoplay = true) {
@@ -183,7 +341,7 @@ function handleVideoViewerEnded() {
   setVideoViewerSource(viewer, true);
 }
 
-function openVideoViewer(trigger) {
+function openVideoViewer(trigger, options = {}) {
   const playlist = getPlaylistFromTrigger(trigger);
 
   if (!playlist.length) {
@@ -204,6 +362,10 @@ function openVideoViewer(trigger) {
   activeVideoViewerIndex = 0;
   activeVideoViewerTitle = videoTitle;
   activeVideoViewerType = trigger.getAttribute("data-video-type") || "";
+  activeVideoViewerShareId = normaliseShareId(trigger.getAttribute("data-video-share-id"));
+  activeVideoViewerShareText =
+    trigger.getAttribute("data-video-share-text") || `${activeVideoViewerTitle} от Каталога на Онлайн Гурута.`;
+  activeVideoViewerShareUrl = getVideoShareUrl(activeVideoViewerShareId);
 
   if (videoPoster) {
     player.poster = videoPoster;
@@ -212,6 +374,12 @@ function openVideoViewer(trigger) {
   }
 
   setVideoViewerSource(viewer, false);
+  updateVideoViewerShareControls(viewer);
+
+  if (activeVideoViewerShareId && options.updateUrl !== false) {
+    setVideoViewerUrl(activeVideoViewerShareId);
+  }
+
   viewer.hidden = false;
   document.body.classList.add("video-viewer-open");
 
@@ -226,6 +394,31 @@ function openVideoViewer(trigger) {
   const playAttempt = player.play();
   if (playAttempt && typeof playAttempt.catch === "function") {
     playAttempt.catch(() => {});
+  }
+}
+
+function openVideoViewerFromLocation() {
+  const trigger = findVideoTriggerByShareId(getCurrentHashShareId());
+
+  if (!(trigger instanceof HTMLElement)) {
+    return false;
+  }
+
+  if (activeVideoViewerShareId === normaliseShareId(trigger.getAttribute("data-video-share-id"))) {
+    return true;
+  }
+
+  openVideoViewer(trigger, { updateUrl: false });
+  return true;
+}
+
+function syncVideoViewerWithLocation() {
+  if (openVideoViewerFromLocation()) {
+    return;
+  }
+
+  if (activeVideoViewerShareId) {
+    closeVideoViewer({ updateUrl: false });
   }
 }
 
@@ -262,6 +455,10 @@ function initVideoViewer() {
       closeVideoViewer();
     }
   });
+
+  window.addEventListener("hashchange", syncVideoViewerWithLocation);
+  window.addEventListener("popstate", syncVideoViewerWithLocation);
+  openVideoViewerFromLocation();
 }
 
 if (document.readyState === "loading") {

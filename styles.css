@@ -2563,6 +2563,45 @@ body.performance-lite .reveal.is-visible {
   gap: 1rem;
 }
 
+.video-viewer-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.video-viewer-facebook-share {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.48rem;
+  min-height: 2.75rem;
+  padding: 0.72rem 0.95rem;
+  border: 1px solid rgba(90, 164, 255, 0.3);
+  border-radius: 999px;
+  background: rgba(24, 119, 242, 0.18);
+  color: rgba(236, 246, 255, 0.96);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 800;
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease,
+    border-color 220ms ease;
+}
+
+.video-viewer-facebook-share:hover,
+.video-viewer-facebook-share:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(126, 185, 255, 0.46);
+  background: rgba(24, 119, 242, 0.28);
+}
+
+.video-viewer-facebook-share .share-button-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
 .video-viewer-copy {
   display: grid;
   gap: 0.35rem;
