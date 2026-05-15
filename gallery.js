@@ -11,7 +11,7 @@ const heroProfileLink = document.querySelector("#hero-profile-link");
 const heroQuoteLabel = document.querySelector("#hero-quote-label");
 const heroQuoteText = document.querySelector("#hero-quote-text");
 const heroStorageKey = "guruHeroIndex";
-const defaultHeroLabel = heroQuoteLabel?.textContent?.trim() || "Полево наблюдение";
+const defaultHeroLabel = heroQuoteLabel?.textContent?.trim() || "За какво да внимаваме";
 const defaultHeroText =
   heroQuoteText?.textContent?.trim() || "Силно кафе. Още по-силна енергия за наставничество.";
 
@@ -539,7 +539,7 @@ function buildDetailMarkup(profile) {
   if (profile.aura) {
     signalItems.push(`
       <div>
-        <dt>Обещан вайб</dt>
+        <dt>Какво внушава</dt>
         <dd>${utils.escapeHtml(profile.aura)}</dd>
       </div>
     `);
@@ -548,7 +548,7 @@ function buildDetailMarkup(profile) {
   if (profile.funnel) {
     signalItems.push(`
       <div>
-        <dt>Прочит</dt>
+        <dt>Как работи обещанието</dt>
         <dd>${utils.escapeHtml(profile.funnel)}</dd>
       </div>
     `);
@@ -601,7 +601,7 @@ function buildDetailMarkup(profile) {
   return `
     <div class="gallery-detail-stack">
       <div class="gallery-detail-header">
-        <p class="gallery-detail-kicker">${utils.escapeHtml(profile.kicker || "Полево наблюдение")}</p>
+        <p class="gallery-detail-kicker">${utils.escapeHtml(profile.kicker || "За какво да внимаваме")}</p>
         <h2 class="gallery-detail-title" id="gallery-detail-title">${utils.escapeHtml(profile.name)}</h2>
         <p class="gallery-detail-lead">
           ${utils.escapeHtml(profile.imageNote || profile.summary || "Тук вече идват думите след стойката.")}
