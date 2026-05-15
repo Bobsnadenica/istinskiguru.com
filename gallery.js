@@ -381,12 +381,12 @@ async function loadProfiles() {
 }
 
 function getTileMarkup(profile, index, options = {}) {
-  const { className = "gallery-tile", inert = false, eager = false } = options;
+  const { className = "gallery-tile", inert = false, eager = false, highPriority = eager } = options;
   const profileId = utils.getProfileId(profile);
   const imageUrl = getProfileThumbnailUrl(profile);
   const isFeatured = profile.orientation !== "landscape" && index % 7 === 0;
   const loading = eager ? "eager" : "lazy";
-  const fetchpriority = eager ? "high" : "low";
+  const fetchpriority = highPriority ? "high" : "low";
   const sizes = className === "gallery-hero-card" ? "(max-width: 760px) 38vw, 180px" : "(max-width: 760px) 44vw, 240px";
   const buttonAttributes = inert
     ? 'tabindex="-1" aria-hidden="true"'
@@ -455,7 +455,7 @@ function renderGalleryMosaic(profiles, options = {}) {
   }
 
   galleryMosaic.innerHTML = profiles
-    .map((profile, index) => getTileMarkup(profile, index))
+    .map((profile, index) => getTileMarkup(profile, index, { eager: true, highPriority: false }))
     .join("");
 }
 
