@@ -1,0 +1,19 @@
+# Копирай този файл в папката на новия профил и попълни редовете.
+# Остави ненужните полета празни.
+# Ако имаш повече от един линк от един и същ тип, просто повтори реда.
+
+Description:
+Надзаглавие:
+Резюме:
+Обещан вайб:
+Прочит:
+Наблюдение:
+Бележка върху снимката:
+
+Website: https://savingcapitalacademy.com/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExaWpUODR0SkZLeVNvYWV6a3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4aGhYsA1XmTCISiFi3kyewqoAwOdAjBIQbooh-QV5HXKTGBx_m1nQxI7JLyQ_aem_dW9SNRZJczNXqJhiV9mjXg
+Facebook: https://www.facebook.com/profile.php?id=61550287587765
+Instagram:
+YouTube: 
+Telegram: https://t.me/SavingCapitalBG?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExaWpUODR0SkZLeVNvYWV6a3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4aGhYsA1XmTCISiFi3kyewqoAwOdAjBIQbooh-QV5HXKTGBx_m1nQxI7JLyQ_aem_dW9SNRZJczNXqJhiV9mjXg
+LinkedIn:
+Viber:
