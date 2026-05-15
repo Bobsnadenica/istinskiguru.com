@@ -27,7 +27,7 @@ function createSiteIntro() {
   intro.innerHTML = `
     <div class="site-intro-backdrop"></div>
     <section class="site-intro-panel" role="dialog" aria-modal="true" aria-labelledby="site-intro-title" aria-describedby="site-intro-description">
-      <p class="site-intro-eyebrow">Scam Сигнали • Публични Материали • Големи Обещания</p>
+      <p class="site-intro-eyebrow">Сигнали За Измама • Публични Материали • Големи Обещания</p>
       <h2 id="site-intro-title">Обещанията за лесни пари са подредени. Най-после.</h2>
       <div class="site-intro-body" id="site-intro-description">
         <p class="site-intro-copy">
@@ -36,9 +36,9 @@ function createSiteIntro() {
           оставим без витрина.
         </p>
         <p class="site-intro-copy">
-          Работим с публични материали и видими маркетингови модели: натиск,
-          ъпсел, чудодейни формули и онова приятно чувство, че истинската цена
-          идва след “безплатното”.
+          Работим с публични материали и видими модели: натиск, следващо
+          по-скъпо ниво, чудодейни формули и онова приятно чувство, че
+          истинската цена идва след “безплатното”.
         </p>
         <p class="site-intro-copy site-intro-copy-muted">
           Накратко: смей се, но проверявай. Особено преди да пратиш пари след

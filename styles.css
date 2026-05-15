@@ -706,15 +706,42 @@ body.performance-lite .reveal.is-visible {
 }
 
 .home-page .hero h1 {
-  font-size: clamp(3.1rem, 7.4vw, 6.4rem);
-  max-width: 9ch;
+  font-size: clamp(2.65rem, 5.1vw, 4.45rem);
+  max-width: 10ch;
+}
+
+.home-page .hero-text {
+  margin-top: 1rem;
+}
+
+.home-page .context-note {
+  margin-top: 0.85rem;
+}
+
+.home-page .hero-actions {
+  gap: 0.75rem;
+  margin-top: 1.35rem;
+}
+
+.home-page .promo-launch-button {
+  gap: 0.55rem;
+  padding-inline: 1rem;
+}
+
+.home-page .promo-launch-button-kicker {
+  position: absolute;
+  top: -0.55rem;
+  right: 0.72rem;
+  min-height: 1.25rem;
+  padding-inline: 0.48rem;
+  font-size: 0.62rem;
 }
 
 .home-page .summary-alert h2,
 .home-page .manifesto h2,
 .home-page .section-heading h2,
 .home-page .closing h2 {
-  font-size: clamp(2.35rem, 4.1vw, 4.25rem);
+  font-size: clamp(2.2rem, 3.8vw, 3.8rem);
   letter-spacing: -0.03em;
 }
 
@@ -2685,31 +2712,17 @@ body.performance-lite .reveal.is-visible {
 }
 
 .reveal {
-  opacity: 0;
-  filter: blur(14px);
-  transform:
-    perspective(1000px)
-    translate3d(0, var(--reveal-distance, 38px), 0)
-    scale(0.972)
-    rotateX(7deg)
-    rotateZ(var(--reveal-tilt, -0.45deg));
-  transform-origin: 50% 100%;
-  will-change: transform, opacity, filter;
-  transition:
-    opacity 760ms cubic-bezier(0.18, 0.8, 0.22, 1) var(--reveal-delay, 0ms),
-    transform 980ms cubic-bezier(0.16, 0.9, 0.2, 1) var(--reveal-delay, 0ms),
-    filter 760ms ease var(--reveal-delay, 0ms);
+  opacity: 1;
+  filter: none;
+  transform: none;
+  will-change: auto;
+  transition: opacity 180ms ease;
 }
 
 .reveal.is-visible {
   opacity: 1;
-  filter: blur(0);
-  transform:
-    perspective(1000px)
-    translate3d(0, 0, 0)
-    scale(1)
-    rotateX(0)
-    rotateZ(0);
+  filter: none;
+  transform: none;
 }
 
 @keyframes glide {

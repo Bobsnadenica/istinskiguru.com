@@ -420,10 +420,18 @@ function renderHeroTrack(profiles) {
   }
 
   const runwayProfiles = profiles.slice(0, Math.min(12, profiles.length));
+  const heroWindow = galleryHeroTrack.closest(".gallery-hero-window");
 
   if (!runwayProfiles.length) {
     galleryHeroTrack.innerHTML = "";
+    if (heroWindow) {
+      heroWindow.hidden = true;
+    }
     return;
+  }
+
+  if (heroWindow) {
+    heroWindow.hidden = false;
   }
 
   galleryHeroTrack.innerHTML = `
@@ -475,14 +483,17 @@ function attachSearch(allProfiles) {
       : allProfiles;
 
     if (!filteredProfiles.length) {
+      renderHeroTrack([]);
       renderGalleryMosaic([], {
         emptyTitle: "Няма съвпадения",
         emptyBody: `Нищо не беше намерено за "${rawQuery}".`,
       });
       setupReveals();
+      updateSearchStatus(0, allProfiles.length, rawQuery);
       return;
     }
 
+    renderHeroTrack(filteredProfiles);
     renderGalleryMosaic(filteredProfiles);
     setupReveals();
     updateSearchStatus(filteredProfiles.length, allProfiles.length, rawQuery);
