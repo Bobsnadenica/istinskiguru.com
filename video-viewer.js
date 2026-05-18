@@ -363,7 +363,7 @@ function openVideoViewer(trigger, options = {}) {
   activeVideoViewerType = trigger.getAttribute("data-video-type") || "";
   activeVideoViewerShareId = normaliseShareId(trigger.getAttribute("data-video-share-id"));
   activeVideoViewerShareText =
-    trigger.getAttribute("data-video-share-text") || `${activeVideoViewerTitle} от Каталога на Онлайн Гурута.`;
+    trigger.getAttribute("data-video-share-text") || `${activeVideoViewerTitle} от Регистъра на Онлайн Гурута.`;
   activeVideoViewerShareUrl = getVideoShareUrl(activeVideoViewerShareId);
 
   if (videoPoster) {

@@ -50,6 +50,8 @@ gallery.html         Standalone gallery entry page
 scams.html           Supporting content page
 saveti.html          Supporting content page
 supportus.html       Supporting content page
+privacy.html         Legal page
+terms.html           Legal page
 
 styles.css           Shared site styles
 gallery.css          Gallery-specific styles

@@ -169,7 +169,7 @@ function getLinkedInShareUrl(profile) {
 }
 
 function getShareMessage(profile) {
-  return profile.summary || profile.imageNote || `Профилът на ${profile.name} в Каталога на Онлайн Гурута.`;
+  return profile.summary || profile.imageNote || `Профилът на ${profile.name} в Регистъра на Онлайн Гурута.`;
 }
 
 function getProfileVideos(profile) {
@@ -330,7 +330,7 @@ function updateSearchStatus(filteredCount, totalCount, query) {
   }
 
   if (!query) {
-    searchStatus.textContent = `${totalCount} профила в каталога.`;
+    searchStatus.textContent = `${totalCount} профила в регистъра.`;
     return;
   }
 
