@@ -237,11 +237,85 @@ async function shareToFacebook(button) {
   );
 }
 
+function getKzpTemplate(guruName, guruUrl) {
+  return `До Комисията за защита на потребителите
+
+Относно: Сигнал за подвеждаща търговска практика онлайн
+Субект: ${guruName}
+Линк към профила: ${guruUrl}
+
+Уважаеми дами и господа,
+
+Подавам сигнал срещу ${guruName} във връзка с предлаганите от него/нея услуги и курсове онлайн. Считам, че публичните обещания за гарантирана финансова печалба, бърз успех и липса на риск са подвеждащи и могат да въведат потребителите в заблуждение съгласно Закона за защита на потребителите.
+
+Моля да извършите проверка дали посоченото лице/търговец спазва изискванията на законодателството при предлагането на своите "образователни" или "менторски" продукти.
+
+С уважение,
+[Вашето Име]`;
+}
+
+function openKzpModal(button) {
+  const modal = document.getElementById("kzp-modal");
+  const templateText = document.getElementById("kzp-template-text");
+  const guruName = button.getAttribute("data-guru-name") || "";
+  const guruUrl = button.getAttribute("data-guru-url") || window.location.href;
+
+  if (!modal || !templateText) {
+    return;
+  }
+
+  templateText.textContent = getKzpTemplate(guruName, guruUrl);
+  modal.hidden = false;
+  document.body.classList.add("gallery-detail-open");
+
+  window.requestAnimationFrame(() => {
+    modal.classList.add("is-open");
+  });
+}
+
+function closeKzpModal() {
+  const modal = document.getElementById("kzp-modal");
+
+  if (!modal || modal.hidden) {
+    return;
+  }
+
+  modal.classList.remove("is-open");
+  document.body.classList.remove("gallery-detail-open");
+
+  window.setTimeout(() => {
+    modal.hidden = true;
+  }, 240);
+}
+
 document.addEventListener("click", (event) => {
-  const button =
-    event.target instanceof Element
-      ? event.target.closest("[data-facebook-share], [data-native-share]")
-      : null;
+  if (!(event.target instanceof Element)) {
+    return;
+  }
+
+  const kzpButton = event.target.closest("[data-kzp-signal]");
+
+  if (kzpButton) {
+    openKzpModal(kzpButton);
+    return;
+  }
+
+  if (event.target.closest("[data-kzp-close]")) {
+    closeKzpModal();
+    return;
+  }
+
+  if (event.target.id === "kzp-copy-trigger") {
+    const templateText = document.getElementById("kzp-template-text");
+    if (templateText) {
+      copyShareText(templateText.textContent).then((success) => {
+        showShareToast(success ? "Текстът е копиран!" : "Грешка при копиране.");
+      });
+    }
+    return;
+  }
+
+  const button = event.target.closest("[data-facebook-share], [data-native-share]");
 
   if (!button) {
     return;
@@ -255,4 +329,10 @@ document.addEventListener("click", (event) => {
   }
 
   shareToMediaApp(button);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeKzpModal();
+  }
 });

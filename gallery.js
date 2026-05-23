@@ -10,6 +10,7 @@ const heroImage = document.querySelector("#hero-image");
 const heroProfileLink = document.querySelector("#hero-profile-link");
 const heroQuoteLabel = document.querySelector("#hero-quote-label");
 const heroQuoteText = document.querySelector("#hero-quote-text");
+const heroKzpButton = document.querySelector("#hero-kzp-button");
 const heroStorageKey = "guruHeroIndex";
 const defaultHeroLabel = heroQuoteLabel?.textContent?.trim() || "За какво да внимаваме";
 const defaultHeroText =
@@ -125,6 +126,13 @@ function updateHeroVisual(profiles) {
   if (heroQuoteText) {
     heroQuoteText.textContent =
       heroProfile.imageNote || heroProfile.kicker || heroProfile.summary || defaultHeroText;
+  }
+
+  if (heroKzpButton) {
+    const heroProfileUrl = getProfileShareUrl(heroProfile);
+    heroKzpButton.setAttribute("data-guru-name", heroProfile.name || "");
+    heroKzpButton.setAttribute("data-guru-url", heroProfileUrl);
+    heroKzpButton.hidden = false;
   }
 }
 
@@ -254,11 +262,9 @@ function getShareButtons(profile) {
   }
 
   return `
-    <div class="profile-actions">
-      <div class="share-button-group" aria-label="Опции за споделяне">
-        <span class="share-button-heading">Сподели</span>
-        ${buttons.join("")}
-      </div>
+    <div class="share-button-group" aria-label="Опции за споделяне">
+      <span class="share-button-heading">Сподели</span>
+      ${buttons.join("")}
     </div>
   `;
 }
@@ -629,7 +635,18 @@ function buildDetailMarkup(profile) {
 
       <div class="gallery-detail-copy">
         ${summaryBlock}
-        ${getShareButtons(profile)}
+        <div class="profile-actions">
+          <button
+            class="button button-kzp"
+            type="button"
+            data-kzp-signal
+            data-guru-name="${utils.escapeHtml(profile.name)}"
+            data-guru-url="${utils.escapeHtml(getProfileShareUrl(profile))}"
+          >
+            Пиши на КЗП, подай сигнал
+          </button>
+          ${getShareButtons(profile)}
+        </div>
         ${descriptionBlock}
         <dl class="signal-grid">${signalItems.join("")}</dl>
         ${insightBlock}
@@ -762,6 +779,50 @@ async function initGalleryPage() {
 
   if (galleryDetailContent) {
     galleryDetailContent.innerHTML = getDefaultDetailMarkup();
+  }
+
+  // Inject KZP Modal if not present
+  if (!document.getElementById("kzp-modal")) {
+    const kzpModal = document.createElement("div");
+    kzpModal.id = "kzp-modal";
+    kzpModal.className = "gallery-detail kzp-modal";
+    kzpModal.hidden = true;
+    kzpModal.innerHTML = `
+      <div class="gallery-detail-backdrop" data-kzp-close></div>
+      <aside class="gallery-detail-panel" role="dialog" aria-modal="true" aria-labelledby="kzp-modal-title">
+        <button class="gallery-detail-close" type="button" data-kzp-close aria-label="Затвори">Затвори</button>
+        <div class="gallery-detail-scroll">
+          <div class="gallery-detail-stack">
+            <div class="gallery-detail-header">
+              <p class="gallery-detail-kicker">Подай сигнал</p>
+              <h2 class="gallery-detail-title" id="kzp-modal-title">Сигнал до КЗП</h2>
+              <p class="gallery-detail-lead">
+                Тук ще откриеш примерен текст, който можеш да копираш и изпратиш към Комисията за защита на потребителите.
+              </p>
+            </div>
+            <div class="gallery-detail-copy">
+              <div class="profile-description kzp-template-wrap">
+                <p class="profile-description-label">Текст на сигнала</p>
+                <div class="kzp-template-content" id="kzp-template-text" contenteditable="false"></div>
+                <button class="button copy-button kzp-copy-button" type="button" id="kzp-copy-trigger">Копирай текста</button>
+              </div>
+              <div class="context-note">
+                <strong>След като копираш текста:</strong>
+                <ol>
+                  <li>Отиди на страницата на КЗП за подаване на сигнал.</li>
+                  <li>Попълни своите данни.</li>
+                  <li>Постави копирания текст в полето за описание на сигнала.</li>
+                </ol>
+              </div>
+              <div class="profile-actions">
+                <a class="button button-kzp" href="https://kzp.bg/podavane-na-signal" target="_blank" rel="noopener noreferrer">Към сайта на КЗП</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    `;
+    document.body.appendChild(kzpModal);
   }
 
   attachGalleryInteractions();
