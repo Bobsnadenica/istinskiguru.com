@@ -254,38 +254,26 @@ function getKzpTemplate(guruName, guruUrl) {
 [Вашето Име]`;
 }
 
-function openKzpModal(button) {
-  const modal = document.getElementById("kzp-modal");
-  const templateText = document.getElementById("kzp-template-text");
+async function handleKzpSignal(button) {
   const guruName = button.getAttribute("data-guru-name") || "";
   const guruUrl = button.getAttribute("data-guru-url") || window.location.href;
+  const templateText = getKzpTemplate(guruName, guruUrl);
 
-  if (!modal || !templateText) {
-    return;
+  const copied = await copyShareText(templateText);
+
+  if (copied) {
+    showShareToast("Текстът е копиран! Отваряме формата на КЗП...");
+  } else {
+    showShareToast("Отваряме формата на КЗП...");
   }
 
-  templateText.textContent = getKzpTemplate(guruName, guruUrl);
-  modal.hidden = false;
-  document.body.classList.add("gallery-detail-open");
-
-  window.requestAnimationFrame(() => {
-    modal.classList.add("is-open");
-  });
-}
-
-function closeKzpModal() {
-  const modal = document.getElementById("kzp-modal");
-
-  if (!modal || modal.hidden) {
-    return;
-  }
-
-  modal.classList.remove("is-open");
-  document.body.classList.remove("gallery-detail-open");
-
-  window.setTimeout(() => {
-    modal.hidden = true;
-  }, 240);
+  // Use a small delay to ensure the toast is seen, but not too long to be blocked by popup blockers
+  // Actually, window.open might be blocked if called too late.
+  window.open(
+    "https://kzp.bg/podavane-na-zhalba-signal-elektronna-forma",
+    "_blank",
+    "noopener,noreferrer"
+  );
 }
 
 document.addEventListener("click", (event) => {
@@ -296,22 +284,7 @@ document.addEventListener("click", (event) => {
   const kzpButton = event.target.closest("[data-kzp-signal]");
 
   if (kzpButton) {
-    openKzpModal(kzpButton);
-    return;
-  }
-
-  if (event.target.closest("[data-kzp-close]")) {
-    closeKzpModal();
-    return;
-  }
-
-  if (event.target.id === "kzp-copy-trigger") {
-    const templateText = document.getElementById("kzp-template-text");
-    if (templateText) {
-      copyShareText(templateText.textContent).then((success) => {
-        showShareToast(success ? "Текстът е копиран!" : "Грешка при копиране.");
-      });
-    }
+    handleKzpSignal(kzpButton);
     return;
   }
 
@@ -329,10 +302,4 @@ document.addEventListener("click", (event) => {
   }
 
   shareToMediaApp(button);
-});
-
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    closeKzpModal();
-  }
 });
