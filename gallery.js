@@ -2,6 +2,7 @@ const galleryMosaic = document.querySelector("#gallery-mosaic");
 const galleryHeroTrack = document.querySelector("#gallery-hero-track");
 const galleryDetail = document.querySelector("#gallery-detail");
 const galleryDetailContent = document.querySelector("#gallery-detail-content");
+const galleryDetailPanel = galleryDetail?.querySelector(".gallery-detail-panel");
 const galleryCanonicalLink = document.querySelector('link[rel="canonical"]');
 const searchInput = document.querySelector("#guru-search");
 const searchStatus = document.querySelector("#search-status");
@@ -23,6 +24,69 @@ let galleryProfilesById = new Map();
 let activeGalleryProfileId = "";
 let galleryCloseTimer = 0;
 let lastGalleryTrigger = null;
+const dialogFocusableSelector = [
+  "a[href]",
+  "button:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
+  '[tabindex]:not([tabindex="-1"])',
+].join(",");
+
+function setGalleryBackgroundInert(shouldBeInert) {
+  document.querySelector(".page-shell")?.toggleAttribute("inert", shouldBeInert);
+  document.querySelector(".site-top-actions")?.toggleAttribute("inert", shouldBeInert);
+}
+
+function getGalleryDialogFocusables() {
+  if (!galleryDetailPanel) {
+    return [];
+  }
+
+  return Array.from(galleryDetailPanel.querySelectorAll(dialogFocusableSelector)).filter(
+    (element) => element instanceof HTMLElement && !element.hidden && element.getClientRects().length > 0,
+  );
+}
+
+function focusGalleryDialog() {
+  const closeButton = galleryDetail?.querySelector(".gallery-detail-close");
+
+  if (closeButton instanceof HTMLElement) {
+    closeButton.focus();
+    return;
+  }
+
+  galleryDetailPanel?.focus();
+}
+
+function containGalleryDialogFocus(event) {
+  if (galleryDetail?.hidden || event.key !== "Tab") {
+    return;
+  }
+
+  const focusableElements = getGalleryDialogFocusables();
+
+  if (!focusableElements.length) {
+    event.preventDefault();
+    galleryDetailPanel?.focus();
+    return;
+  }
+
+  const firstFocusable = focusableElements[0];
+  const lastFocusable = focusableElements[focusableElements.length - 1];
+  const activeElement = document.activeElement;
+
+  if (event.shiftKey && (activeElement === firstFocusable || !galleryDetailPanel?.contains(activeElement))) {
+    event.preventDefault();
+    lastFocusable.focus();
+    return;
+  }
+
+  if (!event.shiftKey && (activeElement === lastFocusable || !galleryDetailPanel?.contains(activeElement))) {
+    event.preventDefault();
+    firstFocusable.focus();
+  }
+}
 
 function findGalleryTrigger(profileId) {
   if (!profileId) {
@@ -415,7 +479,7 @@ function getTileMarkup(profile, index, options = {}) {
         fetchpriority="${fetchpriority}"
         sizes="${sizes}"
       />
-      <span class="sr-only">${utils.escapeHtml(profile.name)}</span>
+      <span class="${inert ? "sr-only" : "gallery-tile-name"}">${utils.escapeHtml(profile.name)}</span>
     </button>
   `;
 }
@@ -499,7 +563,7 @@ function attachSearch(allProfiles) {
       return;
     }
 
-    renderHeroTrack(filteredProfiles);
+    renderHeroTrack(query ? [] : filteredProfiles);
     renderGalleryMosaic(filteredProfiles);
     setupReveals();
     updateSearchStatus(filteredProfiles.length, allProfiles.length, rawQuery);
@@ -689,10 +753,12 @@ function openGalleryDetail(profile, trigger, options = {}) {
   galleryDetailContent.innerHTML = buildDetailMarkup(profile);
   galleryDetail.hidden = false;
   document.body.classList.add("gallery-detail-open");
+  setGalleryBackgroundInert(true);
   syncActiveTiles(activeGalleryProfileId);
 
   window.requestAnimationFrame(() => {
     galleryDetail.classList.add("is-open");
+    focusGalleryDialog();
   });
 
   if (updateHash) {
@@ -710,6 +776,7 @@ function closeGalleryDetail(options = {}) {
 
   galleryDetail.classList.remove("is-open");
   document.body.classList.remove("gallery-detail-open");
+  setGalleryBackgroundInert(false);
   activeGalleryProfileId = "";
   syncActiveTiles("");
 
@@ -751,7 +818,10 @@ function attachGalleryInteractions() {
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
+    containGalleryDialogFocus(event);
+
+    if (event.key === "Escape" && galleryDetail && !galleryDetail.hidden) {
+      event.preventDefault();
       closeGalleryDetail({ restoreFocus: true });
     }
   });

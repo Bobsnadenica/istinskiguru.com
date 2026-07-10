@@ -1295,7 +1295,7 @@ body.performance-lite .reveal.is-visible {
   width: min(100%, 620px);
 }
 
-.search-field span {
+.search-field label {
   color: var(--accent-deep);
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -2899,6 +2899,10 @@ body.performance-lite .reveal.is-visible {
 }
 
 @media (max-width: 720px) {
+  .hero {
+    padding-top: 4.4rem;
+  }
+
   .site-top-actions {
     top: 0.5rem;
     right: 0.5rem;

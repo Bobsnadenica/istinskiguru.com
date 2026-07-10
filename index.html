@@ -99,8 +99,8 @@
       }
     </script>
     <link rel="icon" type="image/jpeg" sizes="96x96" href="/icon-96.jpg" />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="gallery.css" />
+    <link rel="stylesheet" href="styles.css?v=20260710" />
+    <link rel="stylesheet" href="gallery.css?v=20260710" />
   </head>
   <body class="home-page">
     <a href="#directory" class="skip-link">Към регистъра</a>
@@ -240,12 +240,14 @@
 
           <div class="directory-tools">
             <div class="search-field">
-              <span>Търси по име или ключова дума</span>
+              <label for="guru-search">Търси по име или ключова дума</label>
               <input
                 id="guru-search"
                 type="search"
                 placeholder="Напр. Ивелин Михайлов, крипто, бизнес..."
-                aria-label="Търсене в регистъра"
+                aria-describedby="search-status"
+                autocomplete="off"
+                spellcheck="false"
               />
             </div>
             <p id="search-status" class="search-status" aria-live="polite"></p>
@@ -297,6 +299,7 @@
         role="dialog"
         aria-modal="true"
         aria-labelledby="gallery-detail-title"
+        tabindex="-1"
       >
         <button class="gallery-detail-close" type="button" data-gallery-close aria-label="Затвори профила">
           Затвори
@@ -307,7 +310,7 @@
 
     <script src="guru-utils.js" defer></script>
     <script src="site-data.js" defer></script>
-    <script src="gallery.js" defer></script>
+    <script src="gallery.js?v=20260710-2" defer></script>
     <script src="share-actions.js" defer></script>
     <script src="video-viewer.js?v=promo-share-v2" defer></script>
     <script src="page-effects.js" defer></script>

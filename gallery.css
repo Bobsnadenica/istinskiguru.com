@@ -137,6 +137,29 @@
   pointer-events: none;
 }
 
+.gallery-tile-name {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  z-index: 2;
+  display: inline-flex;
+  width: fit-content;
+  max-width: calc(100% - 1.5rem);
+  padding: 0.5rem 0.72rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(16, 20, 17, 0.76);
+  color: #fffaf3;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: left;
+  box-shadow: 0 10px 26px rgba(16, 20, 17, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
 .gallery-hero-card img,
 .gallery-tile img,
 .gallery-detail-media img {
@@ -487,6 +510,15 @@ body.gallery-detail-open {
 
   .gallery-hero-card {
     width: clamp(156px, 44vw, 220px);
+  }
+
+  .gallery-tile-name {
+    right: 0.55rem;
+    bottom: 0.55rem;
+    left: 0.55rem;
+    max-width: calc(100% - 1.1rem);
+    padding: 0.42rem 0.58rem;
+    font-size: 0.7rem;
   }
 
   .gallery-hero-card:nth-child(odd),
