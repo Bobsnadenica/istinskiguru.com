@@ -111,7 +111,7 @@ The site helps Bulgarian readers understand Ponzi schemes, pyramid schemes, and 
 
 Before adding a profile, collect the exact public offer URL, access date, stated price and terms, and the wording of any claim being assessed. Distinguish the seller's claim, independently verified facts, and editorial interpretation. State what remains unverified. Avoid appearance-based insults, speculation about motives, and unrelated family information. Describe a regulator's or court's findings accurately, including their date and status, and link to the original record.
 
-The 44 legacy profiles have not all undergone that evidence review. TopCoding is the first dated, sourced review using the format below. This editorial/layout improvement is not a fresh investigation of those people. New reviews should use the standard above, and existing profiles should be checked against it as they are updated.
+TopCoding and Ivelin Mihaylov have dated, sourced reviews using the format below. The remaining 43 legacy profiles have not all undergone that evidence review. New reviews should use this standard, and existing profiles should be checked against it as they are updated.
 
 ## Validation
 
