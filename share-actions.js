@@ -237,43 +237,8 @@ async function shareToFacebook(button) {
   );
 }
 
-function getKzpTemplate(guruName, guruUrl) {
-  return `До Комисията за защита на потребителите
-
-Относно: Сигнал за подвеждаща търговска практика онлайн
-Субект: ${guruName}
-Линк към профила: ${guruUrl}
-
-Уважаеми дами и господа,
-
-Подавам сигнал срещу ${guruName} във връзка с предлаганите от него/нея услуги и курсове онлайн. Считам, че публичните обещания за гарантирана финансова печалба, бърз успех и липса на риск са подвеждащи и могат да въведат потребителите в заблуждение съгласно Закона за защита на потребителите.
-
-Моля да извършите проверка дали посоченото лице/търговец спазва изискванията на законодателството при предлагането на своите "образователни" или "менторски" продукти.
-
-С уважение,
-[Вашето Име]`;
-}
-
-async function handleKzpSignal(button) {
-  const guruName = button.getAttribute("data-guru-name") || "";
-  const guruUrl = button.getAttribute("data-guru-url") || window.location.href;
-  const templateText = getKzpTemplate(guruName, guruUrl);
-
-  const copied = await copyShareText(templateText);
-
-  if (copied) {
-    showShareToast("Текстът е копиран! Отваряме формата на КЗП...");
-  } else {
-    showShareToast("Отваряме формата на КЗП...");
-  }
-
-  // Use a small delay to ensure the toast is seen, but not too long to be blocked by popup blockers
-  // Actually, window.open might be blocked if called too late.
-  window.open(
-    "https://kzp.bg/podavane-na-zhalba-signal-elektronna-forma",
-    "_blank",
-    "noopener,noreferrer"
-  );
+function handleKzpSignal() {
+  window.location.assign("/saveti.html#help");
 }
 
 document.addEventListener("click", (event) => {

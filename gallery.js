@@ -638,7 +638,7 @@ function buildDetailMarkup(profile) {
   const descriptionBlock = profile.description
     ? `
         <div class="profile-description">
-          <p class="profile-description-label">Описание</p>
+          <p class="profile-description-label">Редакционен коментар</p>
           <p>${utils.escapeHtml(profile.description)}</p>
         </div>
       `
@@ -688,7 +688,7 @@ function buildDetailMarkup(profile) {
           ${utils.escapeHtml(profile.imageNote || profile.summary || "Тук вече идват думите след стойката.")}
         </p>
         <p class="context-note">
-          Публично съдържание, видими обещания и достатъчно увереност, за да си струва един втори поглед.
+          Редакционен коментар с елементи на сатира. Присъствието в регистъра не означава установена измама или участие в Понци схема. Публичните канали по-долу не са независимо потвърждение на твърденията. <a href="/contactus.html">Изпрати корекция или източник.</a>
         </p>
       </div>
 
@@ -700,15 +700,7 @@ function buildDetailMarkup(profile) {
       <div class="gallery-detail-copy">
         ${summaryBlock}
         <div class="profile-actions">
-          <button
-            class="button button-kzp"
-            type="button"
-            data-kzp-signal
-            data-guru-name="${utils.escapeHtml(profile.name)}"
-            data-guru-url="${utils.escapeHtml(getProfileShareUrl(profile))}"
-          >
-            Пиши на КЗП, подай сигнал
-          </button>
+          <a class="button button-secondary" href="/saveti.html#help">При проблем с оферта</a>
           ${getShareButtons(profile)}
         </div>
         ${descriptionBlock}

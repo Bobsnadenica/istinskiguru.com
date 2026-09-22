@@ -3227,3 +3227,69 @@ body.performance-lite .reveal.is-visible {
     display: none;
   }
 }
+
+/* Educational pages: keep the existing palette, with a quieter reading layout. */
+.learning-page .hero {
+  min-height: auto;
+  padding-block: clamp(3rem, 6vw, 5rem);
+}
+.learning-page .hero::after { display: none; }
+.learning-page .hero h1 {
+  max-width: 17ch;
+  font-size: clamp(2.55rem, 4.8vw, 4.3rem);
+  line-height: 1.08;
+}
+.learning-page h2 { line-height: 1.15; }
+.learning-page .manifesto h2,
+.learning-page .section-heading h2,
+.learning-page .closing h2 { font-size: clamp(1.85rem, 3vw, 2.8rem); }
+.learning-page .manifesto,
+.learning-page .directory,
+.learning-page .closing { padding-block: clamp(2rem, 5vw, 4rem); }
+.learning-card {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+.learning-card h2 { margin: 0; font-size: clamp(1.65rem, 2.8vw, 2.5rem); }
+.money-questions { margin: 1.5rem 0 0; }
+.money-questions div + div { border-top: 1px solid var(--line); margin-top: 1.15rem; padding-top: 1.15rem; }
+.money-questions dt { font-weight: 700; }
+.money-questions dd { margin: 0.4rem 0 0; color: var(--muted); line-height: 1.6; }
+.learning-page .guide-hero { display: block; padding-bottom: 2rem; }
+.guide-hero .hero-copy { max-width: 800px; margin-inline: auto; }
+.guide-hero .hero-text { max-width: 62ch; }
+.guide-content { width: min(800px, calc(100% - 2rem)); margin-inline: auto; }
+.guide-section { padding: 2.5rem 0; border-top: 1px solid var(--line); }
+.guide-section h2 { margin: 0 0 1rem; font-size: clamp(1.65rem, 3vw, 2.3rem); letter-spacing: -0.025em; }
+.guide-section p, .guide-section li { line-height: 1.75; }
+.guide-section p { color: var(--muted); }
+.guide-section h3 { margin-top: 0; }
+.learning-page .page-nav { display: flex; flex-wrap: wrap; gap: 0.6rem 1.25rem; margin-bottom: 2rem; }
+.learning-page a:not(.button):not(.mini-button):not(.gallery-tile) { text-underline-offset: 0.2em; }
+.learning-page :is(section, details, #main) { scroll-margin-top: 1.5rem; }
+.learning-steps { margin: 1.5rem 0; padding-left: 1.6rem; }
+.learning-steps li { padding: 0 0 1rem 0.4rem; }
+.learning-steps li:last-child { padding-bottom: 0; }
+.learning-steps li::marker { color: var(--accent-deep); font-weight: 700; }
+.learning-steps strong, .learning-steps span { display: block; }
+.learning-steps span { color: var(--muted); margin-top: 0.2rem; }
+.worked-example { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: clamp(1.1rem, 3vw, 2rem); margin-block: 1.5rem; }
+.number-example { background: var(--forest); color: var(--paper) !important; padding: 1.5rem; border-radius: 16px; }
+.number-example strong { display: block; margin-top: 0.5rem; font-size: clamp(1.1rem, 3vw, 1.75rem); }
+.source-note { font-size: 0.85rem; color: var(--muted); line-height: 1.65; margin-top: 1.25rem; }
+.plain-list { padding-left: 1.3rem; }
+.plain-list li { margin-block: 0.75rem; }
+.guide-section details { border-bottom: 1px solid var(--line); }
+.guide-section summary { padding: 1.1rem 0; font-weight: 700; cursor: pointer; line-height: 1.5; }
+.guide-section details p { margin: 0 0 1.25rem; }
+:focus-visible { outline: 3px solid var(--accent-deep); outline-offset: 4px; }
+@media (max-width: 760px) {
+  .learning-page .learning-hero { grid-template-columns: 1fr; gap: 2rem; }
+  .learning-page .hero h1 { max-width: 18ch; }
+  .learning-page .manifesto-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
