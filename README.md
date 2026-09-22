@@ -111,7 +111,7 @@ The site helps Bulgarian readers understand Ponzi schemes, pyramid schemes, and 
 
 Before adding a profile, collect the exact public offer URL, access date, stated price and terms, and the wording of any claim being assessed. Distinguish the seller's claim, independently verified facts, and editorial interpretation. State what remains unverified. Avoid appearance-based insults, speculation about motives, and unrelated family information. Describe a regulator's or court's findings accurately, including their date and status, and link to the original record.
 
-The existing 44 profiles have not all undergone that evidence review. This editorial/layout improvement is not a fresh investigation of those people. New reviews should use the standard above, and existing profiles should be checked against it as they are updated.
+The 44 legacy profiles have not all undergone that evidence review. TopCoding is the first dated, sourced review using the format below. This editorial/layout improvement is not a fresh investigation of those people. New reviews should use the standard above, and existing profiles should be checked against it as they are updated.
 
 ## Validation
 
@@ -182,6 +182,14 @@ Website: https://example.com
 Facebook: https://facebook.com/example
 Instagram: https://instagram.com/example
 ```
+
+## Sourced Reviews
+
+A profile may also contain `review.json`; see `assets/TopCoding/review.json` for the concrete format. It records the review date, `Person` or `Organization` subject type, verdict, sourced findings, editorial assessments, limitations, and questions to ask before paying.
+
+`lib/review.mjs` validates required content and HTTPS source URLs, then escapes all supplied text. Its HTML is included in both the generated profile page and gallery dataset, so the two views use the same review. Do not place raw HTML in the JSON or hand-edit the generated `reviewHtml` field. Build failures must be resolved before publishing.
+
+Keep factual observations separate from interpretation and provide a direct source for every section. Date the review; do not infer that paid teaching is poor from a free sample. Record whether contracts, paid lessons, outcomes, and a business response were actually examined. TopCoding's card is an original editorial graphic, not its official logo; `card.svg` is the editable source of `TopCoding.png`.
 
 ## Local Development
 

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900">
+<rect width="900" height="900" fill="#20372f"/>
+<rect x="64" y="80" width="70" height="6" rx="3" fill="#d6b284"/>
+<g font-family="Helvetica Neue, Arial, sans-serif">
+<text x="64" y="150" fill="#d6b284" font-size="25" letter-spacing="3">ПРОВЕРКА НА ОФЕРТА</text>
+<text x="64" y="425" fill="#fbf6ef" font-size="108" font-weight="700" letter-spacing="-4">TopCoding</text>
+<text x="68" y="490" fill="#d9dacf" font-size="38">topcoding.bg</text>
+<path d="M64 690H836" stroke="#60726a"/>
+<text x="64" y="755" fill="#d6b284" font-size="25">Обещание · Условия · Доказателства</text>
+<text x="64" y="813" fill="#d9dacf" font-size="23">Редакционна карта · istinskiguru.com</text>
+</g></svg>

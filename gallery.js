@@ -688,24 +688,23 @@ function buildDetailMarkup(profile) {
           ${utils.escapeHtml(profile.imageNote || profile.summary || "Тук вече идват думите след стойката.")}
         </p>
         <p class="context-note">
-          Редакционен коментар с елементи на сатира. Присъствието в регистъра не означава установена измама или участие в Понци схема. Публичните канали по-долу не са независимо потвърждение на твърденията. <a href="/contactus.html">Изпрати корекция или източник.</a>
+          ${profile.reviewHtml ? "Проверка по публични източници. Разграничаваме наблюдаваното от оценката и неизвестното." : "Редакционен коментар с елементи на сатира. Присъствието в регистъра не означава установена измама или участие в Понци схема. Публичните канали по-долу не са независимо потвърждение на твърденията."} <a href="/contactus.html">Изпрати корекция или източник.</a>
         </p>
       </div>
 
-      <div class="gallery-detail-media" data-orientation="${utils.escapeHtml(profile.orientation || "portrait")}">
+      <div class="gallery-detail-media${profile.reviewHtml ? " evidence-media" : ""}" data-orientation="${utils.escapeHtml(profile.orientation || "portrait")}">
         <img src="${encodeURI(imageUrl)}" alt="${utils.escapeHtml(profile.alt || profile.name)}" loading="eager" decoding="async" fetchpriority="high" />
         <div class="media-chip">${utils.escapeHtml(profile.imageNote || profile.kicker || profile.name)}</div>
       </div>
 
       <div class="gallery-detail-copy">
         ${summaryBlock}
+        ${profile.reviewHtml ? `<p><a href="${utils.escapeHtml(getProfileShareUrl(profile))}">Отвори проверката на отделна страница</a></p>` : ""}
         <div class="profile-actions">
           <a class="button button-secondary" href="/saveti.html#help">При проблем с оферта</a>
           ${getShareButtons(profile)}
         </div>
-        ${descriptionBlock}
-        <dl class="signal-grid">${signalItems.join("")}</dl>
-        ${insightBlock}
+        ${profile.reviewHtml || `${descriptionBlock}<dl class="signal-grid">${signalItems.join("")}</dl>${insightBlock}`}
         ${profileVideoBlock}
       </div>
     </div>
