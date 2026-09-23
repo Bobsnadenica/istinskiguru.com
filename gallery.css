@@ -396,6 +396,14 @@ body.gallery-detail-open {
   aspect-ratio: 0.96;
 }
 
+.gallery-detail-stack.is-reviewed .gallery-detail-title {
+  max-width: none;
+}
+
+.gallery-detail-media.evidence-media img {
+  object-fit: contain;
+}
+
 .gallery-detail-copy {
   display: grid;
   gap: 1rem;

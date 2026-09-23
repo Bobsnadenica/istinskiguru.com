@@ -680,7 +680,7 @@ function buildDetailMarkup(profile) {
     : "";
 
   return `
-    <div class="gallery-detail-stack">
+    <div class="gallery-detail-stack${profile.reviewHtml ? " is-reviewed" : ""}">
       <div class="gallery-detail-header">
         <p class="gallery-detail-kicker">${utils.escapeHtml(profile.kicker || "За какво да внимаваме")}</p>
         <h2 class="gallery-detail-title" id="gallery-detail-title">${utils.escapeHtml(profile.name)}</h2>
@@ -694,7 +694,7 @@ function buildDetailMarkup(profile) {
 
       <div class="gallery-detail-media${profile.reviewHtml ? " evidence-media" : ""}" data-orientation="${utils.escapeHtml(profile.orientation || "portrait")}">
         <img src="${encodeURI(imageUrl)}" alt="${utils.escapeHtml(profile.alt || profile.name)}" loading="eager" decoding="async" fetchpriority="high" />
-        <div class="media-chip">${utils.escapeHtml(profile.imageNote || profile.kicker || profile.name)}</div>
+        ${profile.reviewHtml ? "" : `<div class="media-chip">${utils.escapeHtml(profile.imageNote || profile.kicker || profile.name)}</div>`}
       </div>
 
       <div class="gallery-detail-copy">

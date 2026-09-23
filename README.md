@@ -111,7 +111,7 @@ The site helps Bulgarian readers understand Ponzi schemes, pyramid schemes, and 
 
 Before adding a profile, collect the exact public offer URL, access date, stated price and terms, and the wording of any claim being assessed. Distinguish the seller's claim, independently verified facts, and editorial interpretation. State what remains unverified. Avoid appearance-based insults, speculation about motives, and unrelated family information. Describe a regulator's or court's findings accurately, including their date and status, and link to the original record.
 
-TopCoding and Ivelin Mihaylov have dated, sourced reviews using the format below. The remaining 43 legacy profiles have not all undergone that evidence review. New reviews should use this standard, and existing profiles should be checked against it as they are updated.
+TopCoding, Ivelin Mihaylov, and „Как да издадеш книга в България“ (izdai-kniga.com) have dated, sourced reviews using the format below. The remaining 43 legacy profiles have not all undergone that evidence review. New reviews should use this standard, and existing profiles should be checked against it as they are updated.
 
 ## Validation
 
@@ -189,7 +189,7 @@ A profile may also contain `review.json`; see `assets/TopCoding/review.json` for
 
 `lib/review.mjs` validates required content and HTTPS source URLs, then escapes all supplied text. Its HTML is included in both the generated profile page and gallery dataset, so the two views use the same review. Do not place raw HTML in the JSON or hand-edit the generated `reviewHtml` field. Build failures must be resolved before publishing.
 
-Keep factual observations separate from interpretation and provide a direct source for every section. Date the review; do not infer that paid teaching is poor from a free sample. Record whether contracts, paid lessons, outcomes, and a business response were actually examined. TopCoding's card is an original editorial graphic, not its official logo; `card.svg` is the editable source of `TopCoding.png`.
+Keep factual observations separate from interpretation and provide a direct source for every section. Date the review; do not infer that paid teaching is poor from a free sample. Record whether contracts, paid lessons, outcomes, and a business response were actually examined. TopCoding's card is an original editorial graphic, not its official logo; `card.svg` is the editable source of `TopCoding.png`. The izdai-kniga.com profile uses the seller's original product photograph, credited in the review, to identify the book. Optional `imageAlt` in `review.json` describes specific imagery and overrides the generic image label.
 
 ## Local Development
 
