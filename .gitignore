@@ -3,3 +3,7 @@ node_modules/
 .claude/
 output/
 .playwright-cli/
+__pycache__/
+*.pyc
+.env
+.env.*

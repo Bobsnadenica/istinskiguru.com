@@ -320,7 +320,7 @@ function getTopActionsContainer() {
 
   const fbLink = document.createElement("a");
   fbLink.className = "facebook-top-link";
-  fbLink.href = "https://www.facebook.com/profile.php?id=61573227173786";
+  fbLink.href = "https://www.facebook.com/profile.php?id=61594111673410";
   fbLink.target = "_blank";
   fbLink.rel = "noreferrer";
   fbLink.setAttribute("aria-label", "Facebook страницата ни");
