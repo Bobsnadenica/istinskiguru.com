@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build:data": "node scripts/build-profiles.mjs",
-    "start": "node server.mjs"
+    "start": "node server.mjs",
+    "check": "node scripts/check-site.mjs"
   }
 }
