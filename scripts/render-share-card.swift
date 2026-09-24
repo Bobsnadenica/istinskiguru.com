@@ -11,6 +11,7 @@ struct Payload: Decodable {
   let kicker: String
   let summary: String
   let guide: Bool?
+  let logo: Bool?
 }
 
 func color(_ hex: Int, alpha: CGFloat = 1.0) -> NSColor {
@@ -180,8 +181,12 @@ if payload.guide == true {
   centered("ИСТИНСКИ ГУРУ", top: 48, size: 20, height: 30)
   color(0xb88445).setFill()
   NSRect(x: 565, y: 521, width: 70, height: 3).fill()
-  centered(payload.kicker, top: 134, size: 21, height: 38, ink: 0x85511f)
-  centered(payload.name, top: 206, size: 58, height: 220, serif: true)
+  if payload.logo == true, let logo = NSImage(contentsOfFile: payload.sourceImagePath) {
+    logo.draw(in: topRect(x: 540, top: 122, width: 120, height: 120, canvasHeight: CGFloat(height)))
+  } else {
+    centered(payload.kicker, top: 134, size: 21, height: 38, ink: 0x85511f)
+  }
+  centered(payload.name, top: payload.logo == true ? 260 : 206, size: payload.logo == true ? 50 : 58, height: payload.logo == true ? 150 : 220, serif: true)
   centered(payload.summary, top: 423, size: 24, height: 90)
   centered("istinskiguru.com", top: 561, size: 23, height: 34)
   NSGraphicsContext.restoreGraphicsState()
