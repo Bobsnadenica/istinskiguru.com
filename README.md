@@ -187,7 +187,7 @@ Instagram: https://instagram.com/example
 
 A profile may also contain `review.json`; see `assets/TopCoding/review.json` for the concrete format. It records the review date, `Person` or `Organization` subject type, verdict, sourced findings, editorial assessments, limitations, and questions to ask before paying.
 
-Optional `shareTitle` selects the centered editorial thumbnail layout, using the profile's kicker and summary. Keep the title short enough for three lines and check the generated card before publishing. When changing existing profile thumbnail copy, remove that profile's generated `site-assets/<slug>-share.jpg` before rebuilding to refresh it.
+Optional `shareTitle` selects the centered editorial thumbnail layout, using the profile's kicker and summary. Keep the title short enough for three lines and check the generated card before publishing. Editorial cards get a new image URL when their copy changes. Other profile cards still require removing the generated `site-assets/<slug>-share.jpg` before rebuilding changed copy. Optional `questionsTitle` changes the closing checklist heading, for example to a direct recommendation to avoid an offer.
 
 `lib/review.mjs` validates required content and HTTPS source URLs, then escapes all supplied text. Its HTML is included in both the generated profile page and gallery dataset, so the two views use the same review. Do not place raw HTML in the JSON or hand-edit the generated `reviewHtml` field. Build failures must be resolved before publishing.
 
