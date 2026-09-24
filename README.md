@@ -187,6 +187,8 @@ Instagram: https://instagram.com/example
 
 A profile may also contain `review.json`; see `assets/TopCoding/review.json` for the concrete format. It records the review date, `Person` or `Organization` subject type, verdict, sourced findings, editorial assessments, limitations, and questions to ask before paying.
 
+Optional `shareTitle` selects the centered editorial thumbnail layout, using the profile's kicker and summary. Keep the title short enough for three lines and check the generated card before publishing. When changing existing profile thumbnail copy, remove that profile's generated `site-assets/<slug>-share.jpg` before rebuilding to refresh it.
+
 `lib/review.mjs` validates required content and HTTPS source URLs, then escapes all supplied text. Its HTML is included in both the generated profile page and gallery dataset, so the two views use the same review. Do not place raw HTML in the JSON or hand-edit the generated `reviewHtml` field. Build failures must be resolved before publishing.
 
 Keep factual observations separate from interpretation and provide a direct source for every section. Date the review; do not infer that paid teaching is poor from a free sample. Record whether contracts, paid lessons, outcomes, and a business response were actually examined. TopCoding's card is an original editorial graphic, not its official logo; `card.svg` is the editable source of `TopCoding.png`. The izdai-kniga.com profile uses the seller's original product photograph, credited in the review, to identify the book. Optional `imageAlt` in `review.json` describes specific imagery and overrides the generic image label.
