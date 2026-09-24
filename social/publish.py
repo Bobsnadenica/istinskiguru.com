@@ -10,6 +10,7 @@ import os
 import re
 import sqlite3
 from datetime import datetime
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse
 from zoneinfo import ZoneInfo
@@ -50,6 +51,33 @@ def validate_draft(draft):
     if not isinstance(draft.get("source_note"), str) or len(draft["source_note"].strip()) < 15:
         raise ValueError("Include a source_note explaining the factual basis of the draft.")
     return message.strip(), link
+
+
+def check_preview(link):
+    """Check public sharing assets without sending the Page token to the site."""
+    class Metadata(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.tags = {}
+
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            if tag == "meta" and "property" in attrs:
+                self.tags[attrs["property"]] = attrs.get("content", "")
+
+    page = requests.get(link, timeout=20)
+    if page.status_code != 200:
+        raise ValueError("Linked page is unavailable; no post sent.")
+    metadata = Metadata()
+    metadata.feed(page.text)
+    image_url = metadata.tags.get("og:image", "")
+    parsed = urlparse(image_url)
+    if not metadata.tags.get("og:title") or parsed.scheme != "https" or parsed.netloc != "www.istinskiguru.com":
+        raise ValueError("Missing title or valid site thumbnail; fix the link preview first.")
+    image = requests.get(image_url, timeout=20)
+    if image.status_code != 200 or image.headers.get("Content-Type", "").split(";")[0] not in ("image/jpeg", "image/png") or len(image.content) < 1024:
+        raise ValueError("Thumbnail is unavailable or invalid; no post sent.")
+    return {"title": metadata.tags["og:title"], "image": image_url}
 
 
 def publish(session, api, db, draft, slot):
@@ -102,8 +130,9 @@ def main():
             parser.error("--file is required")
         draft = json.loads(args.file.read_text())
         validate_draft(draft)
+        preview = check_preview(draft["link"])
         if args.command == "check":
-            print(json.dumps({"valid": True, "draft": draft}, ensure_ascii=False))
+            print(json.dumps({"valid": True, "draft": draft, "preview": preview}, ensure_ascii=False))
             return
     session, api = connect()
     response = session.get(api + "/" + PAGE_ID, params={"fields": "id,name"}, timeout=30, allow_redirects=False)

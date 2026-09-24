@@ -21,6 +21,8 @@ For an explicitly requested immediate post, use a unique `manual-YYYY-MM-DD-desc
 
 ## Reliability and privacy
 
+Before publishing, the bridge checks that the live link has an Open Graph title and an accessible JPEG/PNG thumbnail. The home page and educational guides use centered cards that remain readable in Facebook's square crop. After a thumbnail change, refresh the link in Meta's Sharing Debugger before posting, and verify the published post's `attachments{media,type,title}` to confirm Facebook selected the image. A successful website fetch alone does not verify Facebook's cached preview.
+
 The publisher validates the target Page before writing, reserves each slot in SQLite and blocks exact duplicate text. There are no automatic write retries. A timeout, malformed response or crash leaves a durable `uncertain`/`sending` reservation and blocks later writes. Inspect the Page and reconcile that row manually before resuming; do not delete the ledger or invent a fresh slot to bypass it. An explicit API rejection also consumes that slot.
 
 The ledger and drafts are private files under AIPost247 `data/`. Tokens are sent in an Authorization header and are never printed by this bridge. Keep `.env` mode 600. The bridge reads Page identity and publishes text/link posts; it does not collect follower profiles, private messages or comments.

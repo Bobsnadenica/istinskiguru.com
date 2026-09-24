@@ -10,6 +10,7 @@ struct Payload: Decodable {
   let name: String
   let kicker: String
   let summary: String
+  let guide: Bool?
 }
 
 func color(_ hex: Int, alpha: CGFloat = 1.0) -> NSColor {
@@ -160,6 +161,34 @@ color(0x101411).setFill()
 fullRect.fill()
 
 let imageRect = NSRect(x: 0, y: 0, width: leftPanelWidth, height: height)
+
+if payload.guide == true {
+  color(0xefe6d8).setFill()
+  fullRect.fill()
+  // Keep all meaningful text inside the central square used by compact previews.
+  for x in [-170.0, 1100.0] {
+    let ring = NSBezierPath(ovalIn: NSRect(x: x, y: 80, width: 270, height: 270))
+    color(0xb88445, alpha: 0.35).setStroke()
+    ring.lineWidth = 2
+    ring.stroke()
+  }
+  func centered(_ text: String, top: CGFloat, size: CGFloat, height: CGFloat, serif: Bool = false, ink: Int = 0x20372f) {
+    let font = serif ? (NSFont(name: "TimesNewRomanPS-BoldMT", size: size) ?? NSFont.boldSystemFont(ofSize: size)) : NSFont.systemFont(ofSize: size, weight: .semibold)
+    let attrs: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: color(ink), .paragraphStyle: paragraphStyle(lineSpacing: 5, alignment: .center)]
+    NSString(string: text).draw(with: topRect(x: 320, top: top, width: 560, height: height, canvasHeight: CGFloat(payload.height)), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: attrs)
+  }
+  centered("ИСТИНСКИ ГУРУ", top: 48, size: 20, height: 30)
+  color(0xb88445).setFill()
+  NSRect(x: 565, y: 521, width: 70, height: 3).fill()
+  centered(payload.kicker, top: 134, size: 21, height: 38, ink: 0x85511f)
+  centered(payload.name, top: 206, size: 58, height: 220, serif: true)
+  centered(payload.summary, top: 423, size: 24, height: 90)
+  centered("istinskiguru.com", top: 561, size: 23, height: 34)
+  NSGraphicsContext.restoreGraphicsState()
+  guard let data = rep.representation(using: .jpeg, properties: [.compressionFactor: 0.92]) else { exit(1) }
+  try data.write(to: URL(fileURLWithPath: payload.outputImagePath))
+  exit(0)
+}
 
 if let image = NSImage(contentsOfFile: payload.sourceImagePath) {
   drawAspectFill(image: image, in: imageRect)
