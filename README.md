@@ -111,7 +111,7 @@ The site helps Bulgarian readers understand Ponzi schemes, pyramid schemes, and 
 
 Before adding a profile, collect the exact public offer URL, access date, stated price and terms, and the wording of any claim being assessed. Distinguish the seller's claim, independently verified facts, and editorial interpretation. State what remains unverified. Avoid appearance-based insults, speculation about motives, and unrelated family information. Describe a regulator's or court's findings accurately, including their date and status, and link to the original record.
 
-TopCoding, Ivelin Mihaylov, Tsvetan Radushev, Maria Boeva, „Онлайн Маркетинг с Мария и Боян“, and „Как да издадеш книга в България“ (izdai-kniga.com) have dated, sourced reviews using the format below. The remaining 41 legacy profiles have not all undergone that evidence review. New reviews should use this standard, and existing profiles should be checked against it as they are updated.
+TopCoding, Ivelin Mihaylov, Tsvetan Radushev, Tsvetan Bozhkov, Maria Boeva, „Онлайн Маркетинг с Мария и Боян“, and „Как да издадеш книга в България“ (izdai-kniga.com) have dated, sourced reviews using the format below. The remaining 41 legacy profiles have not all undergone that evidence review. New reviews should use this standard, and existing profiles should be checked against it as they are updated.
 
 ## Validation
 
