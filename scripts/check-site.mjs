@@ -26,10 +26,10 @@ for(const file of [...roots,...profiles]){
  }
 }
 const data=JSON.parse((await readFile('site-data.js','utf8')).replace(/^window.__GURU_PROFILES__=/,'').replace(/;\s*$/,''));
-for(const [file,reviewed] of [['index.html',true],['gallery.html',false]]){
+for(const file of ['index.html','gallery.html']){
  const source=await html(file);
  const ids=[...source.matchAll(/<article class="investigation-card"[\s\S]*?<a href="\/profiles\/([^/]+)\//g)].map(m=>m[1]);
- assert.deepEqual(ids.toSorted(),data.filter(p=>Boolean(p.reviewHtml)===reviewed).map(p=>p.id).toSorted());
+ assert.deepEqual(ids.toSorted(),data.filter(p=>file==='index.html'||!p.reviewHtml).map(p=>p.id).toSorted());
  assert.ok(!source.includes('site-data.js')&&!source.includes('gallery-detail'),`${file}: direct links without modal payload`);
 }
 for(const p of data.filter(p=>p.reviewHtml)){
