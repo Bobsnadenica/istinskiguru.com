@@ -196,6 +196,8 @@ Optional `founders` entries contain `name`, a local `/site-assets/…` `image`, 
 
 A finding may include `table: { caption, columns, rows }` for company records or comparisons. All cells are escaped strings; each row must match the column count. See Александър Чилингиров's review for company names, EIK identifiers, roles and attributed registry links. Publish only relevant professional connections, with their specific role clearly stated.
 
+For visible evidence, a finding may include `images: [{ src, alt, caption, width, height }]`. Use original public-page screenshots under `/site-assets/evidence/`, with the source and capture date in the caption. They render inline and open at full resolution. Never include entered personal data, account details or private browser content.
+
 Optional `shareTitle` selects the centered editorial thumbnail layout, using the profile's kicker and summary. `shareLogo: true` includes the profile's square brand logo above a short two-line title. Check the generated card before publishing. Editorial cards get a new image URL when their copy changes. Other profile cards still require removing the generated `site-assets/<slug>-share.jpg` before rebuilding changed copy. Optional `questionsTitle` changes the closing checklist heading, for example to a direct recommendation to avoid an offer.
 
 `lib/review.mjs` validates required content and HTTPS source URLs, then escapes all supplied text. Its HTML is included in both the generated profile page and gallery dataset, so the two views use the same review. Do not place raw HTML in the JSON or hand-edit the generated `reviewHtml` field. Build failures must be resolved before publishing.

@@ -3309,6 +3309,9 @@ body.performance-lite .reveal.is-visible {
 .evidence-verdict { background: var(--paper); border-left: 4px solid var(--accent-deep); border-radius: 16px; padding: clamp(1.2rem, 3vw, 2rem); }
 .evidence-section { padding-block: 1rem; border-bottom: 1px solid var(--line); }
 .evidence-section .source-note { font-size: 0.85rem; }
+.evidence-capture { margin: 1.5rem 0; }
+.evidence-capture img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; }
+.evidence-capture figcaption { padding-top: 0.6rem; color: var(--muted); font-size: 0.85rem; }
 .evidence-table { width: 100%; table-layout: fixed; border-collapse: collapse; margin-block: 1.5rem; font-size: 0.9rem; line-height: 1.6; }
 .evidence-table caption { text-align: left; color: var(--muted); margin-bottom: 0.6rem; }
 .evidence-table th, .evidence-table td { padding: 0.8rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
