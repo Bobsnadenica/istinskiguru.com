@@ -40,3 +40,18 @@
 .company-sources{margin-top:auto;padding-top:.8rem;display:flex;gap:.5rem 1rem;flex-wrap:wrap;border-top:1px solid var(--line);font-size:.78rem}
 .company-grid [hidden],.company-controls[hidden]{display:none}
 @media(max-width:640px){.company-grid,.connection-shares{grid-template-columns:1fr}.connection-pair{gap:.75rem}.connection-pair a{font-size:.82rem;gap:.4rem}.connection-pair img{width:48px;height:48px}.academy-person{align-items:flex-start}.company-card{padding:1.1rem}.company-stats{gap:1.1rem}.company-controls>div{width:100%}.company-controls select{width:100%}}
+.company-jumps{display:flex;flex-wrap:wrap;gap:.7rem 1.5rem;font-weight:700}
+.company-profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+.company-profile{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1rem;scroll-margin-top:1rem;overflow-wrap:anywhere}
+.company-profile:target{outline:3px solid #65894e;outline-offset:2px}
+.company-profile-heading{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.company-profile-heading img{border-radius:50%;object-fit:cover;flex-shrink:0}
+.company-profile-heading>span:nth-child(2){flex:1}
+.company-profile-heading strong,.company-profile-heading small{display:block}
+.company-profile-heading small{color:#52635b;font-size:.72rem;margin-top:.25rem}
+.company-profile details{margin-top:.8rem;font-size:.88rem;line-height:1.6}
+.company-profile summary{cursor:pointer;font-weight:650}
+.company-profile-grid [hidden]{display:none}
+.connection-examples{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.connection-examples h3{font-size:1.05rem}
+@media(max-width:640px){.company-profile-grid,.connection-examples{grid-template-columns:1fr}.company-profile{padding:.85rem}.company-jumps{font-size:.85rem}}

@@ -54,3 +54,19 @@ const invalidSource=structuredClone(directoryReview);
 invalidSource.companies[0].sources[0].url='javascript:alert(1)';
 assert.throws(()=>renderCompanyDirectory(invalidSource),/Invalid company source/);
 console.log(`Company directory: ${directoryReview.companies.length} sourced entries; unique identities and safe source links validated.`);
+// Every subject gets a dated result; unresolved identity stays explicit rather than guessing an owner.
+const checks=directoryReview.profileChecks;
+assert.deepEqual(checks.map(c=>c.profile).toSorted(),data.filter(p=>p.id!=='firmeni-vrazki').map(p=>p.id).toSorted(),'All subjects included in company research');
+for(const p of data.filter(p=>p.id!=='firmeni-vrazki')){
+ const source=await html(`profiles/${p.id}/index.html`);
+ assert.ok(p.companyCheckHtml && source.includes(p.companyCheckHtml.replace(/[ \t]+$/gm,'')),`${p.id}: sourced company check rendered`);
+ assert.ok(directoryHtml.includes(`id="profile-${p.id}"`),`${p.id}: searchable directory entry`);
+}
+assert.ok(!directoryHtml.includes('Къде е Чилингиров'),'No person-focused comparison heading');
+const badReference=structuredClone(directoryReview);
+badReference.profileChecks[0].companies.push('000000000');
+assert.throws(()=>renderCompanyDirectory(badReference),/Unknown company reference/);
+const duplicateCheck=structuredClone(directoryReview);
+duplicateCheck.profileChecks.push(duplicateCheck.profileChecks[0]);
+assert.throws(()=>renderCompanyDirectory(duplicateCheck),/Duplicate profile check/);
+console.log(`All ${checks.length} subject profiles have dated company research; source links and company references verified.`);
