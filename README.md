@@ -288,3 +288,9 @@ This is a public repository, so please keep changes appropriate for a public cod
 - `CNAME` and `.nojekyll` are expected and should remain in place for GitHub Pages
 - Generated profile pages are rebuilt from source content, so manual edits there will not last
 - The site currently favors a static deployment model over a framework or CMS
+
+## Company connections directory
+
+`/profiles/firmeni-vrazki/` is a sourced collection, pinned first on the homepage. Its data lives in `assets/Фирмени връзки/review.json`: people, company EIKs, exact roles, dates, source links, profile references, and optional existing portraits. `lib/company-directory.mjs` renders the collection and its comparison; `company-directory.js` adds search and group filters. All company records remain readable without JavaScript.
+
+Keep ownership, management, historical roles, contract operators and academy testimonials distinct. A brand or a video appearance is not a company ownership record. Initial coverage: 37 Bulgarian companies with EIKs, 31 named people, and the foreign operator named in MyIQ terms. Archive leads are labeled separately. Update the comparison and review date when adding verified connections, rebuild, then run `npm run check`.

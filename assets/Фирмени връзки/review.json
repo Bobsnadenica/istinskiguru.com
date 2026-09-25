@@ -1,0 +1,1041 @@
+{
+  "kind": "connections",
+  "subjectType": "CollectionPage",
+  "reviewedOn": "2026-09-25",
+  "imageAlt": "Фирмени връзки — справочник на Истински гуру",
+  "shareTitle": "Фирмени\nвръзки",
+  "verdict": "Кой стои зад офертата?",
+  "conclusion": "Фирми, собственици, управители и публични връзки от нашите проверки. Всяко участие има конкретна роля и източник. Общият бизнес се вижда в дяловете и управлението; връзките през обучения са отбелязани отделно.",
+  "people": {
+    "boyan": {
+      "name": "Боян Николаев Москов",
+      "profile": "boyan-moskov",
+      "image": "/site-assets/boyan-moskov.jpg"
+    },
+    "maria": {
+      "name": "Мария Христова Боева",
+      "profile": "mariya-boeva",
+      "image": "/site-assets/mariya-boeva.jpg"
+    },
+    "chil": {
+      "name": "Александър Иларионов Чилингиров",
+      "profile": "aleksandar-chilingirov",
+      "image": "/site-assets/aleksandar-chilingirov.jpg"
+    },
+    "slavi": {
+      "name": "Слави Владимиров Славов"
+    },
+    "hristo": {
+      "name": "Христо Владимиров Славов"
+    },
+    "teodor": {
+      "name": "Теодор Емилиянов Боев"
+    },
+    "miroslav": {
+      "name": "Мирослав Антонов Гочев"
+    },
+    "nikolaymoskov": {
+      "name": "Николай Ботев Москов"
+    },
+    "ivaylo": {
+      "name": "Ивайло Томиев Янакиев"
+    },
+    "biserka": {
+      "name": "Бисерка Ангелова Георгиева"
+    },
+    "vesela": {
+      "name": "Весела Георгиева Михайлова"
+    },
+    "mihail": {
+      "name": "Михаил Иванов Иванов"
+    },
+    "petar": {
+      "name": "Петър Тимотеев Живков"
+    },
+    "georgi": {
+      "name": "Георги Ивелинов Иванов"
+    },
+    "stamo": {
+      "name": "Стамо Георгиев Георгиев"
+    },
+    "darina": {
+      "name": "Дарина Георгиева"
+    },
+    "viktorp": {
+      "name": "Виктор Димитров Петров"
+    },
+    "viktorh": {
+      "name": "Виктор Станиславов Христов"
+    },
+    "odislav": {
+      "name": "Одислав Илиянов Маринов"
+    },
+    "boyanpetkov": {
+      "name": "Боян Иванов Петков"
+    },
+    "anatoli": {
+      "name": "Анатоли Илиев Савов"
+    },
+    "nikolayhitov": {
+      "name": "Николай Тодоров Хитов"
+    },
+    "silvia": {
+      "name": "Силвия Стефанова Попова"
+    },
+    "margarita": {
+      "name": "Маргарита Николова Коджабашева"
+    },
+    "tsvetan": {
+      "name": "Цветан Николов Радушев",
+      "profile": "tsvetan-radushev",
+      "image": "/site-assets/tsvetan-radushev.webp"
+    },
+    "natalia": {
+      "name": "Наталия Сергеевна Кобилкина",
+      "profile": "nataliya-kobilkina",
+      "image": "/site-assets/nataliya-kobilkina.jpeg"
+    },
+    "yoan": {
+      "name": "Йоан Бисеров Йончев",
+      "profile": "yoan-yonchev",
+      "image": "/site-assets/yoan-yonchev.jpg"
+    },
+    "venelin": {
+      "name": "Венелин Велинов Йорданов",
+      "profile": "ai-brand-scaling",
+      "image": "/site-assets/ai-brand-scaling.jpeg"
+    },
+    "ivelin": {
+      "name": "Ивелин Людмилов Михайлов",
+      "profile": "ivelin-mihaylov",
+      "image": "/site-assets/ivelin-mihaylov.jpg"
+    },
+    "dobrin": {
+      "name": "Добрин Добринов Данев",
+      "profile": "dobrin-danev",
+      "image": "/site-assets/dobrin-danev.jpg"
+    },
+    "valev": {
+      "name": "Николай Христов Вълев",
+      "profile": "nikolay-valev",
+      "image": "/site-assets/nikolay-valev.jpg"
+    }
+  },
+  "companies": [
+    {
+      "name": "МАРКЕТИНГ АКАДЕМИ ООД",
+      "eik": "205885945",
+      "group": "moskov-boeva",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "boyan",
+          "role": "Съдружник · 60%"
+        },
+        {
+          "person": "maria",
+          "role": "Съдружник · 40%; управител"
+        }
+      ],
+      "note": "Общите условия посочват тази фирма за WakeUpHungry, FunnelSprint, OfferSprint, CopySprint, CoachingSprint, MentorMax и MHC. Това са различни предложения на един оператор.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/205885945/1e19"
+        },
+        {
+          "label": "Общи условия на MHC",
+          "url": "https://mhc.bg/terms-and-conditions"
+        }
+      ],
+      "profile": "onlayn-marketing-s-mariya-i-boyan"
+    },
+    {
+      "name": "ИНТЕРАКТИВ ОРБ ООД",
+      "eik": "204417057",
+      "group": "moskov-boeva",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "boyan",
+          "role": "Съдружник · 60%"
+        },
+        {
+          "person": "maria",
+          "role": "Съдружник · 40%; управител"
+        }
+      ],
+      "note": "Пряка обща собственост на Москов и Боева. Дружеството е и съдружник с 50% в „Готвене за начинаещи“.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/204417057/6662"
+        }
+      ],
+      "profile": "mariya-boeva"
+    },
+    {
+      "name": "ФЕШЪН ЗОН ООД",
+      "eik": "205189140",
+      "group": "moskov-boeva",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "boyan",
+          "role": "Съдружник · 50%; управител"
+        },
+        {
+          "person": "maria",
+          "role": "Съдружник · 50%; управител"
+        }
+      ],
+      "note": "Трето дружество с пряко общо участие на Москов и Боева.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/205189140/d755"
+        }
+      ],
+      "profile": "boyan-moskov"
+    },
+    {
+      "name": "АГЕНЦИЯ21 ЕООД",
+      "eik": "202461877",
+      "group": "moskov-boeva",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "maria",
+          "role": "Едноличен собственик; управител — в справката: Мария Христова Славова"
+        }
+      ],
+      "note": "Фирмата фигурира в персоналната справка на Мария Христова Боева. Индивидуалната фирмена страница изписва името като Мария Христова Славова.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/202461877/3741"
+        },
+        {
+          "label": "Персонална справка на Боева",
+          "url": "https://papagal.bg/p/d18d59e926073651e8e3e822b91547fd856c0c1740ade4feac5efebd1e18bbf4-1/a48b"
+        }
+      ],
+      "profile": "mariya-boeva"
+    },
+    {
+      "name": "АГЕНЦИЯ22 ЕООД",
+      "eik": "205746422",
+      "group": "moskov-boeva",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "maria",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "Дружество с пряко участие на Мария Боева.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/205746422/09fd"
+        }
+      ],
+      "profile": "mariya-boeva"
+    },
+    {
+      "name": "БОДИЛЪШ ЕООД",
+      "eik": "205940217",
+      "group": "moskov-boeva",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "maria",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "Самостоятелно дружество на Боева, отделно от общите фирми с Москов.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/205940217/c717"
+        }
+      ],
+      "profile": "mariya-boeva"
+    },
+    {
+      "name": "НИКОН ООД",
+      "eik": "117683733",
+      "group": "moskov-boeva",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "maria",
+          "role": "Съдружник · 33%"
+        },
+        {
+          "person": "slavi",
+          "role": "Съдружник · 50%"
+        },
+        {
+          "person": "hristo",
+          "role": "Съдружник · 17%; управител"
+        }
+      ],
+      "note": "Връзката с Боева е чрез нейното дялово участие.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/117683733/1cce"
+        }
+      ],
+      "profile": "mariya-boeva"
+    },
+    {
+      "name": "КЛИЕНТ ГУРУ ООД",
+      "eik": "205929313",
+      "group": "moskov-boeva",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "maria",
+          "role": "Съдружник · 50%; управител"
+        },
+        {
+          "person": "teodor",
+          "role": "Съдружник · 50%"
+        }
+      ],
+      "note": "Боева е съдружник от 02.10.2023 г. и управител от 15.07.2025 г. Теодор Боев участва и в „Риал Ментор“.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/205929313/c07c"
+        }
+      ],
+      "profile": "mariya-boeva"
+    },
+    {
+      "name": "ГОТВЕНЕ ЗА НАЧИНАЕЩИ ООД",
+      "eik": "207308013",
+      "group": "moskov-boeva",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "miroslav",
+          "role": "Съдружник · 50%; управител"
+        },
+        {
+          "person": "maria",
+          "role": "Управител"
+        }
+      ],
+      "note": "Другият съдружник с 50% е „Интерактив Орб“ ООД (ЕИК 204417057). Връзката с Москов и Боева минава през това дружество.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/207308013/41cf"
+        }
+      ],
+      "profile": "mariya-boeva"
+    },
+    {
+      "name": "РИАЛ МЕНТОР ЕООД",
+      "eik": "208672023",
+      "group": "moskov-boeva",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "teodor",
+          "role": "Едноличен собственик; управител"
+        },
+        {
+          "person": "maria",
+          "role": "Бивш управител · 02.02–08.05.2026 г."
+        }
+      ],
+      "note": "Ролята на Боева тук е историческа. Текущият собственик и управител е Теодор Боев.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/208672023/c87a"
+        },
+        {
+          "label": "История в персоналната справка",
+          "url": "https://papagal.bg/p/d18d59e926073651e8e3e822b91547fd856c0c1740ade4feac5efebd1e18bbf4-1/a48b"
+        }
+      ],
+      "profile": "mariya-boeva"
+    },
+    {
+      "name": "ЛЕВЕЛ БРАНДИНГ ООД",
+      "eik": "200772947",
+      "group": "moskov-boeva",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "boyan",
+          "role": "Съдружник · 50%; управител"
+        },
+        {
+          "person": "nikolaymoskov",
+          "role": "Съдружник · 50%; управител"
+        }
+      ],
+      "note": "Двамата посочени съдружници са Боян Николаев Москов и Николай Ботев Москов.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/200772947/6910"
+        }
+      ],
+      "profile": "boyan-moskov"
+    },
+    {
+      "name": "ГРИВА КОЗМЕТИКА ООД",
+      "eik": "204984068",
+      "group": "moskov-boeva",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "boyan",
+          "role": "Съдружник · 50%"
+        },
+        {
+          "person": "ivaylo",
+          "role": "Съдружник · 50%; управител"
+        }
+      ],
+      "note": "Пряко дялово участие на Боян Москов.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/204984068/9ef7"
+        }
+      ],
+      "profile": "boyan-moskov"
+    },
+    {
+      "name": "МОСКОРП ЕООД",
+      "eik": "206108846",
+      "group": "moskov-boeva",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "boyan",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "Самостоятелното дружество на Москов в сравнените справки.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/206108846/f805"
+        }
+      ],
+      "profile": "boyan-moskov"
+    },
+    {
+      "name": "БАВАРИЯ–2018 ЕООД",
+      "eik": "204764944",
+      "group": "history",
+      "kind": "historical",
+      "roles": [
+        {
+          "person": "boyan",
+          "role": "Бивш съдружник · 50%; 18.09.2017–26.03.2018 г."
+        }
+      ],
+      "note": "Показана е приключила роля на Москов според историята на участията.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/204764944/a547"
+        },
+        {
+          "label": "История на участията на Москов",
+          "url": "https://papagal.bg/p/769632afef83d7690568e95be17c7207707603e4e0374dec833b3b4f652ca4c4-1/ac24"
+        }
+      ],
+      "profile": "boyan-moskov"
+    },
+    {
+      "name": "ЕЛЕГАНС ГРУП 2018 ЕООД",
+      "eik": "203695679",
+      "group": "history",
+      "kind": "historical",
+      "roles": [
+        {
+          "person": "boyan",
+          "role": "Бивш едноличен собственик и управител · 23.03.2016–21.02.2018 г."
+        }
+      ],
+      "note": "Показана е приключила роля на Москов според историята на участията.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/203695679/2715"
+        },
+        {
+          "label": "История на участията на Москов",
+          "url": "https://papagal.bg/p/769632afef83d7690568e95be17c7207707603e4e0374dec833b3b4f652ca4c4-1/ac24"
+        }
+      ],
+      "profile": "boyan-moskov"
+    },
+    {
+      "name": "ИЗБА ЗЛАТОВРЪХ ООД",
+      "eik": "175112039",
+      "group": "history",
+      "kind": "historical",
+      "roles": [
+        {
+          "person": "boyan",
+          "role": "Бивш съдружник · 12%; 28.10.2008–04.06.2025 г."
+        }
+      ],
+      "note": "Показана е приключила роля на Москов според историята на участията.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/175112039/c33c"
+        },
+        {
+          "label": "История на участията на Москов",
+          "url": "https://papagal.bg/p/769632afef83d7690568e95be17c7207707603e4e0374dec833b3b4f652ca4c4-1/ac24"
+        }
+      ],
+      "profile": "boyan-moskov"
+    },
+    {
+      "name": "НИКОЛАЙ ПРОДЖЕКТ ДИГИТАЛ ЕООД",
+      "eik": "204406146",
+      "group": "history",
+      "kind": "historical",
+      "roles": [
+        {
+          "person": "boyan",
+          "role": "Бивш съдружник · 50%; 12.01.2017–18.06.2018 г."
+        }
+      ],
+      "note": "Показана е приключила роля на Москов според историята на участията.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/204406146/e5d3"
+        },
+        {
+          "label": "История на участията на Москов",
+          "url": "https://papagal.bg/p/769632afef83d7690568e95be17c7207707603e4e0374dec833b3b4f652ca4c4-1/ac24"
+        }
+      ],
+      "profile": "boyan-moskov"
+    },
+    {
+      "name": "ИНТЕРНЕТ МЪНИ ЕООД",
+      "eik": "207673542",
+      "group": "chilingirov",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "chil",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "Ролите на Чилингиров са вписани от 19.01.2024 г.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/207673542/53f9"
+        }
+      ],
+      "profile": "aleksandar-chilingirov"
+    },
+    {
+      "name": "ИНТЕРНЕТ МЪНИ КЛОУДИНГ ЕООД",
+      "eik": "207969979",
+      "group": "chilingirov",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "chil",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "Отделно юридическо лице с вписване от 09.09.2024 г.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/207969979/327f"
+        }
+      ],
+      "profile": "aleksandar-chilingirov"
+    },
+    {
+      "name": "КЕШФЛОУ КИНГС ООД",
+      "eik": "208162351",
+      "group": "chilingirov",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "chil",
+          "role": "Съдружник · 50%; управител"
+        },
+        {
+          "person": "biserka",
+          "role": "Съдружник · 50%; управител"
+        }
+      ],
+      "note": "Пряко общо участие на Чилингиров и Бисерка Ангелова Георгиева.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/208162351/d438"
+        }
+      ],
+      "profile": "aleksandar-chilingirov"
+    },
+    {
+      "name": "ТРОХАР ЕООД",
+      "eik": "208767005",
+      "group": "chilingirov",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "chil",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "Операторът в общите условия на funnels.academy. Домейнът е различен от funnels.bg, посочен в условията на „Маркетинг Академи“.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/208767005/370c"
+        },
+        {
+          "label": "Условия на funnels.academy",
+          "url": "https://funnels.academy/obshti-usloviya"
+        }
+      ],
+      "profile": "aleksandar-chilingirov"
+    },
+    {
+      "name": "БИЗНЕС ЛАБОРАТОРИЯ ЕООД",
+      "eik": "207508522",
+      "group": "other",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "valev",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "Оператор на nikolayvalev.bg. Николай Вълев е представен с именуван видеоотзив в страницата на MentorMax — рекламна връзка, отделна от фирмената собственост.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/207508522/37f6"
+        },
+        {
+          "label": "Общи условия на Николай Вълев",
+          "url": "https://nikolayvalev.bg/obshti-uslovia/"
+        }
+      ],
+      "profile": "nikolay-valev"
+    },
+    {
+      "name": "ДИДЖИТАЛ ЛАЙТ ЕООД",
+      "eik": "205414459",
+      "group": "other",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "tsvetan",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "Фирмата зад академия „От 0 до успех“, посочена в представянето на академията.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/205414459/e99e"
+        },
+        {
+          "label": "За академията",
+          "url": "https://zerotosuccess.bg/za-akademiq-ot-0-do-uspeh/"
+        }
+      ],
+      "profile": "tsvetan-radushev"
+    },
+    {
+      "name": "ВМ ЕКСПЛОР ЕООД",
+      "eik": "208200916",
+      "group": "other",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "vesela",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "Оператор на izdai-kniga.com според общите условия. Весела Михайлова е представена като автор на ръководството за самоиздаване.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://companybook.bg/companies/208200916?lang=en"
+        },
+        {
+          "label": "Общи условия",
+          "url": "https://izdai-kniga.com/obschi-usloviya"
+        }
+      ],
+      "profile": "kak-da-izdadesh-kniga-v-balgariya"
+    },
+    {
+      "name": "НЮЕРА2023 ЕООД",
+      "eik": "207229571",
+      "group": "other",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "mihail",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "В разследването на ProFitLTD е документирана връзка чрез служебния телефон със Skillfit и фирмения профил в Jobs.bg. Това е връзка на бранд с фирма; името ProFitLTD само по себе си не е ЕИК.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://companybook.bg/companies/207229571"
+        },
+        {
+          "label": "Фирмен профил в Jobs.bg",
+          "url": "https://www.jobs.bg/company/342840"
+        }
+      ],
+      "profile": "profit-ltd"
+    },
+    {
+      "name": "УЧЕБЕН ЦЕНТЪР ПО СЕКСОЛОГИЯ И ЩАСТЛИВИ ОТНОШЕНИЯ ЕООД",
+      "eik": "201533811",
+      "group": "other",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "natalia",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "Доставчикът, посочен в общите условия на natalia.bg.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://registri.bg/bg/companies/201533811/"
+        },
+        {
+          "label": "Общи условия на natalia.bg",
+          "url": "https://natalia.bg/obsthi-usloviya/"
+        }
+      ],
+      "profile": "nataliya-kobilkina"
+    },
+    {
+      "name": "МАРКЕТИНГ ФОРТ ЕООД",
+      "eik": "207977189",
+      "group": "other",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "yoan",
+          "role": "Едноличен собственик; управител от 26.02.2026 г."
+        },
+        {
+          "person": "petar",
+          "role": "Бивш съдружник · 30% при учредяването"
+        },
+        {
+          "person": "georgi",
+          "role": "Бивш съдружник · 30% при учредяването"
+        }
+      ],
+      "note": "При учредяването на 12.09.2024 г. Йончев има 40%, а Живков и Иванов — по 30%. Текущото дружество е ЕООД на Йончев и е посочено в условията на сайта му.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/207977189/31de"
+        },
+        {
+          "label": "Общи условия",
+          "url": "https://yoanyonchev.com/terms"
+        }
+      ],
+      "profile": "yoan-yonchev"
+    },
+    {
+      "name": "ТОПКОДИНГ ЕООД",
+      "eik": "207900239",
+      "group": "other",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "stamo",
+          "role": "Едноличен собственик; управител"
+        },
+        {
+          "person": "darina",
+          "role": "Представена от сайта като съосновател"
+        }
+      ],
+      "note": "Политиката за поверителност посочва тази фирма. Сайтът представя Стамо и Дарина Георгиеви като основатели; вписаният собственик е Стамо.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/207900239/9aa3"
+        },
+        {
+          "label": "Политика за поверителност",
+          "url": "https://www.topcoding.bg/privacy-policy"
+        },
+        {
+          "label": "Представяне на основателите",
+          "url": "https://www.topcoding.bg/about-us"
+        }
+      ],
+      "profile": "topcoding"
+    },
+    {
+      "name": "ТОПКОДИНГ ГРУП ЕООД",
+      "eik": "207900424",
+      "group": "other",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "stamo",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "Отделно дружество със същия собственик. За оператора на сайта виж „Топкодинг“ ЕООД, ЕИК 207900239.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/207900424/d4d8"
+        }
+      ],
+      "profile": "topcoding"
+    },
+    {
+      "name": "ВИЖЪНСТУДИОС ЕООД",
+      "eik": "208269727",
+      "group": "other",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "venelin",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "Фирмата е посочена като платец в Meta рекламата с ID 1309613731130030, разгледана в проверката на AI Brand Scaling.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/208269727/bc5d"
+        },
+        {
+          "label": "Реклама в Meta",
+          "url": "https://www.facebook.com/ads/library/?id=1309613731130030"
+        }
+      ],
+      "profile": "ai-brand-scaling"
+    },
+    {
+      "name": "Е-КОМЕРСА ООД",
+      "eik": "208881628",
+      "group": "other",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "venelin",
+          "role": "Съдружник"
+        },
+        {
+          "person": "viktorp",
+          "role": "Съдружник · 30%; управител"
+        },
+        {
+          "person": "viktorh",
+          "role": "Съдружник · 30%"
+        },
+        {
+          "person": "odislav",
+          "role": "Съдружник · 30%"
+        }
+      ],
+      "note": "Дружество от 10.07.2026 г. Връзката с „ВижънСтудиос“ е общото участие на Венелин Велинов Йорданов.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/208881628/60d2"
+        }
+      ],
+      "profile": "ai-brand-scaling"
+    },
+    {
+      "name": "ИСТОРИЧЕСКИ ПАРК АД",
+      "eik": "202785815",
+      "group": "other",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "boyanpetkov",
+          "role": "Представляващ; съвет на директорите"
+        },
+        {
+          "person": "anatoli",
+          "role": "Вписан действителен собственик"
+        },
+        {
+          "person": "nikolayhitov",
+          "role": "Съвет на директорите"
+        },
+        {
+          "person": "ivelin",
+          "role": "Бивш представляващ до 16.12.2024 г.; бивш член на съвета до 14.04.2025 г."
+        }
+      ],
+      "note": "Дружеството е оператор в условията на ipark.bg. Показаните длъжности и исторически роли са от фирмената справка. Боян Иванов Петков и Боян Москов са различни лица.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://companybook.bg/companies/202785815"
+        },
+        {
+          "label": "Общи условия на парка",
+          "url": "https://ipark.bg/GeneralTerms"
+        }
+      ],
+      "profile": "ivelin-mihaylov"
+    },
+    {
+      "name": "ТОГЕДЪР АКАДЕМИ ЕООД",
+      "eik": "200854682",
+      "group": "other",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "silvia",
+          "role": "Едноличен собственик; управител"
+        },
+        {
+          "person": "ivelin",
+          "role": "Бивш съдружник · 50%, до 26.03.2012 г.; представен като лектор"
+        }
+      ],
+      "note": "Сайтът на академията посочва този ЕИК и представя Ивелин Михайлов като лектор. Историческото му участие е отделено от текущата собственост.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://companybook.bg/companies/200854682"
+        },
+        {
+          "label": "За академията",
+          "url": "https://academy.together.bg/Pages/About"
+        }
+      ],
+      "profile": "ivelin-mihaylov"
+    },
+    {
+      "name": "АВ МАРКЕТИНГ ЕООД",
+      "eik": "206388960",
+      "group": "archive",
+      "kind": "archive",
+      "roles": [
+        {
+          "person": "margarita",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "Фирмената справка е линк в архивния профил на Явор Бербенков. Вписаният собственик е Маргарита Коджабашева. Архивният линк е отправна точка, а не установена собственост на Бербенков.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/206388960/7733"
+        }
+      ],
+      "profile": "yavor-berbenkov"
+    },
+    {
+      "name": "СНЕЖАНКА 78 ЕООД",
+      "eik": "203537897",
+      "group": "archive",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "dobrin",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "Вписване, проверено чрез персоналната справка, към която води архивният профил на Добрин Данев.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/203537897/7827"
+        }
+      ],
+      "profile": "dobrin-danev"
+    },
+    {
+      "name": "ДАНЕВ ИНВЕСТ ЕООД",
+      "eik": "207049493",
+      "group": "archive",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "dobrin",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "Вписване, проверено чрез персоналната справка, към която води архивният профил на Добрин Данев.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/207049493/906b"
+        }
+      ],
+      "profile": "dobrin-danev"
+    },
+    {
+      "name": "КРИПТО КАРС ЕООД",
+      "eik": "208577721",
+      "group": "archive",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "dobrin",
+          "role": "Едноличен собственик; управител"
+        }
+      ],
+      "note": "Вписване, проверено чрез персоналната справка, към която води архивният профил на Добрин Данев.",
+      "sources": [
+        {
+          "label": "Фирмена справка",
+          "url": "https://papagal.bg/eik/208577721/ba76"
+        }
+      ],
+      "profile": "dobrin-danev"
+    },
+    {
+      "name": "Envest Research Inc.",
+      "eik": "",
+      "group": "operator",
+      "kind": "operator",
+      "roles": [],
+      "note": "Дружеството е назовано в §17.1 от условията на MyIQ. Този запис показва договорния оператор; източникът не идентифицира физическо лице собственик или регистрационен номер.",
+      "sources": [
+        {
+          "label": "MyIQ — общи условия, §17.1",
+          "url": "https://myiq.com/terms"
+        }
+      ],
+      "profile": "myiq"
+    }
+  ]
+}

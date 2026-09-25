@@ -39,3 +39,18 @@ for(const p of data.filter(p=>p.reviewHtml)){
  assert.ok(!source.includes('/site-intro.js')&&!source.includes('/page-effects.js'),`${p.id}: no distractions`);
 }
 console.log(`Passed: ${roots.length+profiles.length} pages, ${links} local links/assets, ${data.filter(p=>p.reviewHtml).length} complete sourced reviews, static directory coverage.`);
+// The collection must remain complete, source-backed and distinct from a person profile.
+const directoryReview=JSON.parse(await readFile('assets/Фирмени връзки/review.json','utf8'));
+const {renderCompanyDirectory}=await import('../lib/company-directory.mjs');
+const directoryHtml=await html('profiles/firmeni-vrazki/index.html');
+assert.ok(directoryHtml.includes(renderCompanyDirectory(directoryReview).replace(/[ \t]+$/gm,'')),'Company directory matches reviewed source data');
+const schema=JSON.parse(directoryHtml.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+assert.equal(schema['@graph'][0]['@type'],'CollectionPage');
+assert.ok(!schema['@graph'].some(item=>item['@type']==='Person'),'Directory is not a person');
+const duplicate=structuredClone(directoryReview);
+duplicate.companies.push(duplicate.companies[0]);
+assert.throws(()=>renderCompanyDirectory(duplicate),/Duplicate company/);
+const invalidSource=structuredClone(directoryReview);
+invalidSource.companies[0].sources[0].url='javascript:alert(1)';
+assert.throws(()=>renderCompanyDirectory(invalidSource),/Invalid company source/);
+console.log(`Company directory: ${directoryReview.companies.length} sourced entries; unique identities and safe source links validated.`);
