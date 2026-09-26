@@ -1,10 +1,7 @@
-Description: При няколко свързани оферти провери коя фирма продава всяка услуга, каква е общата цена и дали допълнителните пакети са необходими за обещания резултат.
-Надзаглавие: Онлайн империя с много входове и още повече следващи нива
-Резюме: Цялото присъствие е направено да изглежда като вече работеща машина за пари, в която ти остава само да натиснеш правилния бутон и да станеш част от успеха.
-Обещан вайб: Висок билет, висок гланц и фуния с премиум самочувствие
-Прочит: Много канали, много обещания и плавен преход към платеното спасение
-Наблюдение: Когато един човек изглежда като собствен маркетинг отдел, винаги има опасност да объркаш обема със стойност.
-Бележка върху снимката: "Ако не си богат, просто още не си влязъл в правилния линк."
+Description: Справочникът проследява 10 дружества и участия, свързани с този профил. Във всяка карта са отделени собствеността, управлението и миналите роли.
+Надзаглавие: Публични роли • Фирмени източници
+Резюме: Фирми и документирани роли
+Бележка върху снимката: Изображение към профила на Боян Москов.
 
 Website: https://masterclass.bg/2026
 Website: https://convertbuilder.com/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEwalhNVGp2cTlBb0cxa3VKTXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR71xizd-l071lnbbpccTPi1agWCJyYCHiR0op9uNUBwfZaCb3irdg83mYvYkA_aem_rljtz66QsGzdWb39Usgq6A
@@ -13,5 +10,3 @@ Facebook: https://www.facebook.com/bobbymoss.me
 Instagram: https://www.instagram.com/boyanmoskov?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEwalhNVGp2cTlBb0cxa3VKTXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR5paT_bSnqm-D5zJXVwcKefG7Xr-p3cosiKCPmSH6Cvcuv2Cn5gC_z-ltDhQw_aem_eDem688IhdzGrrX4B0dEzA
 YouTube: https://www.youtube.com/@onlinebusinessmb
 TikTok: https://www.tiktok.com/@boyan_moskov?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBEwalhNVGp2cTlBb0cxa3VKTXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4vysgCV1G6Mh3Q5uNGEbD4ZxRt_4BbT1ms21RdGxVA1HMWfUeqMwcZcspxGQ_aem_ypehF011nCk9e5Vzhw91Ow
-LinkedIn:
-Viber:

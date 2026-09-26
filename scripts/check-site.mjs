@@ -86,3 +86,28 @@ for(const card of collection){
 for(const file of [...roots,...profiles])assert.ok((await html(file)).includes('/card-deck.js'),`${file}: game trigger available`);
 assert.ok(!(await readFile('page-effects.js','utf8')).includes('moneyRain'),'Falling-money game retired');
 console.log(`Card collection: ${collection.length} cards, ${collection.length*2} images, browser available on all pages.`);
+
+// Apply the same editorial boundary to pages, metadata and future source edits.
+const personalLabels = /измамни[кцч]|мошеник|мошениц|шарлатан|\b(?:scammer|fraudster)s?\b/iu;
+for (const file of [...roots, ...profiles, 'site-data.js']) {
+ assert.ok(!personalLabels.test(await readFile(file, 'utf8')), `${file}: personal accusation label`);
+}
+for (const folder of await readdir('assets', {withFileTypes:true})) {
+ if (!folder.isDirectory()) continue;
+ for (const file of await readdir(path.join('assets', folder.name))) {
+  if (!file.endsWith('.txt') && file !== 'review.json') continue;
+  const source = await readFile(path.join('assets', folder.name, file), 'utf8');
+  assert.ok(!personalLabels.test(source), `${folder.name}/${file}: personal accusation label`);
+  if (file !== 'review.json') continue;
+  const review = JSON.parse(source);
+  for (const section of review.sections || []) {
+   assert.ok(section.fact?.trim() && section.sources?.length, `${folder.name}: finding needs public sources`);
+   assert.ok(!('assessment' in section), `${folder.name}: replace editorial verdict with a sourced observation`);
+  }
+ }
+}
+for (const p of data) {
+ assert.ok(!p.aura && !p.funnel && !p.insight, `${p.id}: unsupported legacy commentary must not return`);
+ assert.ok(!/Нашият прочит|Нашата препоръка|не решение на съд|Присъствието в регистъра не означава/.test(p.reviewHtml || ''), `${p.id}: obsolete editorial boilerplate`);
+}
+console.log('Editorial checks: factual profile fields, source coverage and absence of personal accusation labels.');

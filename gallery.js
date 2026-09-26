@@ -638,7 +638,7 @@ function buildDetailMarkup(profile) {
   const descriptionBlock = profile.description
     ? `
         <div class="profile-description">
-          <p class="profile-description-label">Редакционен коментар</p>
+          <p class="profile-description-label">Публично представяне</p>
           <p>${utils.escapeHtml(profile.description)}</p>
         </div>
       `
@@ -685,10 +685,10 @@ function buildDetailMarkup(profile) {
         <p class="gallery-detail-kicker">${utils.escapeHtml(profile.kicker || "За какво да внимаваме")}</p>
         <h2 class="gallery-detail-title" id="gallery-detail-title">${utils.escapeHtml(profile.name)}</h2>
         <p class="gallery-detail-lead">
-          ${utils.escapeHtml(profile.imageNote || profile.summary || "Тук вече идват думите след стойката.")}
+          ${utils.escapeHtml(profile.imageNote || profile.summary || "Публични източници към профила.")}
         </p>
         <p class="context-note">
-          ${profile.reviewHtml ? "Проверка по публични източници. Разграничаваме наблюдаваното от оценката и неизвестното." : "Редакционен коментар с елементи на сатира. Присъствието в регистъра не означава установена измама или участие в Понци схема. Публичните канали по-долу не са независимо потвърждение на твърденията."} <a href="/contactus.html">Изпрати корекция или източник.</a>
+          Публични материали и източници към профила. <a href="/contactus.html">Изпрати корекция или източник.</a>
         </p>
       </div>
 
@@ -704,7 +704,7 @@ function buildDetailMarkup(profile) {
           <a class="button button-secondary" href="/saveti.html#help">При проблем с оферта</a>
           ${getShareButtons(profile)}
         </div>
-        ${profile.reviewHtml || `${descriptionBlock}<dl class="signal-grid">${signalItems.join("")}</dl>${insightBlock}`}
+        ${profile.companyCheckHtml || ""}${profile.reviewHtml || (!profile.companyCheckHtml ? descriptionBlock : "")}
         ${profileVideoBlock}
       </div>
     </div>

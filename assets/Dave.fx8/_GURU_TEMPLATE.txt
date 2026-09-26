@@ -1,19 +1,8 @@
-# Копирай този файл в папката на новия профил и попълни редовете.
-# Остави ненужните полета празни.
-# Ако имаш повече от един линк от един и същ тип, просто повтори реда.
-
-Description: Dave.fx8 представя трейдинг като път към свобода и по-добър живот. В кадрите има пътуване, увереност и красив фон, но при търговията с валути рискът е реален и не изчезва от хубави снимки.
-Надзаглавие: Форекс обучение с обещание за свобода
-Резюме: Посланието е просто: научи се да търгуваш, следвай правилния човек и животът може да стане по-свободен.
-Обещан вайб: Трейдинг, пътувания и уверен човек отпред
-Прочит: Първо се показва хубав начин на живот, после идва покана за обучение, сигнали или група.
-Наблюдение: Ако някой продава лесен път към пари от пазара, първият въпрос е колко хора губят пари по този път.
-Бележка върху снимката: "Свободата изглежда по-лесна, когато графиката не е в кадър."
+Description: Сайтът Saving Capital Academy представя контакт David / @Davefx88 и насочва към SavingCapitalBG в Telegram.
+Надзаглавие: Публични роли • Фирмени източници
+Резюме: Saving Capital: David и Telegram
+Бележка върху снимката: Изображение към профила на Dave.fx8.
 
 Website: https://savingcapitalacademy.com/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExaWpUODR0SkZLeVNvYWV6a3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4aGhYsA1XmTCISiFi3kyewqoAwOdAjBIQbooh-QV5HXKTGBx_m1nQxI7JLyQ_aem_dW9SNRZJczNXqJhiV9mjXg
 Facebook: https://www.facebook.com/profile.php?id=61550287587765
-Instagram:
-YouTube: 
 Telegram: https://t.me/SavingCapitalBG?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExaWpUODR0SkZLeVNvYWV6a3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4aGhYsA1XmTCISiFi3kyewqoAwOdAjBIQbooh-QV5HXKTGBx_m1nQxI7JLyQ_aem_dW9SNRZJczNXqJhiV9mjXg
-LinkedIn:
-Viber:

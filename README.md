@@ -106,13 +106,13 @@ The site helps Bulgarian readers understand scams, misleading offers, and the ta
 - `contactus.html`: one compact page for signals, corrections and responses.
 - `gallery.html`: an optional view of legacy commentary, also included in the full homepage directory.
 - `saveti.html`: practical checklist and official reporting channels, linked from the footer.
-- Profile pages retain dated findings, founder photos, source links and sharing images, with a table of contents. No intro popup or decorative money effects run on these routes.
+- Profile pages retain dated findings, founder photos, source links and sharing images, with a table of contents. Claims retain the date of the underlying review; a copy edit does not renew the evidence date. No intro popup or decorative money effects run on these routes.
 
 `site.css` owns the compact visual system; profile and legal pages also retain `styles.css` for their existing content/media components. `lib/site.mjs` owns shared navigation/footer, the Facebook follow panel, and generates the card blocks marked `directory:start` / `directory:end` in the homepage and archive. Edit text outside those markers; run `npm run build:data` after profile changes. The generated card HTML supports browsing without JavaScript. `directory.js` adds search across all profiles, without downloading the large profile dataset. `guide.js` opens linked topic details.
 
 ### Reviewing a new person or offer
 
-Before adding a profile, collect the exact public offer URL, access date, stated price and terms, and the wording of any claim being assessed. Distinguish the seller's claim, independently verified facts, and editorial interpretation. State what remains unverified. Avoid appearance-based insults, speculation about motives, and unrelated family information. Describe a regulator's or court's findings accurately, including their date and status, and link to the original record.
+Before adding a profile, collect the exact public offer URL, access date, stated price and terms, and the wording of any claim being assessed. Publish concrete observations supported by the linked public evidence. Attribute seller claims, witness accounts and official allegations to their authors and dates. Omit unsupported conclusions, motive speculation, personal labels and broad buy/do-not-buy verdicts. Use a concise scope note only where needed to understand the evidence; do not add boilerplate about what the site is not alleging. Avoid appearance-based insults, speculation about motives, and unrelated family information. Describe a regulator's or court's findings accurately, including their date and status, and link to the original record.
 
 TopCoding, Ivelin Mihaylov, Tsvetan Radushev, Tsvetan Bozhkov, Maria Boeva, „Онлайн Маркетинг с Мария и Боян“, and „Как да издадеш книга в България“ (izdai-kniga.com) have dated, sourced reviews using the format below. The remaining 41 legacy profiles have not all undergone that evidence review. New reviews should use this standard, and existing profiles should be checked against it as they are updated.
 
@@ -190,7 +190,7 @@ Instagram: https://instagram.com/example
 
 ## Sourced Reviews
 
-A profile may also contain `review.json`; see `assets/TopCoding/review.json` for the concrete format. It records the review date, `Person` or `Organization` subject type, verdict, sourced findings, editorial assessments, limitations, and questions to ask before paying.
+A profile may also contain `review.json`; see `assets/TopCoding/review.json` for the concrete format. It records the review date, `Person` or `Organization` subject type, factual headline, summary, sourced findings and a concise scope note. Each section contains `title`, `fact`, and non-empty `sources`; optional tables and evidence images remain supported. Profiles do not render editorial assessments or purchase verdicts.
 
 Optional `founders` entries contain `name`, a local `/site-assets/…` `image`, and an HTTPS `source`. Verify each portrait against the source's visible name caption and credit it; remote filenames alone may be misleading. Portraits appear together below the review introduction.
 
@@ -198,11 +198,11 @@ A finding may include `table: { caption, columns, rows }` for company records or
 
 For visible evidence, a finding may include `images: [{ src, alt, caption, width, height }]`. Use original public-page screenshots under `/site-assets/evidence/`, with the source and capture date in the caption. They render inline and open at full resolution. Never include entered personal data, account details or private browser content.
 
-Optional `shareTitle` selects the centered editorial thumbnail layout, using the profile's kicker and summary. `shareLogo: true` includes the profile's square brand logo above a short two-line title. Check the generated card before publishing. Editorial cards get a new image URL when their copy changes. Other profile cards still require removing the generated `site-assets/<slug>-share.jpg` before rebuilding changed copy. Optional `questionsTitle` changes the closing checklist heading, for example to a direct recommendation to avoid an offer.
+Optional `shareTitle` selects the centered editorial thumbnail layout, using the profile's kicker and summary. `shareLogo: true` includes the profile's square brand logo above a short two-line title. Check the generated card before publishing. Editorial cards get a new image URL when their copy changes. All profile share images use a hash of their text in the filename so changed wording gets a fresh preview URL.
 
 `lib/review.mjs` validates required content and HTTPS source URLs, then escapes all supplied text. Its HTML is included in both the generated profile page and gallery dataset, so the two views use the same review. Do not place raw HTML in the JSON or hand-edit the generated `reviewHtml` field. Build failures must be resolved before publishing.
 
-Keep factual observations separate from interpretation and provide a direct source for every section. Date the review; do not infer that paid teaching is poor from a free sample. Record whether contracts, paid lessons, outcomes, and a business response were actually examined. TopCoding's card is an original editorial graphic, not its official logo; `card.svg` is the editable source of `TopCoding.png`. The izdai-kniga.com profile uses the seller's original product photograph, credited in the review, to identify the book. Optional `imageAlt` in `review.json` describes specific imagery and overrides the generic image label.
+Keep only supported observations in profile copy and provide a direct source for every section. Date the review; do not infer that paid teaching is poor from a free sample. Record whether contracts, paid lessons, outcomes, and a business response were actually examined. TopCoding's card is an original editorial graphic, not its official logo; `card.svg` is the editable source of `TopCoding.png`. The izdai-kniga.com profile uses the seller's original product photograph, credited in the review, to identify the book. Optional `imageAlt` in `review.json` describes specific imagery and overrides the generic image label.
 
 ## Local Development
 
@@ -302,3 +302,7 @@ The existing **Игра** control opens an on-demand card browser on every page.
 `cards/collection.json` is the public, curated manifest: 44 ГУРУМОНИ cards and 30 ГУРУ-О! cards (the latest master/common set, original-photo edition and earlier fantasy edition). `cards/` contains full-size optimized WebP cards and smaller thumbnails; these are not generated by the profile builder. Keep all finished editions, but exclude drafts, source prompts, private publishing logs, tokens and local filesystem paths. To add cards, add both WebP sizes and a manifest entry with a unique ID, Bulgarian name/title, collection, edition/editionLabel, dimensions and root-relative image paths. No AI generation is needed to publish existing artwork.
 
 The card labels and abilities are fictional parody, separate from the sourced investigations. Opening a card shows its full-resolution image in a new tab. The falling-money game and its stored on/off preference are retired. Root HTML pages and the profile generator both include the card browser assets.
+
+### Factual wording (26 September 2026)
+
+All profile descriptions, captions, share text and generated data must follow the same factual standard. Do not label people scammers or imply dishonesty from appearance, marketing style, an unavailable page, or a company association. Preserve precise roles and dates and the subject’s published response where relevant. General education and the explicitly labelled parody game remain separate from factual profiles. `npm run check` guards against personal labels and obsolete editorial verdict fields. Source availability is not independent verification of a seller’s claimed results.

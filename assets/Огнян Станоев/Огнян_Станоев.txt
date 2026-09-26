@@ -1,10 +1,7 @@
-Description: Тук тревогата за парите е опакована толкова красиво, че направо ти става неудобно, че още не си се изплашил достатъчно професионално.
-Надзаглавие: Злато, паника и спасение в една инвестиционна физиономия
-Резюме: Кадърът внушава, че държиш не просто теза, а последната сигурна карта, преди светът окончателно да накаже неподготвените.
-Обещан вайб: Финансова тревога с месиански инвестиционен плам
-Прочит: Страх, срив, твърд актив и логичен преход към платено просветление
-Наблюдение: Този жанр винаги работи чудесно: първо ти продават тревога, после ти продават и човека, който единствен може да я преведе на курс.
-Бележка върху снимката: "Ако се притесняваш достатъчно силно, това вече почти се брои за стратегия."
+Description: Условията на ognyanstanoev.com насочват официалната кореспонденция към „Оу Джей Пропертис“. Фирмената справка посочва Огнян Валериев Станоев като едноличен собственик и управител.
+Надзаглавие: Публични роли • Фирмени източници
+Резюме: Дружеството в условията на програмата
+Бележка върху снимката: Изображение към профила на Огнян Станоев.
 
 Website: https://www.ognyanstanoev.com/masterclass1?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExdHFBOHJCNmpBSXlIdVNwR3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR5bAFq0WineZISU6tXAf302yRCdG5aVXah4ReNan-MDoPGoGfYa9X-FBtySbg_aem_WSGXga-rmczsZtFkgSKTHg
 Website: https://investcompass.net/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExdHFBOHJCNmpBSXlIdVNwR3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4iENqHP5dYHX6i9ajEz9mYg2YRtdFWZZJCxqtRY3TAf-4NMebyZiHc2qB1yg_aem_6fiT4NQa7kpNfK9vuIXqmA
@@ -13,4 +10,3 @@ Instagram: https://www.instagram.com/ognyanstanoev?fbclid=IwZXh0bgNhZW0CMTAAYnJp
 YouTube: https://www.youtube.com/@ognyanstanoev
 TikTok: https://www.tiktok.com/@ognyanstanoev?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExdHFBOHJCNmpBSXlIdVNwR3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4NAf2QstlolYtORIXLcbXfudppJfpmgQ5MQEAvu6nV-_GLaeSL94-4Xqn66A_aem_mhKJ7ogt66o0ij8_OAcY0g
 LinkedIn: https://www.linkedin.com/in/ognyan-stanoev/
-Viber:
