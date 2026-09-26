@@ -70,3 +70,19 @@ const duplicateCheck=structuredClone(directoryReview);
 duplicateCheck.profileChecks.push(duplicateCheck.profileChecks[0]);
 assert.throws(()=>renderCompanyDirectory(duplicateCheck),/Duplicate profile check/);
 console.log(`All ${checks.length} subject profiles have dated company research; source links and company references verified.`);
+
+// Every card edition and both image sizes must survive publication intact.
+const collection=JSON.parse(await readFile('cards/collection.json','utf8')).cards;
+assert.equal(new Set(collection.map(c=>c.id)).size,collection.length,'Unique collectible card IDs');
+assert.equal(collection.filter(c=>c.collection==='pokemon').length,44,'Complete Pokemon collection');
+assert.equal(collection.filter(c=>c.collection==='yugioh').length,30,'All three Yu-Gi-Oh editions');
+for(const card of collection){
+ for(const key of ['src','thumb']){
+  assert.match(card[key],/^\/cards\/[a-z0-9-]+\.webp$/,'Public card image path');
+  assert.ok((await stat(path.join(root,card[key]))).size>0,`${card.id}: ${key} exists`);
+ }
+ assert.ok(card.name&&card.title&&card.editionLabel&&card.width>0&&card.height>0,'Complete card metadata');
+}
+for(const file of [...roots,...profiles])assert.ok((await html(file)).includes('/card-deck.js'),`${file}: game trigger available`);
+assert.ok(!(await readFile('page-effects.js','utf8')).includes('moneyRain'),'Falling-money game retired');
+console.log(`Card collection: ${collection.length} cards, ${collection.length*2} images, browser available on all pages.`);

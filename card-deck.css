@@ -1,0 +1,42 @@
+.game-toggle{display:inline-flex;align-items:center;gap:8px;border:1px solid #d0d7cd;border-radius:999px;background:#fffefa;color:#20372f;padding:6px 7px 6px 13px;min-height:38px;font:600 .8rem "Avenir Next","Segoe UI",sans-serif;cursor:pointer;white-space:nowrap}
+.game-toggle span{font-size:.63rem;letter-spacing:.03em;border-radius:999px;padding:4px 7px;background:#e9ece5;color:#5e6861}
+.game-toggle[aria-expanded="true"] span{background:#20372f;color:white}
+.game-toggle:hover{border-color:#a56d2f}
+body.card-deck-open{overflow:hidden}
+.card-deck{--deck-width:min(360px,74vw,max(160px,calc((100dvh - 310px)*.61)));width:min(1100px,calc(100% - 28px));max-width:none;max-height:calc(100dvh - 28px);padding:0;border:1px solid #d9c8a6;border-radius:22px;background:#f8f4eb;color:#20372f;box-shadow:0 35px 100px #07160fb3;overflow:auto;overscroll-behavior:contain;font-family:"Avenir Next","Segoe UI",sans-serif;line-height:1.5}
+.card-deck::backdrop{background:#101d17bd;backdrop-filter:blur(5px)}
+.deck-header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 24px 4px}
+.deck-eyebrow{margin:0 0 4px;color:#93662f;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.deck-header h2{margin:0;font:500 clamp(1.6rem,3vw,2rem)/1.15 Georgia,serif;letter-spacing:-.035em;color:#20372f}
+.deck-close{flex:none;border:1px solid #d2d4c9;background:transparent;color:#20372f;border-radius:50%;height:42px;width:42px;font-size:28px;line-height:1;cursor:pointer}
+.deck-note{margin:4px 24px 12px;color:#666c60;font-size:.78rem;max-width:750px}
+.deck-tools{padding:0 24px 12px;display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap}
+.deck-filters{display:flex;gap:5px;flex-wrap:wrap}
+.deck-filters button{font:600 .75rem "Avenir Next","Segoe UI",sans-serif;padding:9px 12px;border:1px solid #d5d9ce;border-radius:999px;cursor:pointer;background:transparent;color:#435146;min-height:40px}
+.deck-filters button[aria-pressed="true"]{background:#20372f;color:#fffefa;border-color:#20372f}
+.deck-search-row{display:flex;gap:10px;flex:1;justify-content:flex-end}
+.deck-search-row label{display:flex;flex-direction:column;gap:3px;color:#666c60;font-size:.68rem;font-weight:600;min-width:0}
+.deck-search{flex:1;max-width:190px}.deck-edition{width:185px}
+.deck-search-row input,.deck-search-row select{width:100%;min-width:0;height:40px;padding:8px 10px;border:1px solid #d1d7cb;border-radius:7px;background:#fffefa;color:#20372f;font:400 .77rem "Avenir Next","Segoe UI",sans-serif}
+.deck-stage{position:relative;background:radial-gradient(ellipse at 50% 35%,#3c5747,#142d24 70%);border-top:1px solid #142d24;border-bottom:1px solid #142d24;padding:12px 0 6px;min-height:250px}
+.deck-rail{position:relative;display:flex;gap:30px;margin:0;list-style:none;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#c5ab78 #314a3d;padding:10px max(16px,calc((100% - var(--deck-width))/2)) 10px;scroll-padding-inline:max(16px,calc((100% - var(--deck-width))/2))}
+.deck-card{flex:0 0 var(--deck-width);min-width:0;scroll-snap-align:center;text-align:center;color:#f1eadb;list-style:none;opacity:.68;transition:opacity .18s}
+.deck-card.is-current{opacity:1}
+.deck-image{position:relative;display:block;aspect-ratio:2/3;border-radius:10px;background:#263b30;box-shadow:7px 7px 0 #bd955b,-6px -4px 0 #17251e,0 12px 25px #0006;margin-bottom:10px}
+.deck-image img{width:100%;height:100%;object-fit:contain;border-radius:7px}
+.deck-card strong{display:block;font-size:.91rem;line-height:1.3;color:#fff9eb}
+.deck-card>span{display:block;font-size:.65rem;color:#d0d6c7;margin:4px 0 0}
+.deck-image-error{position:absolute;inset:35% 15% auto;background:#fffefa;color:#20372f;padding:15px;border-radius:8px;font-size:.85rem}
+.deck-message,.deck-empty{color:#eee6d4;text-align:center;padding:65px 24px 15px;margin:0}
+.deck-empty p{color:inherit}
+.deck-retry,.deck-empty button{display:block;margin:0 auto 36px;background:#f8f4eb;color:#20372f;border:0;padding:10px 18px;border-radius:8px;cursor:pointer;font:inherit}
+.deck-footer{display:flex;justify-content:center;align-items:center;gap:26px;padding:10px 24px 12px;text-align:center}
+.deck-footer button{width:44px;height:44px;border:1px solid #b3beae;background:#fffefa;color:#20372f;border-radius:50%;font-size:23px;cursor:pointer}
+.deck-footer button:disabled{opacity:.35;cursor:default}
+.deck-position{margin:0;color:#20372f;font-size:.88rem;font-weight:700;font-variant-numeric:tabular-nums}
+.deck-footer span{color:#666c60;font-size:.68rem}
+.card-deck button:focus-visible,.card-deck a:focus-visible,.card-deck input:focus-visible,.card-deck select:focus-visible,.deck-rail:focus-visible{outline:3px solid #c09249;outline-offset:3px}
+.card-deck [hidden]{display:none!important}
+@media(max-width:760px){.deck-tools{gap:12px}.deck-search-row{flex-basis:100%;justify-content:flex-start}.deck-search{max-width:none}.deck-edition{width:46%}.deck-header{padding:19px 18px 4px}.deck-note{margin:6px 18px 13px}.deck-tools{padding:0 18px 14px}.deck-rail{gap:23px}.deck-footer{gap:18px;padding:12px 16px}.card-deck{--deck-width:min(310px,74vw,max(140px,calc((100dvh - 400px)*.60)))}}
+@media(max-width:380px){.site-header nav .game-toggle{padding-left:8px;gap:4px;font-size:.72rem}.game-toggle span{padding:3px 5px}.deck-filters button{font-size:.7rem;padding:7px 9px}.deck-footer span{font-size:.6rem}.deck-header h2{font-size:1.55rem}}
+@media(prefers-reduced-motion:reduce){.deck-card{transition:none}.card-deck::backdrop{backdrop-filter:none}}
