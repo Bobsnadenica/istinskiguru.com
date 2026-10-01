@@ -1,5 +1,11 @@
 # IstinskiGuru editorial mascot
 
+## BAP licence and offer — 2026-10-01
+
+`bap-minchev-20261001.png` was generated with the built-in image generator using `tonkin-mabi-20261001.png` as the mascot reference. The JPEG is the publishing copy. The owl and decorative documents are editorial illustration, not documentary evidence.
+
+Prompt: Use case: ads-marketing. Create a polished landscape 1536x1024 editorial Facebook thumbnail for IstinskiGuru.com. Reference is ONLY for mascot identity and brand. Preserve same friendly brown owl journalist, cream face, gold eyes, round green glasses, forest-green jacket. The owl is at a desk comparing a decorative licence document and a written offer with a magnifying glass. No fake stamps, no government seals, no criminal symbolism, no portraits. Warm cream, forest green and muted gold, paper texture, professional illustration matching the reference. Exact large Bulgarian title on left: "Стефан Минчев / БАП"; secondary heading "Лиценз, обещания и договор"; small brand "ИСТИНСКИ ГУРУ"; small document labels "Лиценз" and "Оферта"; footer "istinskiguru.com". Owl on right. Plenty of safe margins, excellent Cyrillic typography, readable on mobile. Do not include old names or old text from reference. Editorial illustration, not evidence.
+
 Created 2026-10-01 with the built-in image generator for the Maria Boeva / Boyan Moskov investigation. The owl is fictional editorial artwork, not evidence or a portrait. The JPEG is the publishing source; the PNG is the original generated asset.
 
 ## Generation prompt
