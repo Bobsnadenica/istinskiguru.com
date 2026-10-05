@@ -16,4 +16,3 @@ Keep face recognizable, Cyrillic spelled correctly, and text readable on a phone
 Final edit: replace all numbers on the illustrative sign with the single word `ОФЕРТА`; preserve the face, owl, style, layout, headline and provenance label. Numerical promises belong in the sourced article and caption.
 
 Source documents and genuine browser excerpts are listed separately in `assets/Боян Москов/review.json`.
-
