@@ -4,7 +4,7 @@ First review: 2026-09-24. Refreshed: 2026-10-06.
 
 The supplied share link resolves to https://www.facebook.com/61590747443357/posts/122132947617358248/. It was accessible from the personal browser profile. Access differences are excluded from the findings about the offer.
 
-Read the live landing-b.html offer, glava.html chapter, terms.html, privacy.html and checkout.html product=book1 and product=bundle variants. Original public HTML and native browser captures are in ignored output/research/tsvetan-bozhkov-20261006. Five unchanged JPEG website captures are published in site-assets/evidence. The Facebook capture with personal browser surroundings remains private. No order, registration or contact was submitted. Hidden post-order templates are excluded.
+Read the live landing-b.html offer, glava.html chapter, terms.html, privacy.html and checkout.html product=book1 and product=bundle variants. Original public HTML and native browser captures are in ignored output/research/tsvetan-bozhkov-20261006. Desktop/browser captures are retained only as local research and are excluded from publication. The published image is the author portrait downloaded from the source website; evidence is presented as text comparisons and direct public source links. No order, registration or contact was submitted. Hidden post-order templates are excluded.
 
 The landing route has a client-side variant selector. Findings concern landing-b.html. The bundle includes six months of access; the chapter link advertising two books at 24.90 EUR does not explain the different price/access package.
 
