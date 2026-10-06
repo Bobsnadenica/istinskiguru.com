@@ -1,7 +1,7 @@
 {
   "kind": "connections",
   "subjectType": "CollectionPage",
-  "reviewedOn": "2026-10-05",
+  "reviewedOn": "2026-10-06",
   "imageAlt": "Фирмени връзки — справочник на Истински гуру",
   "shareTitle": "Фирмени\nвръзки",
   "verdict": "Всички профили. Конкретни фирмени връзки.",
@@ -271,6 +271,11 @@
     },
     "ognyan-shirkov": {
       "name": "Огнян Георгиев Ширков"
+    },
+    "tsvetan_bozhkov": {
+      "name": "Цветан Ангелов Божков",
+      "profile": "tsvetan-bozhkov",
+      "image": "/site-assets/tsvetan-bozhkov.jpg"
     }
   },
   "companies": [
@@ -1991,6 +1996,54 @@
           "url": "https://papagal.bg/eik/203738462/2c7d"
         }
       ]
+    },
+    {
+      "name": "НАСЛАДА 2025 ЕООД",
+      "eik": "208635427",
+      "group": "registered",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "tsvetan_bozhkov",
+          "role": "Управител и едноличен собственик; вписвания от 08.01.2026 г."
+        }
+      ],
+      "note": "Назована като продавач в условията на „Спри да работиш за пари“. Актуалният Търговски регистър свързва дружеството с Цветан Ангелов Божков. Проверено на 06.10.2026 г.",
+      "sources": [
+        {
+          "label": "Оферта — автор",
+          "url": "https://spri.standart10.bg/landing-b.html"
+        },
+        {
+          "label": "Условия — продавач",
+          "url": "https://spri.standart10.bg/terms.html"
+        },
+        {
+          "label": "Търговски регистър — актуално състояние",
+          "url": "https://portal.registryagency.bg/CR/Reports/ActiveConditionTabResult?uic=208635427"
+        }
+      ],
+      "profile": "tsvetan-bozhkov"
+    },
+    {
+      "name": "ЦВЕТАН БОЖКОВ ЕТ",
+      "eik": "112661640",
+      "group": "registered",
+      "kind": "current",
+      "roles": [
+        {
+          "person": "tsvetan_bozhkov",
+          "role": "Физическо лице търговец; вписване от 21.12.2010 г."
+        }
+      ],
+      "note": "Втори фирмен запис за същото лице в актуалния Търговски регистър. Продавачът на книгата е назован отделно като НАСЛАДА 2025 ЕООД. Проверено на 06.10.2026 г.",
+      "sources": [
+        {
+          "label": "Търговски регистър — актуално състояние",
+          "url": "https://portal.registryagency.bg/CR/Reports/ActiveConditionTabResult?uic=112661640"
+        }
+      ],
+      "profile": "tsvetan-bozhkov"
     }
   ],
   "profileChecks": [
@@ -2849,15 +2902,30 @@
       "profile": "tsvetan-bozhkov",
       "name": "Цветан Божков",
       "image": "/site-assets/thumbs/tsvetan-bozhkov-thumb.jpg",
-      "reviewedOn": "2026-09-25",
-      "status": "identity",
-      "title": "Авторът на офертата и търговецът",
-      "finding": "Разследването свързва Цветан Божков с офертата за книга на spri.standart10.bg.",
-      "companies": [],
+      "reviewedOn": "2026-10-06",
+      "status": "documented",
+      "title": "Автор, посочен продавач и два фирмени записа",
+      "finding": "Сайтът представя Цветан Божков като автор и назовава НАСЛАДА 2025 ЕООД като продавач. Търговският регистър посочва Цветан Ангелов Божков като управител и едноличен собственик на дружеството и като физическо лице търговец на ЕТ ЦВЕТАН БОЖКОВ.",
+      "companies": [
+        "208635427",
+        "112661640"
+      ],
       "sources": [
         {
-          "label": "Публичната оферта в проверката",
+          "label": "Автор — оферта",
           "url": "https://spri.standart10.bg/landing-b.html"
+        },
+        {
+          "label": "Продавач — условия",
+          "url": "https://spri.standart10.bg/terms.html"
+        },
+        {
+          "label": "ТР — НАСЛАДА 2025",
+          "url": "https://portal.registryagency.bg/CR/Reports/ActiveConditionTabResult?uic=208635427"
+        },
+        {
+          "label": "ТР — ЕТ ЦВЕТАН БОЖКОВ",
+          "url": "https://portal.registryagency.bg/CR/Reports/ActiveConditionTabResult?uic=112661640"
         }
       ]
     },
