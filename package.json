@@ -4,6 +4,6 @@
   "scripts": {
     "build:data": "node scripts/build-profiles.mjs",
     "start": "node server.mjs",
-    "check": "node scripts/check-site.mjs"
+    "check": "node scripts/check-site.mjs && node scripts/check-directory.mjs"
   }
 }

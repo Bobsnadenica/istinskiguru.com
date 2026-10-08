@@ -26,10 +26,16 @@ for(const file of [...roots,...profiles]){
  }
 }
 const data=JSON.parse((await readFile('site-data.js','utf8')).replace(/^window.__GURU_PROFILES__=/,'').replace(/;\s*$/,''));
+const sourcedIds=new Set(data.filter(p=>p.reviewHtml&&p.reviewKind!=='connections').map(p=>p.id));
+const featured=(await html('index.html')).match(/<!-- featured:start -->([\s\S]*?)<!-- featured:end -->/)?.[1]||'';
+const featuredLinks=[...featured.matchAll(/href="\/profiles\/([^/]+)\//g)].map(m=>m[1]);
+assert.equal(featuredLinks.length,1,'Home page has one featured investigation');
+assert.ok(sourcedIds.has(featuredLinks[0]),'Featured investigation has sources and is not the company directory');
 for(const file of ['index.html','gallery.html']){
  const source=await html(file);
  const ids=[...source.matchAll(/<article class="investigation-card"[\s\S]*?<a href="\/profiles\/([^/]+)\//g)].map(m=>m[1]);
  assert.deepEqual(ids.toSorted(),data.filter(p=>file==='index.html'||!p.reviewHtml).map(p=>p.id).toSorted());
+ assert.ok(!/<article class="investigation-card"[^>]*\shidden(?:\s|[=>])/.test(source),`${file}: all directory cards start visible without JavaScript`);
  assert.ok(!source.includes('site-data.js')&&!source.includes('gallery-detail'),`${file}: direct links without modal payload`);
 }
 for(const p of data.filter(p=>p.reviewHtml)){
@@ -37,6 +43,18 @@ for(const p of data.filter(p=>p.reviewHtml)){
  assert.ok(source.includes(p.reviewHtml.replace(/[ \t]+$/gm, "")),`${p.id}: complete sourced review retained`);
  assert.ok(source.includes(p.shareImage),`${p.id}: share image preserved`);
  assert.ok(!source.includes('/site-intro.js')&&!source.includes('/page-effects.js'),`${p.id}: no distractions`);
+ if(p.companyCheckHtml){
+  const review=p.reviewHtml.replace(/[ \t]+$/gm,'');
+  assert.ok(source.indexOf(review)+review.length<=source.indexOf('id="company-facts"'),`${p.id}: investigation precedes company details`);
+ }
+}
+for(const p of data){
+ const source=await html(`profiles/${p.id}/index.html`);
+ const next=source.match(/<section class="reading-next"[\s\S]*?<\/section>/)?.[0]||'';
+ const ids=[...next.matchAll(/href="\/profiles\/([^/]+)\//g)].map(m=>m[1]);
+ assert.ok(ids.length>0,`${p.id}: offers another sourced investigation to read`);
+ assert.equal(new Set(ids).size,ids.length,`${p.id}: distinct next-reading recommendations`);
+ for(const id of ids)assert.ok(id!==p.id&&sourcedIds.has(id),`${p.id}: next-reading link is sourced and not self`);
 }
 console.log(`Passed: ${roots.length+profiles.length} pages, ${links} local links/assets, ${data.filter(p=>p.reviewHtml).length} complete sourced reviews, static directory coverage.`);
 // The collection must remain complete, source-backed and distinct from a person profile.
